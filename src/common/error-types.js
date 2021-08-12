@@ -24,7 +24,10 @@ const errorTypes = {
   NO_OPERATION_PERMISSION: 'no operation permission',
 
   // 缺少参数
-  MISSING_PARAMETER: 'missing parameter'
+  MISSING_PARAMETER: 'missing parameter',
+
+  // 不支持的参数类型
+  UNSUPPORTED_PARAMETER_TYPE: 'unsupported parameter type'
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ const { errorTypes } = require('./error-types')
 // 错误处理中间件
 const errorHandler = (error, ctx) => {
   let code, message
-  console.log(error.message)
+
   switch (error.message) {
     case errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED:
       code = 400
@@ -41,9 +41,18 @@ const errorHandler = (error, ctx) => {
       code = 400
       message = '缺少必传参数'
       break
+    case errorTypes.UNSUPPORTED_PARAMETER_TYPE:
+      code = 400
+      message = '不支持的参数类型'
+      break
     default:
       code = 404
       message = 'NOT FOUND'
+  }
+
+  if (error.customize) {
+    code = error.code
+    message = error.message
   }
 
   ctx.body = {
