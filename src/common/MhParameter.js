@@ -26,9 +26,8 @@ const MhParameter = (app) => {
 
     const errorMessage = paramsError.message
 
-    console.log(errorMessage)
     // 若校验失败则抛出异常, 判断返回的值，若为对象，则属于自定义报错
-    if (typeof errorMessage === 'object') {
+    if (typeof errorMessage === 'object' && errorMessage !== null) {
       this.throw(errors.CUSTOMIZE, { errorMessage })
     } else if (typeof errorMessage === 'string' && errorMessage) {
       this.throw(errorMessage)

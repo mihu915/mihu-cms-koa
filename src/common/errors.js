@@ -6,7 +6,7 @@ const errors = {
   MISSING_PARAMETER: 'missing_parameter',
 
   // 不支持的参数类型
-  UNSUPPORTED_PARAMETER_TYPE: 'unsupported_parameter type',
+  UNSUPPORTED_PARAMETER_TYPE: 'unsupported_parameter_type',
 
   // 参数为非空的
   PARAMETER_IS_NON_EMPTY: 'parameter_is_non_empty',

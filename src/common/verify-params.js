@@ -12,7 +12,7 @@ const verifyParams = function (rules, params, options) {
     TYPE: 'type',
     REQUIRED: 'required',
     REGEXP: 'regexp',
-    RXCESS: 'excess'
+    EXCESS: 'excess'
   }
   // 初始化自定义错误对象
   const nonemptyError = options.customizeError.nonempty

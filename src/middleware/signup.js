@@ -10,9 +10,7 @@ class SignupMiddleware {
           // 账号密码非空
           common: errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED
         },
-        type: {
-          
-        },
+        type: {},
         regexp: {
           username: errorTypes.test4
         }
