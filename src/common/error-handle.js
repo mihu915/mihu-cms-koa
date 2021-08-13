@@ -17,7 +17,12 @@ const errorHandler = (error, ctx) => {
 
     case errors.PARAMETER_IS_NON_EMPTY:
       code = 400
-      message = '参数非空'
+      message = '参数是非空的'
+      break
+
+    case errors.UNQUALIFIED_PARAMETER_FORMAT:
+      code = 400
+      message = '不合格的参数格式'
       break
 
     default:

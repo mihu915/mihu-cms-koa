@@ -1,22 +1,23 @@
 const { errorTypes } = require('../error/error-types')
+const { signupRule } = require('./config')
+
 class SignupMiddleware {
   async verifySignup(ctx, next) {
-    // 校验参数
-    const rules = {
-      username: {
-        type: 'string',
-        required: true,
-        nonempty: true
-      },
-      password: {
-        type: 'string',
-        required: true,
-        nonempty: true
+    // 执行校验中间件
+    ctx.verifyParams(signupRule, null, {
+      customizeError: {
+        nonempty: {
+          // 账号密码非空
+          common: errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED
+        },
+        type: {
+          
+        },
+        regexp: {
+          username: errorTypes.test4
+        }
       }
-    }
-    ctx.verifyParams(rules)
-
-    ctx.emitError(errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED)
+    })
 
     await next()
   }

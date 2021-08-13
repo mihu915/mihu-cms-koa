@@ -2,7 +2,27 @@ const errorTypes = {
   // 用户名或密码为空
   USERNAME_OR_PASSWORD_IS_REQUIRED: {
     code: 400,
-    message: '用户名或密码为空',
+    message: '用户名或密码为空'
+  },
+  test1: {
+    code: 123,
+    message: 'username 为空'
+  },
+  test2: {
+    code: 231,
+    message: 'password 为空'
+  },
+  test3: {
+    code: 111,
+    message: '类型错误'
+  },
+  test4: {
+    code: 222,
+    message: 'username 超过长度'
+  },
+  test5: {
+    code: 333,
+    message: 'password 类型错误'
   }
 
   // // 动态内容为空
