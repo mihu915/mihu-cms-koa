@@ -1,50 +1,41 @@
-const { errorTypes } = require('./error-types')
 const errorHandle = require('./error-handle')
+const verifyParams = require('./verify-params')
+const { errors } = require('./errors')
 
 const MhParameter = (app) => {
-  // 将errorTypes写入到全局对象
-  app.context.errorTypes = errorTypes
-
   // 注册处理error中间件
   app.on('error', errorHandle)
 
-  app.context.verifyParams = function (rules, params, errorMessage) {
+  app.context.verifyParams = function (rules, params) {
     // 没传规则直接return
     if (!rules || typeof rules !== 'object') {
       throw new Error('TypeError, 参数类型必须为object, 且不可为空')
     }
 
-    // 没传参数，默认取请求携带的参数
+    // 若没传参数，取请求携带的参数，若传参，则直接取传过来的参数
     if (!params) {
       params = ['POST', 'GET'].includes(this.method.toUpperCase())
         ? this.request.body
         : this.request.query
-      // params = Object.assign({}, params, this.params)
+      // 将params合并到参数对象中
+      params = Object.assign({}, params, this.params)
     }
 
-    // 遍历规则
-    Object.keys(rules).forEach((paramsKey) => {
-      // 查找必传参数
-      if (rules[paramsKey].required) {
-        if (params[paramsKey] === undefined) {
-          this.throw(errorTypes.MISSING_PARAMETER)
-        }
-      }
+    // 调用校验方法
+    const paramsError = verifyParams(rules, params)
 
-      // 检查参数类型
-      if (rules[paramsKey].type) {
-        if (rules[paramsKey].type !== typeof params[paramsKey]) {
-          this.throw(errorTypes.UNSUPPORTED_PARAMETER_TYPE)
-        }
-      }
-    })
+    // 若校验失败则抛出异常
+    if (paramsError) this.throw(paramsError)
 
-    // 自定义报错
-    // this.throw('这是一个报错信息', {
-    //   code: '123',
-    //   customize: true
-    // })
+    return paramsError
   }
+
+  // 自定义提交错误
+  app.context.emitError = function (errorMessage) {
+    this.throw(errors.CUSTOMIZE, { errorMessage })
+  }
+
+
 
   return async function (ctx, next) {
     try {
