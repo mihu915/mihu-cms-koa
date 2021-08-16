@@ -1,67 +1,49 @@
 const { errors } = require('./errors')
 const { matchRuleResult } = require('./match-rule-result')
 const verifyParams = function (rules, params, options) {
+  // 定义错误信息
   let errorInfo = {
     message: null,
     errorCause: {}
   }
-
   // 错误原因
   const errorCause = {
     NONEMPTY: 'nonempty',
     TYPE: 'type',
     REQUIRED: 'required',
-    REGEXP: 'regexp',
-    EXCESS: 'excess'
+    REGEXP: 'regexp'
   }
+
+  // 如果没传options，则初始化该对象
+  if (options === undefined || !options || JSON.stringify(options) === '{}') {
+    options = { customizeError: {} }
+  } else if (options.customizeError === undefined || !options.customizeError) {
+    options.customizeError = {}
+  }
+
   // 初始化自定义错误对象
   const nonemptyError = options.customizeError.nonempty
   const typeError = options.customizeError.type
   const requiredError = options.customizeError.required
   const regexpError = options.customizeError.regexp
-  const excessError = options.customizeError.excess
-
-  // 如果没传options，则初始化该对象
-  if (options === undefined) {
-    options = {
-      excess: true
-    }
-  } else if (options.excess === undefined) {
-    // 初始化excess为true，表示默认允许传多余参数
-    options.excess = true
-  }
-
-  if (options.excess === false) {
-    // 如果不开启可传多余参数,则检测是否有多余参数
-    Object.keys(params).forEach((paramsKey) => {
-      if (!rules[paramsKey]) {
-        if (excessError && excessError.errorMessage) {
-          errorInfo.message = excessError.errorMessage
-        } else {
-          errorInfo.message = errors.UNQUALIFIED_PARAMETER_FORMAT
-        }
-        errorInfo.errorCause[paramsKey] = errorCause.RXCESS
-        return
-      }
-    })
-  }
 
   // 遍历规则
   Object.keys(rules).forEach((ruleKey) => {
     // 查找必传参数
     if (rules[ruleKey].required) {
-      if (params[ruleKey] === undefined) {
-        matchRuleResult(
+      if (params[ruleKey] === undefined || !params[ruleKey]) {
+        errorInfo = matchRuleResult(
           requiredError,
           ruleKey,
           errorCause.REQUIRED,
           errors.MISSING_PARAMETER
         )
+        return
       }
     }
 
     // 检查参数类型
-    if (rules[ruleKey].type) {
+    if (rules[ruleKey].type && params[ruleKey]) {
       if (rules[ruleKey].type !== typeof params[ruleKey]) {
         errorInfo = matchRuleResult(
           typeError,
@@ -85,7 +67,6 @@ const verifyParams = function (rules, params, options) {
         return
       }
     }
-
     // 检测正则表达式
     if (rules[ruleKey].regexp && typeof rules[ruleKey].regexp === 'object') {
       const paramsRule = new RegExp(rules[ruleKey].regexp)
@@ -103,4 +84,4 @@ const verifyParams = function (rules, params, options) {
   return errorInfo
 }
 
-module.exports = verifyParams
+module.exports = { verifyParams }

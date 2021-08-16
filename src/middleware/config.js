@@ -12,10 +12,19 @@ const signupRule = {
     type: 'string',
     required: true,
     nonempty: true,
-    regexp: ''
+    regexp: /^[a-zA-Z0-9.]{6,12}$/
+  }
+}
+
+const createMenuRule = {
+  title: {
+    type: 'string',
+    required: false,
+    nonempty: false
   }
 }
 
 module.exports = {
-  signupRule
+  signupRule,
+  createMenuRule
 }

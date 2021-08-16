@@ -4,44 +4,44 @@ const errorTypes = {
     code: 400,
     message: '用户名或密码为空'
   },
-  test1: {
-    code: 123,
-    message: 'username 为空'
+  USER_DOES_NOT_EXIST: {
+    code: 400,
+    message: '用户不存在'
   },
-  test2: {
-    code: 231,
-    message: 'password 为空'
+  USERNAME_OR_PASSWORD_ILLEGAL: {
+    code: 400,
+    message: '用户名或密码不合法'
   },
-  test3: {
-    code: 111,
-    message: '类型错误'
+  USER_ALREADY_EXISTS: {
+    code: 400,
+    message: '用户名已存在'
   },
-  test4: {
-    code: 222,
-    message: 'username 超过长度'
+  WRONG_PASSWORD: {
+    code: 400,
+    message: '密码错误'
   },
-  test5: {
-    code: 333,
-    message: 'password 类型错误'
+  TOKEN_CHECK_FAILED: {
+    code: 401,
+    message: 'token校验失败'
+  },
+  NO_OPERATION_PERMISSION: {
+    code: 401,
+    message: '无操作权限'
   }
 
   // // 动态内容为空
   // DYNAMIC_CONTENT_IS_EMPTY: 'dynamic content is empty',
 
-  // // 用户名已存在
-  // USERNAME_ALREADY_EXISTS: 'username already exists',
 
-  // // 用户名或密码不合法
-  // USERNAME_OR_PASSWORD_ILLEGAL: 'username or password illegal',
+
+
 
   // // 用户不存在
   // USER_DOES_NOT_EXIST: 'user does not exist',
 
-  // // 密码错误
-  // WRONG_PASSWORD: 'wrong password',
 
-  // // token校验失败
-  // TOKEN_CHECK_FAILED: 'token check failed',
+
+
 
   // // 没有操作权限
   // NO_OPERATION_PERMISSION: 'no operation permission',
