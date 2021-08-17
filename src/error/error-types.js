@@ -27,6 +27,10 @@ const errorTypes = {
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'
+  },
+  DO_NOT_ADD_DATA_REPEATEDLY: {
+    code: 400,
+    message: '请勿重复添加数据'
   }
 }
 

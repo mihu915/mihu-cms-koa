@@ -1,10 +1,10 @@
-const { createMenuRule } = require('./config')
+const { createMenuRules } = require('./config')
 class MenuMiddleware {
   async verifyCreateMenu(ctx, next) {
-    ctx.verifyParams(createMenuRule, null)
-
+    ctx.verifyParams(createMenuRules)
     await next()
   }
+
 }
 
 module.exports = new MenuMiddleware()

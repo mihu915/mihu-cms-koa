@@ -1,7 +1,7 @@
 // 传参规则配置文件
 
 // 注册参数规则
-const signupRule = {
+const signupRules = {
   username: {
     type: 'string',
     required: true,
@@ -16,15 +16,53 @@ const signupRule = {
   }
 }
 
-const createMenuRule = {
+// 创建菜单参数规则
+const createMenuRules = {
   title: {
     type: 'string',
+    required: true,
+    nonempty: true
+  },
+  icon: {
+    type: 'string',
     required: false,
-    nonempty: false
+  },
+  sort: {
+    type: 'number',
+    required: false,
+    default: 0
+  },
+  level: {
+    type: 'number',
+    required: false
+  },
+  url: {
+    type: 'string',
+    required: true,
+    nonempty: true
+  },
+  parentId: {
+    type: 'number',
+    required: false
+  }
+}
+
+const createRuleMenuRules= {
+  ruleId: {
+    type: 'number',
+    required: true,
+    nonempty: true
+  },
+  menuId: {
+    type: 'string',
+    require: true,
+    nonempty: true,
+    regexp: /^(\d+\,)+\d+$/
   }
 }
 
 module.exports = {
-  signupRule,
-  createMenuRule
+  signupRules,
+  createMenuRules,
+  createRuleMenuRules
 }
