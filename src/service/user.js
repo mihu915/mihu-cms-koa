@@ -43,8 +43,8 @@ class UserService {
     last_login_ip=?, 
     last_login_time=?,
     updated=?
-    where 
-    id=?`
+    where id=?
+    `
 
     try {
       const [result] = await connections.execute(statement, [
@@ -61,8 +61,8 @@ class UserService {
 
   async getUserInfoById(id) {
     const statement = `
-    SELECT u.id, u.username,u.enable,u.rule_id,u.realname,
-     JSON_OBJECT('id',r.id,'ruleName', r.rule_name,'ruleIntro',r.rule_intro) 
+    SELECT u.id, u.username,u.enable,u.realname,
+     JSON_OBJECT('id',r.id,'rule_name', r.rule_name,'rule_intro',r.rule_intro) 
      rule FROM mh_user as u left JOIN mh_user_rule as r on  u.rule_id = r.id  
      WHERE u.id = ?
     `

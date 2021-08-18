@@ -1,34 +1,37 @@
-const { createRuleMenu } = require('../service/rule')
+const { createRule, alterRule } = require('../service/rule')
 class ruleController {
   async createUserRule(ctx, next) {
-    ctx.body = {
-      code: 200,
-      message: '添加权限成功'
+    const ruleInfo = ctx.request.body
+    ruleInfo.currentTime = ctx.currentData.currentTime
+    try {
+      await createRule(ruleInfo)
+      ctx.body = {
+        code: 200,
+        message: '添加权限成功'
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        error
+      }
     }
   }
 
   async alterUserRule(ctx, next) {
-    ctx.body = {
-      code: 200,
-      message: '修改权限成功'
-    }
-  }
-
-  async createUserRuleMenu(ctx, next) {
     const ruleInfo = ctx.request.body
     ruleInfo.currentTime = ctx.currentData.currentTime
-    const result = await createRuleMenu(ruleInfo)
-    console.log(result)
-    ctx.body = {
-      code: 200,
-      message: '添加权限菜单成功'
-    }
-  }
-
-  async alterUserRuleMenu(ctx, next) {
-    ctx.body = {
-      code: 200,
-      message: '修改权限菜单成功'
+    console.log(ruleInfo)
+    try {
+      await alterRule(ruleInfo)
+      ctx.body = {
+        code: 200,
+        message: '修改权限菜单成功'
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        error
+      }
     }
   }
 }

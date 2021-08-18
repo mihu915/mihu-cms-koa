@@ -6,11 +6,17 @@ class SignupController {
     const { username, password } = ctx.request.body
     const { realIP, currentTime } = ctx.currentData
 
-    const result = await createUser(username, password, realIP, currentTime)
-    console.log(result)
-    ctx.body = {
-      code: 200,
-      message: '注册成功'
+    try {
+      await createUser(username, password, realIP, currentTime)
+      ctx.body = {
+        code: 200,
+        message: '注册成功'
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        error
+      }
     }
   }
 }

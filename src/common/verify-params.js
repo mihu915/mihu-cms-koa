@@ -9,7 +9,6 @@ const verifyParams = function (rules, params, options) {
   // 错误原因
   const errorCause = {
     NONEMPTY: 'nonempty',
-    TYPE: 'type',
     REQUIRED: 'required',
     REGEXP: 'regexp'
   }
@@ -23,7 +22,6 @@ const verifyParams = function (rules, params, options) {
 
   // 初始化自定义错误对象
   const nonemptyError = options.customizeError.nonempty
-  const typeError = options.customizeError.type
   const requiredError = options.customizeError.required
   const regexpError = options.customizeError.regexp
 
@@ -42,18 +40,7 @@ const verifyParams = function (rules, params, options) {
       }
     }
 
-    // 检查参数类型
-    if (rules[ruleKey].type && params[ruleKey]) {
-      if (rules[ruleKey].type !== typeof params[ruleKey]) {
-        errorInfo = matchRuleResult(
-          typeError,
-          ruleKey,
-          errorCause.TYPE,
-          errors.UNSUPPORTED_PARAMETER_TYPE
-        )
-        return
-      }
-    }
+
 
     // 检查是否非空
     if (rules[ruleKey].nonempty) {
@@ -70,7 +57,7 @@ const verifyParams = function (rules, params, options) {
     // 检测正则表达式
     if (rules[ruleKey].regexp && typeof rules[ruleKey].regexp === 'object') {
       const paramsRule = new RegExp(rules[ruleKey].regexp)
-      if (!paramsRule.test(params[ruleKey])) {
+      if (!paramsRule.test(params[ruleKey]) && params[ruleKey]) {
         errorInfo = matchRuleResult(
           regexpError,
           ruleKey,

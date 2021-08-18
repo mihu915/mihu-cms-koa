@@ -16,7 +16,6 @@ class loginController {
       expiresIn: 60 * 60 * 24,
       algorithm: 'RS256'
     })
-
     ctx.body = {
       code: 200,
       data: {

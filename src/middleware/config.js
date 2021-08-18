@@ -1,6 +1,6 @@
 // 传参规则配置文件
 
-// 注册参数规则
+// 注册登录参数规则
 const signupRules = {
   username: {
     type: 'string',
@@ -25,7 +25,7 @@ const createMenuRules = {
   },
   icon: {
     type: 'string',
-    required: false,
+    required: false
   },
   sort: {
     type: 'number',
@@ -47,22 +47,61 @@ const createMenuRules = {
   }
 }
 
-const createRuleMenuRules= {
-  ruleId: {
+// 删除菜单参数
+const  deleteMenuRules = {
+  id: {
     type: 'number',
     required: true,
     nonempty: true
-  },
-  menuId: {
+  }
+} 
+
+// 创建权限
+const createRuleRules = {
+  ruleName: {
     type: 'string',
-    require: true,
+    required: true,
+    nonempty: true
+  },
+  ruleIntro: {
+    type: 'string',
+    require: false
+  },
+  ruleMenu: {
+    type: 'string',
+    required: true,
     nonempty: true,
     regexp: /^(\d+\,)+\d+$/
+  }
+}
+
+const alterRuleRules = {
+  id: {
+    type: 'number',
+    required: true,
+    nonempty: true,
+    regexp: /^\d+$/
+  },
+  ruleName: {
+    type: 'string',
+    required: true,
+    nonempty: true
+  },
+  ruleIntro: {
+    type: 'string',
+    require: false
+  },
+  ruleMenu: {
+    type: 'string',
+    require: false,
+    regexp: /^\d+(,\d+)*$/
   }
 }
 
 module.exports = {
   signupRules,
   createMenuRules,
-  createRuleMenuRules
+  deleteMenuRules,
+  createRuleRules,
+  alterRuleRules
 }

@@ -31,6 +31,10 @@ const errorTypes = {
   DO_NOT_ADD_DATA_REPEATEDLY: {
     code: 400,
     message: '请勿重复添加数据'
+  },
+  CONTENT_DOES_NOT_EXIST: {
+    code: 400,
+    message: '内容不存在'
   }
 }
 
