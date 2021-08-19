@@ -2,7 +2,10 @@ const { errors } = require('./errors')
 
 // 错误处理中间件
 const errorHandler = (error, ctx) => {
-  console.log(error)
+  if (error.message !== errors.CUSTOMIZE) {
+    console.log(error)
+  }
+
   let code, message
   switch (error.message) {
     case errors.MISSING_PARAMETER:
