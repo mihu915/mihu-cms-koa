@@ -32,9 +32,10 @@ const createMenuRules = {
     required: false,
     default: 0
   },
-  level: {
+  type: {
     type: 'number',
-    required: false
+    required: false,
+    regexp: /^[1-2]$/
   },
   url: {
     type: 'string',
@@ -48,13 +49,13 @@ const createMenuRules = {
 }
 
 // 删除菜单参数
-const  deleteMenuRules = {
+const deleteMenuRules = {
   id: {
     type: 'number',
     required: true,
     nonempty: true
   }
-} 
+}
 
 // 创建权限
 const createRuleRules = {

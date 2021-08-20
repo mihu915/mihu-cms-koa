@@ -17,10 +17,10 @@ class MenuService {
 
   // 创建菜单
   async addMenu(menuInfo) {
-    const { title, url, icon, sort, level, parentId, currentTime } = menuInfo
+    const { title, url, icon, sort, type, parentId, currentTime } = menuInfo
     const statement = `
       INSERT INTO mh_menu 
-      (title,icon,sort,level,url,parent_id,created,updated)
+      (title,icon,sort,type,url,parent_id,created,updated)
       value(?,?,?,?,?,?,?,?)
     `
     try {
@@ -28,7 +28,7 @@ class MenuService {
         title,
         icon,
         sort,
-        level,
+        type,
         url,
         parentId,
         currentTime,
@@ -48,7 +48,7 @@ class MenuService {
     let result = null
 
     statement = `
-      SELECT id,title,icon,sort,level,url,parent_id FROM mh_menu
+      SELECT id,title,icon,sort,type,url,parent_id FROM mh_menu
         WHERE
       FIND_IN_SET(id,(SELECT rule_menu FROM mh_user_rule WHERE id = ?))
       `
@@ -63,9 +63,9 @@ class MenuService {
     result.forEach((item) => {
       item.children = []
       // 删除属性
-      if (item.level === 1) {
+      if (!item.parent_id) {
         delete item.parent_id
-      } else {
+      } else if(!item.icon) {
         delete item.icon
       }
       // 循环添加子菜单
