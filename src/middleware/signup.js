@@ -2,6 +2,7 @@ const { errorTypes } = require('../error/error-types')
 const { signupRule } = require('./config')
 const { getUserByName } = require('../service/user')
 const { md5Password } = require('../utils/handle-password')
+
 class SignupMiddleware {
   async verifySignup(ctx, next) {
     const { username, password } = ctx.request.body
