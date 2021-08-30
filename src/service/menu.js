@@ -17,7 +17,7 @@ class MenuService {
 
   // 创建菜单
   async addMenu(menuInfo) {
-    const { title, url, icon, sort, type, parentId, currentTime } = menuInfo
+    const { title, url, icon, sort, type, parent_id, currentTime } = menuInfo
     const statement = `
       INSERT INTO mh_menu 
       (title,icon,sort,type,url,parent_id,created,updated)
@@ -30,7 +30,7 @@ class MenuService {
         sort,
         type,
         url,
-        parentId,
+        parent_id,
         currentTime,
         currentTime
       ])
@@ -42,7 +42,7 @@ class MenuService {
     }
   }
 
-  // 获取菜单数据
+  // 根据角色id获取菜单数据
   async getMenuByRuleId(ruleId) {
     let statement = null
     let result = null
@@ -65,7 +65,7 @@ class MenuService {
       // 删除属性
       if (!item.parent_id) {
         delete item.parent_id
-      } else if(!item.icon) {
+      } else if (!item.icon) {
         delete item.icon
       }
       // 循环添加子菜单
@@ -83,19 +83,48 @@ class MenuService {
         i--
       }
     }
-
     return result
   }
 
   // 删除指定菜单
   async removeMenuById(id) {
     const statement = `
-      DELETE  FROM mh_menu WHERE id = ?
+    DELETE FROM mh_menu WHERE id = ? OR parent_id = ?
     `
     try {
-      const [result] = await connections.execute(statement, [id])
+      const [result] = await connections.execute(statement, [id, id])
       await updateSuperAdminRule()
-      console.log(result)
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async alterMenuById(menuInfo) {
+    const { id, title, icon, sort, type, url, parent_id, updated } = menuInfo
+    const statement = `
+    UPDATE 
+      mh_menu 
+    SET title=?, 
+    icon=?, 
+    sort=?,
+    type=?, 
+    url=?, 
+    parent_id=?, 
+    updated=? 
+      WHERE id = ?
+    `
+    try {
+      const [result] = await connections.execute(statement, [
+        title,
+        icon,
+        sort,
+        type,
+        url,
+        parent_id,
+        updated,
+        id
+      ])
       return result
     } catch (error) {
       throw error

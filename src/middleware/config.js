@@ -39,10 +39,9 @@ const createMenuRules = {
   },
   url: {
     type: 'string',
-    required: true,
-    nonempty: true
+    required: false,
   },
-  parentId: {
+  parent_id: {
     type: 'number',
     required: false
   }

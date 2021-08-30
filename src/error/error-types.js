@@ -35,6 +35,10 @@ const errorTypes = {
   CONTENT_DOES_NOT_EXIST: {
     code: 400,
     message: '内容不存在'
+  },
+  CANNOT_BE_REMOVED:{
+    code: 400,
+    message:'初始数据不可删除'
   }
 }
 
