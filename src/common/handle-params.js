@@ -2,7 +2,10 @@
 const handleParams = function (rules, params) {
   Object.keys(rules).forEach((ruleKey) => {
     // 若不是非空则赋予自定义的默认值，或null
-    if (!rules[ruleKey].required && params[ruleKey] === undefined) {
+    if (
+      (!rules[ruleKey].required && params[ruleKey] === undefined) ||
+      params[ruleKey].length === 0
+    ) {
       if (rules[ruleKey].default !== undefined) {
         params[ruleKey] = rules[ruleKey].default
       } else {

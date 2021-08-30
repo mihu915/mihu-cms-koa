@@ -63,14 +63,14 @@ class MenuService {
     result.forEach((item) => {
       item.children = []
       // 删除属性
-      if (!item.parent_id) {
+      if (!item.parent_id && item.type === 1) {
         delete item.parent_id
       } else if (!item.icon) {
         delete item.icon
       }
       // 循环添加子菜单
       for (let i = 0; i < result.length; i++) {
-        if (result[i].parent_id === item.id) {
+        if (result[i].parent_id === item.id && result[i].type === 2) {
           item.children.push(result[i])
         }
       }
@@ -78,7 +78,7 @@ class MenuService {
 
     // 循环清除已添加过的子级菜单
     for (let i = 0; i < result.length; i++) {
-      if (result[i].parent_id) {
+      if (result[i].parent_id && result[i].type === 2) {
         result.splice(i, 1)
         i--
       }

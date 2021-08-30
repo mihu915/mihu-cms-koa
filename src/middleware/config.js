@@ -75,6 +75,7 @@ const createRuleRules = {
   }
 }
 
+// 修改权限
 const alterRuleRules = {
   id: {
     type: 'number',

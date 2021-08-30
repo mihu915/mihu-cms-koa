@@ -1,5 +1,18 @@
 const connections = require('../app/database')
 class ruleService {
+  async getAllUserRuleList() {
+    const statement = `SELECT 
+    u.username,
+    u.realname,
+    u.enable,
+    u.mobile,
+    u.qq,
+    u.position,
+    u.last_login_ip,
+    JSON_OBJECT('rule_name', r.rule_name, 'rule_intro', r.rule_intro) 
+    rule_list FROM mh_user u LEFT JOIN mh_user_rule r ON u.rule_id = r.id ORDER BY u.rule_id 
+    `
+  }
   // 根据id查询权限信息
   async getRuleById(id) {
     const statement = `SELECT * FROM mh_user_rule WHERE id = ?`
@@ -59,7 +72,6 @@ class ruleService {
   }
 
   async updateSuperAdminRule() {
-
     const currentTime = Math.round(new Date() / 1000)
     const statementSearch = `
       SELECT id FROM mh_menu

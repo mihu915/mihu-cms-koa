@@ -10,7 +10,7 @@ class ruleMiddleware {
     await next()
   }
 
-  校验修改权限菜单参数中间件
+  // 校验修改权限菜单参数中间件
   async verifyAlterRule(ctx, next) {
     ctx.verifyParams(alterRuleRules)
     const { id } = ctx.request.body
