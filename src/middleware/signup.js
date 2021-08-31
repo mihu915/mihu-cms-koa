@@ -1,5 +1,5 @@
 const { errorTypes } = require('../error/error-types')
-const { signupRule } = require('./config')
+const { signupRules } = require('./config')
 const { getUserByName } = require('../service/user')
 const { md5Password } = require('../utils/handle-password')
 
@@ -8,7 +8,7 @@ class SignupMiddleware {
     const { username, password } = ctx.request.body
 
     // 执行校验中间件
-    ctx.verifyParams(signupRule, null, {
+    ctx.verifyParams(signupRules, null, {
       // 不可传多余参数
       excess: false,
       // 自定义错误

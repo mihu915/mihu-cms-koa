@@ -1,61 +1,52 @@
-const connections = require('../app/database')
+const { connection } = require('../app/database')
+const { User } = require('../app/database')
 
 class UserService {
   // 查询用户表
   async getUserByName(username) {
-    const statement = `
-    SELECT * FROM mh_user WHERE username = ?
-    `
     try {
-      const [result] = await connections.execute(statement, [username])
-      return result[0]
+      const [result] = await User.findAll({
+        where: {
+          username
+        }
+      })
+      return result
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 
   // 用户注册,创建用户
-  async createUser(username, password, realIP, currentTime) {
-    const statement = `
-    insert into mh_user 
-    (username,password,realname,register_ip,register_time,created,updated) 
-    values (?, ?, ?, ?, ?, ?, ?)`
-
+  async createUser(username, password, ip) {
     try {
-      const [result] = await connections.execute(statement, [
+      await User.create({
         username,
         password,
-        username,
-        realIP,
-        currentTime,
-        currentTime,
-        currentTime
-      ])
-      return result
+        register_ip: ip
+      })
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 
-  async updateUserData(id, realIP, currentTime) {
-    const statement = `
-    update mh_user set 
-    last_login_ip=?, 
-    last_login_time=?,
-    updated=?
-    where id=?
-    `
-
+  // 更新用户数据
+  async updateUserData(id, ip, currentTime) {
     try {
-      const [result] = await connections.execute(statement, [
-        realIP,
-        currentTime,
-        currentTime,
-        id
-      ])
+      const [result] = await User.update(
+        {
+          last_login_ip: ip,
+          last_login_time: currentTime
+        },
+        {
+          where: {
+            id
+          }
+        }
+      )
+      console.log(result)
       return result
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 
@@ -68,7 +59,7 @@ class UserService {
     `
 
     try {
-      const [result] = await connections.execute(statement, [id])
+      const [result] = await connection.execute(statement, [id])
       return result[0]
     } catch (error) {
       console.log(error)

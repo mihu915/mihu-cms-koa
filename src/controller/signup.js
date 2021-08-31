@@ -4,10 +4,10 @@ class SignupController {
   // 注册返回结果中间件
   async userSignup(ctx, next) {
     const { username, password } = ctx.request.body
-    const { realIP, currentTime } = ctx.currentData
+    ctx.ip
 
     try {
-      await createUser(username, password, realIP, currentTime)
+      await createUser(username, password, ctx.ip)
       ctx.body = {
         code: 200,
         message: '注册成功'
