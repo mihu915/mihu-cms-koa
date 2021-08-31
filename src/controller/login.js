@@ -5,11 +5,11 @@ const { updateUserData } = require('../service/user')
 // 登录工具中间件
 class loginController {
   async userLogin(ctx, next) {
+    console.log(ctx.request.body)
     const { id, username, rule_id } = ctx.user
-    const { realIP, currentTime } = ctx.currentData
-
+    const params = ctx.request.body
     // 更新登录数据
-    await updateUserData(id, realIP, currentTime)
+    await updateUserData(id, params)
 
     // 为登录成功的用户颁发token
     const token = jwt.sign({ id, username, rule_id }, config.PRIVATE_KEY, {

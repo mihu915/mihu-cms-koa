@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const { userBeforeCreate } = require('./hooks')
 function registerUserModel(sequelize) {
   class User extends Model {}
 
@@ -36,32 +37,17 @@ function registerUserModel(sequelize) {
       qq: DataTypes.STRING,
       position: DataTypes.STRING,
       created: {
-        type: DataTypes.INTEGER,
-        get() {
-          console.log(this.getDataValue('created'), 'created')
-        },
-        set() {}
+        type: DataTypes.INTEGER
       },
       updated: {
-        type: DataTypes.INTEGER,
-        // get() {
-        //   console.log(
-        //     Math.round(Date.now(this.getDataValue('updated')) / 1000),
-        //     'updated'
-        //   )
-        // },
-        set() {
-          console.log(
-            Math.round(Date.now(this.getDataValue('updated')) / 1000),
-            'updated'
-          )
-        }
+        type: DataTypes.INTEGER
       }
     },
     {
+      hooks: {
+        beforeCreate: userBeforeCreate,
+      },
       tableName: 'mh_user',
-      createdAt: 'created',
-      updatedAt: 'updated',
       sequelize
     }
   )

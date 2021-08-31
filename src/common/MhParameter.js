@@ -50,7 +50,12 @@ const MhParameter = (app) => {
   }
 
   return async function (ctx, next) {
-    ctx.ip = getRealIP(ctx.req),
+    ctx.request.body.ip = getRealIP(ctx.req)
+    ctx.request.body.time = currentTime()
+
+    ctx.request.query.ip = getRealIP(ctx.req)
+    ctx.request.query.time = currentTime()
+
     ctx.currentData = {
       realIP: getRealIP(ctx.req), // 拿到真实ip地址
       currentTime: currentTime() // 获取当前时间

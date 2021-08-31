@@ -1,3 +1,4 @@
+// 匹配对应的error
 const matchRuleResult = (customizeType, ruleKey, ErrorCause, errorType) => {
   const errorInfo = {
     message: '',

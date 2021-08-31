@@ -2,6 +2,7 @@ const mysql = require('mysql2')
 const config = require('./config')
 
 const { Sequelize } = require('sequelize')
+const { hooks } = require('./hooks')
 const { registerModule } = require('../model')
 
 const connections = mysql.createPool({
@@ -12,14 +13,6 @@ const connections = mysql.createPool({
   password: config.MYSQL_PASSWORD
 })
 
-connections.getConnection((err, conn) => {
-  if (err) {
-    console.log('连接数据库失败，', err)
-  } else {
-    console.log('连接数据库成功')
-  }
-})
-
 // 使用sequelize
 const sequelize = new Sequelize(
   config.MYSQL_DATABASE,
@@ -28,27 +21,20 @@ const sequelize = new Sequelize(
   {
     host: config.MYSQL_HOST,
     dialect: 'mysql',
+    logging: false,
+    pool: {
+      max: 10
+    },
     define: {
-      timestamps: true,
-      hooks: {
-        beforeValidate: function (instance, option) {
-          console.log(instance)
-        }
-        // beforeCreate: (instance) => {
-        //   console.log('create')
-        //   console.log(instance)
-        // },
-        // beforeBulkDestroy: (instance) => {
-        //   console.log('Destroy')
-        // },
-        // beforeSave: (instance) => {
-        //   console.log('beforeSave')
-        //   console.log(instance)
-        // }
-      }
+      timestamps: false
     }
   }
 )
+
+// 挂载常驻钩子
+Object.keys(hooks).forEach((key) => {
+  sequelize.addHook(key, hooks[key])
+})
 
 sequelize
   .authenticate()

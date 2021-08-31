@@ -17,12 +17,15 @@ class UserService {
   }
 
   // 用户注册,创建用户
-  async createUser(username, password, ip) {
+  async createUser(params) {
+    const { username, password, ip, time } = params
     try {
       await User.create({
         username,
         password,
-        register_ip: ip
+        register_ip: ip,
+        register_time: time,
+        realname: username
       })
     } catch (error) {
       throw error
@@ -30,12 +33,13 @@ class UserService {
   }
 
   // 更新用户数据
-  async updateUserData(id, ip, currentTime) {
+  async updateUserData(id, params) {
+    const { ip, time } = params
     try {
       const [result] = await User.update(
         {
           last_login_ip: ip,
-          last_login_time: currentTime
+          last_login_time: time
         },
         {
           where: {
@@ -43,13 +47,13 @@ class UserService {
           }
         }
       )
-      console.log(result)
       return result
     } catch (error) {
       throw error
     }
   }
 
+  // 获取用户信息
   async getUserInfoById(id) {
     const statement = `
     SELECT u.id, u.username,u.enable,u.realname,
