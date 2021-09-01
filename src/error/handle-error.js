@@ -25,10 +25,11 @@ const handleError = (error, ctx) => {
       code = 400
       message = '用户已存在'
       break
-    case errorTypes.USER_DOES_NOT_EXIST:
+    case errorTypes.INCORRECT_USERNAME_OR_PASSWORD:
       code = 400
-      message = '用户不存在'
+      message = '账号或密码错误'
       break
+
     default:
       code = 500
       message = 'Server Error'

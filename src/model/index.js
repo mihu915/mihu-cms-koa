@@ -1,10 +1,10 @@
 const { registerUserModel } = require('./user.model')
+const { registerRoleModel } = require('./role.model')
 
 function registerModule(sequelize) {
-  const User = registerUserModel(sequelize)
-  return {
-    User
-  }
+  registerUserModel(sequelize)
+  registerRoleModel(sequelize)
+
 }
 
 module.exports = {

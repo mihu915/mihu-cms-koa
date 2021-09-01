@@ -37,7 +37,7 @@ function registerUserModel(sequelize) {
         type: DataTypes.INTEGER,
         defaultValue: 1
       },
-      rule_id: {
+      role_id: {
         type: DataTypes.INTEGER,
         defaultValue: 3
       },
@@ -70,7 +70,7 @@ function registerUserModel(sequelize) {
       sequelize
     }
   )
-  return User
+
 }
 
 module.exports = {

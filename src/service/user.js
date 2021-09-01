@@ -1,5 +1,7 @@
 const { connection } = require('../app/database')
-const { User } = require('../app/database')
+const { sequelize } = require('../app/database')
+
+const User = sequelize.models.User
 
 class UserService {
   // 查询用户表
@@ -32,7 +34,7 @@ class UserService {
     }
   }
 
-  // 更新用户数据
+  // 更新用户数据，登录操作
   async updateUserData(id, params) {
     const { ip, time } = params
     try {

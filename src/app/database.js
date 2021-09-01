@@ -45,10 +45,12 @@ sequelize
     console.log('连接失败', err)
   })
 
-const { User } = registerModule(sequelize)
+// 注册模型
+registerModule(sequelize)
+
 const connection = connections.promise()
 
 module.exports = {
-  User,
+  sequelize,
   connection
 }

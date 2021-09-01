@@ -2,16 +2,15 @@ const errorTypes = {
   // 用户名或密码为空
   USERNAME_OR_PASSWORD_IS_REQUIRED: 'username_or_password_is_required',
 
-  USER_DOES_NOT_EXIST: 'user_does_not_exist',
-
+  // 用户名或密码不合法
   USERNAME_OR_PASSWORD_ILLEGAL: 'username_or_password_illegal',
 
+  // 用户已存在
   USER_ALREADY_EXISTS: 'user_already_exists',
 
-  WRONG_PASSWORD: {
-    code: 400,
-    message: '密码错误'
-  },
+  // 账号或密码错误
+  INCORRECT_USERNAME_OR_PASSWORD: 'incorrect_username_or_password',
+
   TOKEN_CHECK_FAILED: {
     code: 401,
     message: 'token校验失败'
