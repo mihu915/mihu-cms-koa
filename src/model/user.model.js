@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
-const { userBeforeCreate } = require('./hooks')
+const { userBeforeCreate, userBeforeValidate } = require('./hooks')
+const { errorTypes } = require('../error/error-types')
+
 function registerUserModel(sequelize) {
   class User extends Model {}
 
@@ -12,11 +14,24 @@ function registerUserModel(sequelize) {
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate: {
+          is: {
+            args: /^[a-zA-Z0-9]{6,12}$/,
+            msg: errorTypes.USERNAME_OR_PASSWORD_ILLEGAL
+          }
+        }
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          is: {
+            args: /^[a-zA-Z0-9.]{6,12}$/,
+            msg: 'errorTypes.USERNAME_OR_PASSWORD_ILLEGAL'
+          }
+        }
       },
       enable: {
         type: DataTypes.INTEGER,
@@ -34,7 +49,10 @@ function registerUserModel(sequelize) {
       last_login_time: DataTypes.INTEGER,
       realname: DataTypes.STRING,
       mobile: DataTypes.STRING,
-      qq: DataTypes.STRING,
+
+      qq: {
+        type: DataTypes.STRING
+      },
       position: DataTypes.STRING,
       created: {
         type: DataTypes.INTEGER
@@ -46,6 +64,7 @@ function registerUserModel(sequelize) {
     {
       hooks: {
         beforeCreate: userBeforeCreate,
+        beforeValidate: userBeforeValidate
       },
       tableName: 'mh_user',
       sequelize

@@ -1,6 +1,4 @@
-const { createRuleRules, alterRuleRules } = require('./config')
 const { getRuleById } = require('../service/rule')
-const { errorTypes } = require('../error/error-types')
 
 class ruleMiddleware {
   // 校验创建权限菜单参数
@@ -12,7 +10,6 @@ class ruleMiddleware {
 
   // 校验修改权限菜单参数中间件
   async verifyAlterRule(ctx, next) {
-    ctx.verifyParams(alterRuleRules)
     const { id } = ctx.request.body
 
     // 校验数据是否存在

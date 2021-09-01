@@ -1,21 +1,13 @@
 const errorTypes = {
   // 用户名或密码为空
-  USERNAME_OR_PASSWORD_IS_REQUIRED: {
-    code: 400,
-    message: '用户名或密码为空'
-  },
-  USER_DOES_NOT_EXIST: {
-    code: 400,
-    message: '用户不存在'
-  },
-  USERNAME_OR_PASSWORD_ILLEGAL: {
-    code: 400,
-    message: '用户名或密码不合法'
-  },
-  USER_ALREADY_EXISTS: {
-    code: 400,
-    message: '用户名已存在'
-  },
+  USERNAME_OR_PASSWORD_IS_REQUIRED: 'username_or_password_is_required',
+
+  USER_DOES_NOT_EXIST: 'user_does_not_exist',
+
+  USERNAME_OR_PASSWORD_ILLEGAL: 'username_or_password_illegal',
+
+  USER_ALREADY_EXISTS: 'user_already_exists',
+
   WRONG_PASSWORD: {
     code: 400,
     message: '密码错误'
@@ -36,9 +28,9 @@ const errorTypes = {
     code: 400,
     message: '内容不存在'
   },
-  CANNOT_BE_REMOVED:{
+  CANNOT_BE_REMOVED: {
     code: 400,
-    message:'初始数据不可删除'
+    message: '初始数据不可删除'
   }
 }
 
