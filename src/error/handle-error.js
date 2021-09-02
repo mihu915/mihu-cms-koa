@@ -33,6 +33,22 @@ const handleError = (error, ctx) => {
       code = 401
       message = 'token验签失败'
       break
+    case errorTypes.MISSING_PARAMETER:
+      code = 400
+      message = '缺少必传参数'
+      break
+    case errorTypes.CONTENT_DOES_NOT_EXIST:
+      code = 400
+      message = '操作的内容不存在'
+      break
+    case errorTypes.PARAMETER_IS_NOT_LEGAL:
+      code = 406
+      message = '参数不合法'
+      break
+    case errorTypes.PROHIBIT_DELETION:
+      code = 403
+      message = '禁止删除该数据'
+      break
     default:
       code = 500
       message = 'Server Error'

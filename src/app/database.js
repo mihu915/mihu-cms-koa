@@ -21,13 +21,17 @@ const sequelize = new Sequelize(
   {
     host: config.MYSQL_HOST,
     dialect: 'mysql',
-    logging: false,
     pool: {
       max: 10
     },
     define: {
       timestamps: false
-    }
+    },
+    // hooks: {
+    //   beforeBulkCreate(instance){
+    //     instance.module
+    //   }
+    // }
   }
 )
 

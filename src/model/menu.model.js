@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const { errorTypes } = require('../error/error-types')
 function registerMenuModel(sequelize) {
   class Menu extends Model {}
   Menu.init(
@@ -10,16 +11,32 @@ function registerMenuModel(sequelize) {
       },
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: errorTypes.MISSING_PARAMETER
+          }
+        }
       },
       icon: {
         type: DataTypes.STRING
       },
       sort: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: {
+            msg: errorTypes.PARAMETER_IS_NOT_LEGAL
+          }
+        }
       },
       type: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        validate: {
+          is: {
+            args: /^[1-2]$/,
+            msg: errorTypes.PARAMETER_IS_NOT_LEGAL
+          }
+        }
       },
       url: {
         type: DataTypes.STRING

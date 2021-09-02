@@ -99,7 +99,6 @@ class ruleService {
           }
         }
       )
-      return result
     } catch (error) {
       throw error
     }

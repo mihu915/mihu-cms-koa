@@ -1,4 +1,4 @@
-const { handleParams } = require('./handle-params')
+const { paramsInit } = require('./params-init')
 function MhGlobalMiddleware(app, handleError) {
   // 注册错误处理中间件
   app.on('error', handleError)
@@ -8,12 +8,9 @@ function MhGlobalMiddleware(app, handleError) {
     this.throw(errorType)
   }
 
-  app.context.verifyParams = function (rules) {
-    handleParams(this, rules)
-  }
-
   // 全局中间件
   return async function (ctx, next) {
+    paramsInit(ctx)
     try {
       await next()
     } catch (error) {

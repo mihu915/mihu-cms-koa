@@ -3,29 +3,34 @@ const menuRouter = new Router({ prefix: '/menu' })
 
 const {
   createMenu,
-  getMenu,
+  getMenuList,
   deleteMenu,
   alterMenu
 } = require('../controller/menu')
 
 const {
-  handleParams,
   verifyDeleteMenu,
-  verifyAlterMenu
-} = require('../middleware/menu')
+  verifyMenuExist
+} = require('../middleware/verify-params')
 
 const { verifyAuth } = require('../middleware/auth')
 
 // 添加菜单
-menuRouter.post('/', verifyAuth, handleParams, createMenu)
+menuRouter.post('/', verifyAuth, createMenu)
 
 // 查询菜单
-menuRouter.get('/', verifyAuth, getMenu)
+menuRouter.get('/', verifyAuth, getMenuList)
 
 // 删除菜单
-menuRouter.delete('/:id', verifyDeleteMenu, deleteMenu)
+menuRouter.delete(
+  '/:id',
+  verifyAuth,
+  verifyMenuExist,
+  verifyDeleteMenu,
+  deleteMenu
+)
 
 // 修改菜单
-menuRouter.post('/:id/alter', verifyAlterMenu, alterMenu)
+menuRouter.patch('/:id', verifyAuth, verifyMenuExist, alterMenu)
 
 module.exports = menuRouter

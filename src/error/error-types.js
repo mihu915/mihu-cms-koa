@@ -14,6 +14,18 @@ const errorTypes = {
   // token验签失败
   TOKEN_CHECK_FAILED: 'token_check_failed',
 
+  // 缺少参数
+  MISSING_PARAMETER: 'missing_parameter',
+
+  // 内容不存在
+  CONTENT_DOES_NOT_EXIST: 'content_does_not_exist',
+
+  // 参数不合法
+  PARAMETER_IS_NOT_LEGAL: 'parameter_is_not_legal',
+
+  // 禁止删除
+  PROHIBIT_DELETION: 'prohibit_deletion',
+
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'
@@ -21,14 +33,6 @@ const errorTypes = {
   DO_NOT_ADD_DATA_REPEATEDLY: {
     code: 400,
     message: '请勿重复添加数据'
-  },
-  CONTENT_DOES_NOT_EXIST: {
-    code: 400,
-    message: '内容不存在'
-  },
-  CANNOT_BE_REMOVED: {
-    code: 400,
-    message: '初始数据不可删除'
   }
 }
 
