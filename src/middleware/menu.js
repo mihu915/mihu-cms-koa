@@ -1,22 +1,32 @@
 const { getMenuById } = require('../service/menu')
 
 class MenuMiddleware {
+  // 处理参数
+  async handleParams(ctx, next) {
+    ctx.verifyParams({
+      title: true,
+      icon: true,
+      type: true,
+      url: true,
+      parent: true,
+      sort: {
+        defaultValue: 0
+      }
+    })
+    await next()
+  }
+  // 创建菜单
   async verifyCreateMenu(ctx, next) {
     await next()
   }
 
   async verifyDeleteMenu(ctx, next) {
-    const { id } = ctx.request.params
     // 判断内容是否存在
-    const result = await getMenuById(id)
-    if (!result) ctx.emitError(errorTypes.CONTENT_DOES_NOT_EXIST)
-
-    // 判断删除数据是否为初始数据
-    if (id >= 25 && id <= 28) ctx.emitError(errorTypes.CANNOT_BE_REMOVED)
+    ctx.verifyParams()
     await next()
   }
 
-  async verifyAlterMenu(ctx, next){
+  async verifyAlterMenu(ctx, next) {
     await next()
   }
 }

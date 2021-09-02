@@ -1,4 +1,3 @@
-const { connection } = require('../app/database')
 const { sequelize } = require('../app/database')
 
 const User = sequelize.models.User
@@ -20,13 +19,13 @@ class UserService {
 
   // 用户注册,创建用户
   async createUser(params) {
-    const { username, password, ip, time } = params
+    const { username, password, $ip, $time } = params
     try {
       await User.create({
         username,
         password,
-        register_ip: ip,
-        register_time: time,
+        register_ip: $ip,
+        register_time: $time,
         realname: username
       })
     } catch (error) {
@@ -36,12 +35,12 @@ class UserService {
 
   // 更新用户数据，登录操作
   async updateUserData(id, params) {
-    const { ip, time } = params
+    const { $ip, $time } = params
     try {
       const [result] = await User.update(
         {
-          last_login_ip: ip,
-          last_login_time: time
+          last_login_ip: $ip,
+          last_login_time: $time
         },
         {
           where: {
@@ -57,18 +56,34 @@ class UserService {
 
   // 获取用户信息
   async getUserInfoById(id) {
-    const statement = `
-    SELECT u.id, u.username,u.enable,u.realname,
-     JSON_OBJECT('id',r.id,'rule_name', r.rule_name,'rule_intro',r.rule_intro) 
-     rule FROM mh_user as u left JOIN mh_user_rule as r on  u.rule_id = r.id  
-     WHERE u.id = ?
-    `
-
+    const Role = sequelize.models.Role
     try {
-      const [result] = await connection.execute(statement, [id])
-      return result[0]
+      const [result] = await User.findAll({
+        attributes: [
+          'id',
+          'username',
+          'enable',
+          'role_id',
+          'operator_ip',
+          'register_time',
+          'operator_time',
+          'realname',
+          'mobile',
+          'qq',
+          'position'
+        ],
+        include: {
+          model: Role,
+          as: 'user_role'
+        },
+        where: {
+          id
+        }
+      })
+
+      return result
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 }

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('../app/config')
-
+const { errorTypes } =require('../error/error-types')
 
 // 赋权鉴权中间件
 class AuthMiddleware {

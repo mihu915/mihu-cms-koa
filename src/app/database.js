@@ -1,9 +1,9 @@
 const mysql = require('mysql2')
 const config = require('./config')
 
+const { autoCreateModule } = require('../model')
 const { Sequelize } = require('sequelize')
 const { hooks } = require('./hooks')
-const { registerModule } = require('../model')
 
 const connections = mysql.createPool({
   host: config.MYSQL_HOST,
@@ -45,8 +45,8 @@ sequelize
     console.log('连接失败', err)
   })
 
-// 注册模型
-registerModule(sequelize)
+// 自动注册模型
+autoCreateModule(sequelize)
 
 const connection = connections.promise()
 

@@ -11,10 +11,9 @@ const errorTypes = {
   // 账号或密码错误
   INCORRECT_USERNAME_OR_PASSWORD: 'incorrect_username_or_password',
 
-  TOKEN_CHECK_FAILED: {
-    code: 401,
-    message: 'token校验失败'
-  },
+  // token验签失败
+  TOKEN_CHECK_FAILED: 'token_check_failed',
+
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'

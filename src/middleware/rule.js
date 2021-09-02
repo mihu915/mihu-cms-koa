@@ -3,7 +3,6 @@ const { getRuleById } = require('../service/rule')
 class ruleMiddleware {
   // 校验创建权限菜单参数
   async verifyCreateRule(ctx, next) {
-    ctx.verifyParams(createRuleRules)
 
     await next()
   }

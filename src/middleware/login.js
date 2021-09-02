@@ -5,6 +5,8 @@ const { errorTypes } = require('../error/error-types')
 class LoginMiddleware {
   // 校验登录参数中间件
   async verifyLogin(ctx, next) {
+    ctx.verifyParams()
+
     const { username, password } = ctx.request.body
 
     // 校验是否为空或没传值

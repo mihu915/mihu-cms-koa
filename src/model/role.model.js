@@ -7,11 +7,7 @@ function registerRoleModel(sequelize) {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
-        references: {
-          model: sequelize.models.User,
-          key: 'id'
-        }
+        autoIncrement: true
       },
       role_name: {
         type: DataTypes.STRING,
@@ -23,8 +19,16 @@ function registerRoleModel(sequelize) {
       role_menu: {
         type: DataTypes.STRING,
         validate: {
-          is: /^(\d+\,)+\d+$/
+          is: {
+            args: /^(\d+\,)+\d+$/,
+          }
         }
+      },
+      created: {
+        type: DataTypes.INTEGER
+      },
+      updated: {
+        type: DataTypes.INTEGER
       }
     },
     {
@@ -32,9 +36,6 @@ function registerRoleModel(sequelize) {
       sequelize
     }
   )
-
 }
 
-module.exports = {
-  registerRoleModel
-}
+module.exports = registerRoleModel

@@ -39,7 +39,11 @@ function registerUserModel(sequelize) {
       },
       role_id: {
         type: DataTypes.INTEGER,
-        defaultValue: 3
+        defaultValue: 3,
+        references: {
+          model: sequelize.models.Role,
+          key: 'id'
+        }
       },
       register_ip: DataTypes.STRING,
       operator_ip: DataTypes.STRING,
@@ -70,9 +74,6 @@ function registerUserModel(sequelize) {
       sequelize
     }
   )
-
 }
 
-module.exports = {
-  registerUserModel
-}
+module.exports = registerUserModel

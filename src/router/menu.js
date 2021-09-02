@@ -1,5 +1,6 @@
 const Router = require('koa-router')
 const menuRouter = new Router({ prefix: '/menu' })
+
 const {
   createMenu,
   getMenu,
@@ -8,7 +9,7 @@ const {
 } = require('../controller/menu')
 
 const {
-  verifyCreateMenu,
+  handleParams,
   verifyDeleteMenu,
   verifyAlterMenu
 } = require('../middleware/menu')
@@ -16,7 +17,7 @@ const {
 const { verifyAuth } = require('../middleware/auth')
 
 // 添加菜单
-menuRouter.post('/', verifyAuth, verifyCreateMenu, createMenu)
+menuRouter.post('/', verifyAuth, handleParams, createMenu)
 
 // 查询菜单
 menuRouter.get('/', verifyAuth, getMenu)

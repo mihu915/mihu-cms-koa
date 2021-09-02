@@ -3,10 +3,9 @@ const { errorTypes } = require('../error/error-types')
 
 class SignupMiddleware {
   async verifySignup(ctx, next) {
-
     const { username, password } = ctx.request.body
     // 判断是否有值或为空
-    if(!username || !password){
+    if (!username || !password) {
       ctx.emitError(errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED)
     }
 

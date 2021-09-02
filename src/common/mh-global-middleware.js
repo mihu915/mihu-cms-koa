@@ -1,5 +1,4 @@
-const { handleIP } = require('../utils/handle-ip')
-
+const { handleParams } = require('./handle-params')
 function MhGlobalMiddleware(app, handleError) {
   // 注册错误处理中间件
   app.on('error', handleError)
@@ -9,20 +8,12 @@ function MhGlobalMiddleware(app, handleError) {
     this.throw(errorType)
   }
 
+  app.context.verifyParams = function (rules) {
+    handleParams(this, rules)
+  }
+
   // 全局中间件
   return async function (ctx, next) {
-    const ip = handleIP(ctx.req)
-    const time = Math.round(Date.now() / 1000)
-    switch (ctx.method) {
-      case 'POST':
-        ctx.request.body.ip = ip
-        ctx.request.body.time = time
-        break
-      case 'GET':
-        ctx.request.query.ip = ip
-        ctx.request.query.time = time
-        break
-    }
     try {
       await next()
     } catch (error) {

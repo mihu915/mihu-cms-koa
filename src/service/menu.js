@@ -1,15 +1,18 @@
-const connections = require('../app/database')
-const { updateSuperAdminRule } = require('../service/rule')
+const { sequelize } = require('../app/database')
+const { updateSuperAdminRuleMenu } = require('../service/rule')
+
+const { Menu } = sequelize.models
 
 class MenuService {
   // 通过id查询菜单
   async getMenuById(id) {
-    const statement = `
-      SELECT * FROM mh_menu WHERE id = ?
-    `
     try {
-      const [result] = await connections.execute(statement, [id])
-      return result[0]
+      const [result] = await Menu.findAll({
+        where: {
+          id
+        }
+      })
+      return result
     } catch (error) {
       throw error
     }
@@ -17,25 +20,21 @@ class MenuService {
 
   // 创建菜单
   async addMenu(menuInfo) {
-    const { title, url, icon, sort, type, parent_id, currentTime } = menuInfo
-    const statement = `
-      INSERT INTO mh_menu 
-      (title,icon,sort,type,url,parent_id,created,updated)
-      value(?,?,?,?,?,?,?,?)
-    `
+    const { title, url, icon, sort, type, parent_id } = menuInfo
+
     try {
-      const [result] = await connections.execute(statement, [
+      // 创建菜单
+      await Menu.create({
         title,
+        url,
         icon,
         sort,
         type,
-        url,
-        parent_id,
-        currentTime,
-        currentTime
-      ])
+        parent_id
+      })
 
-      await updateSuperAdminRule()
+      // 更新role表中的菜单列表
+      const result = await updateSuperAdminRuleMenu()
       return result
     } catch (error) {
       throw error
@@ -88,16 +87,8 @@ class MenuService {
 
   // 删除指定菜单
   async removeMenuById(id) {
-    const statement = `
-    DELETE FROM mh_menu WHERE id = ? OR parent_id = ?
-    `
     try {
-      const [result] = await connections.execute(statement, [id, id])
-      await updateSuperAdminRule()
-      return result
-    } catch (error) {
-      throw error
-    }
+    } catch (error) {}
   }
 
   async alterMenuById(menuInfo) {

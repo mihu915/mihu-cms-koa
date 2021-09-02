@@ -18,9 +18,6 @@ const hooks = {
   beforeUpdate: (instance, option) => {
     console.log('常驻的beforeUpdate')
     instance.updated = Math.round(Date.now() / 1000)
-  },
-  validationFailed(instance, option, error) {
-    return new Error(error)
   }
 }
 

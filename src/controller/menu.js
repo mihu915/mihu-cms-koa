@@ -1,16 +1,19 @@
-const { addMenu, getMenuByRuleId, removeMenuById, alterMenuById } = require('../service/menu')
+const {
+  addMenu,
+  getMenuByRuleId,
+  removeMenuById,
+  alterMenuById
+} = require('../service/menu')
 
 class MenuController {
   async createMenu(ctx) {
     const menuInfo = ctx.request.body
 
-    menuInfo.currentTime = ctx.currentData.currentTime
-    menuInfo.realIP = ctx.currentData.realIP
-
-    await addMenu(menuInfo)
+    const result = await addMenu(menuInfo)
 
     ctx.body = {
       code: 200,
+      data: result,
       message: '创建菜单成功'
     }
   }
@@ -26,8 +29,6 @@ class MenuController {
   }
 
   async deleteMenu(ctx) {
-    const { id } = ctx.request.params
-    await removeMenuById(id)
     ctx.body = {
       code: 200,
       message: '删除菜单成功'
