@@ -1,4 +1,4 @@
-const { sequelize } = require('../app/database')
+const { sequelize, Op } = require('../app/database')
 const { updateSuperAdminRuleMenu } = require('../service/rule')
 
 const { Menu, Role } = sequelize.models
@@ -35,7 +35,7 @@ class MenuService {
     try {
       await Menu.destroy({
         where: {
-          id
+          [Op.or]: [{ id }, { parent_id: id }]
         }
       })
       await updateSuperAdminRuleMenu()

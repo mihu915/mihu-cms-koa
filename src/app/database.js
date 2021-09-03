@@ -1,17 +1,8 @@
-const mysql = require('mysql2')
-const config = require('./config')
-
+const { Sequelize, Op } = require('sequelize')
 const { autoCreateModule } = require('../model')
-const { Sequelize } = require('sequelize')
-const { hooks } = require('./hooks')
 
-const connections = mysql.createPool({
-  host: config.MYSQL_HOST,
-  port: config.MYSQL_PORT,
-  database: config.MYSQL_DATABASE,
-  user: config.MYSQL_USER,
-  password: config.MYSQL_PASSWORD
-})
+const { hooks } = require('./hooks')
+const config = require('./config')
 
 // 使用sequelize
 const sequelize = new Sequelize(
@@ -26,35 +17,29 @@ const sequelize = new Sequelize(
     },
     define: {
       timestamps: false
-    },
-    // hooks: {
-    //   beforeBulkCreate(instance){
-    //     instance.module
-    //   }
-    // }
+    }
   }
 )
+
+// 测试连接
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('数据库连接成功')
+  })
+  .catch((err) => {
+    console.log('数据库连接失败', err)
+  })
 
 // 挂载常驻钩子
 Object.keys(hooks).forEach((key) => {
   sequelize.addHook(key, hooks[key])
 })
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('连接成功')
-  })
-  .catch((err) => {
-    console.log('连接失败', err)
-  })
-
 // 自动注册模型
 autoCreateModule(sequelize)
 
-const connection = connections.promise()
-
 module.exports = {
   sequelize,
-  connection
+  Op
 }

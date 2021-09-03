@@ -1,6 +1,6 @@
 const { sequelize } = require('../app/database')
 
-const User = sequelize.models.User
+const { User, Role } = sequelize.models
 
 class UserService {
   // 查询用户表
@@ -56,35 +56,26 @@ class UserService {
 
   // 获取用户信息
   async getUserInfoById(id) {
-    const Role = sequelize.models.Role
-    try {
-      const [result] = await User.findAll({
-        attributes: [
-          'id',
-          'username',
-          'enable',
-          'role_id',
-          'operator_ip',
-          'register_time',
-          'operator_time',
-          'realname',
-          'mobile',
-          'qq',
-          'position'
-        ],
-        include: {
-          model: Role,
-          as: 'user_role'
-        },
-        where: {
-          id
-        }
+    const [result] = await User.findAll({
+      attributes: {
+        exclude: ['password']
+      },
+      include: {
+        model: Role,
+        as: 'user_role'
+      },
+      where: {
+        id
+      }
+    })
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
       })
 
-      return result
-    } catch (error) {
-      throw error
-    }
+    return result
   }
 }
 

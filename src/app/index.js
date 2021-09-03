@@ -1,10 +1,10 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const autoRegisterRouter = require('../router')
+const cors = require('koa2-cors')
+
 const { MhGlobalMiddleware } = require('../common/mh-global-middleware')
 const { handleError } = require('../error/handle-error')
-
-const cors = require('koa2-cors')
 
 const app = new Koa()
 
