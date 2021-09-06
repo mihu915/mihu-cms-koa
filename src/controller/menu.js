@@ -2,10 +2,22 @@ const {
   addMenu,
   removeMenuById,
   alterMenuById,
-  getMenuListByRoleId
+  getAllMenuList,
+  getMenuByRoleId
 } = require('../service/menu')
 
 class MenuController {
+  // 根据分页获取所有菜单列表
+  async getMenuList(ctx) {
+    const result = await getAllMenuList(ctx.request.query)
+
+    ctx.body = {
+      code: 200,
+      data: result,
+      message: '获取菜单列表成功'
+    }
+  }
+
   async createMenu(ctx) {
     const menuInfo = ctx.request.body
 
@@ -26,9 +38,9 @@ class MenuController {
     }
   }
 
-  async getMenuList(ctx) {
+  async getRoleMenu(ctx) {
     const { role_id } = ctx.user
-    const result = await getMenuListByRoleId(role_id)
+    const result = await getMenuByRoleId(role_id)
     ctx.body = {
       code: 200,
       data: result,

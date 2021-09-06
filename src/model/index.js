@@ -13,6 +13,11 @@ function autoCreateModule(sequelize) {
     foreignKey: 'role_id',
     as: 'user_role'
   })
+
+  Menu.hasMany(Menu, {
+    foreignKey: 'parent_id',
+    as: 'children'
+  })
 }
 
 module.exports = {

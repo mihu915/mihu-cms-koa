@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+
 function registerRoleModel(sequelize) {
   class Role extends Model {}
 
@@ -20,7 +21,7 @@ function registerRoleModel(sequelize) {
         type: DataTypes.STRING,
         validate: {
           is: {
-            args: /^(\d+\,)+\d+$/,
+            args: /^(\d+\,)+\d+$/
           }
         }
       },

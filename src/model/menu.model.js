@@ -42,7 +42,11 @@ function registerMenuModel(sequelize) {
         type: DataTypes.STRING
       },
       parent_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        references: {
+          model: sequelize.models.Menu,
+          key: 'id'
+        }
       },
       created: {
         type: DataTypes.INTEGER

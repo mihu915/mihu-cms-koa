@@ -3,23 +3,28 @@ const menuRouter = new Router({ prefix: '/menu' })
 
 const {
   createMenu,
-  getMenuList,
+  getRoleMenu,
   deleteMenu,
-  alterMenu
+  alterMenu,
+  getMenuList
 } = require('../controller/menu')
 
 const {
   verifyDeleteMenu,
-  verifyMenuExist
+  verifyMenuExist,
+  handleListParam
 } = require('../middleware/verify-params')
 
 const { verifyAuth } = require('../middleware/auth')
 
+// 获取菜单列表
+menuRouter.get('/list', verifyAuth, handleListParam, getMenuList)
+
 // 添加菜单
 menuRouter.post('/', verifyAuth, createMenu)
 
-// 查询菜单
-menuRouter.get('/', verifyAuth, getMenuList)
+// 查询用户对应菜单
+menuRouter.get('/', verifyAuth, getRoleMenu)
 
 // 删除菜单
 menuRouter.delete(
