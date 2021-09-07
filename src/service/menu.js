@@ -1,5 +1,6 @@
 const { sequelize, Op } = require('../app/database')
 const { updateSuperAdminRoleMenu } = require('../service/role')
+const { handleMenu } = require('../utils/handle-menu')
 
 const { Menu, Role } = sequelize.models
 
@@ -50,25 +51,32 @@ class MenuService {
   // 根据角色id获取菜单数据
   async getMenuByRoleId(roleId) {
     // 查询出角色对应的menuIdList
-    const [roleMenuResult] = await Role.findAll({
+    const menusId = await Role.findAll({
       attributes: ['role_menu'],
       where: {
         id: roleId
       }
     })
       .then((res) => {
-        return res
+        return res[0].role_menu.split(',')
       })
       .catch((err) => {
         throw err
       })
 
-    // 根据menuIdList查询出该角色对应的所有菜单
-    const roleMenuList = roleMenuResult.role_menu.split(',')
+    // 查询出所有的菜单，顺序为升序
     const MenuListResult = await Menu.findAll({
+      include: {
+        model: Menu,
+        as: 'children'
+      },
       where: {
-        id: roleMenuList
-      }
+        type: 1
+      },
+      order: [
+        ['sort', 'ASC'],
+        ['children', 'sort', 'ASC']
+      ]
     })
       .catch((res) => {
         return res
@@ -76,37 +84,12 @@ class MenuService {
       .catch((err) => {
         throw err
       })
-
-    // 将子级菜单添加至父级菜单
-    MenuListResult.forEach((menu) => {
-      menu.dataValues.children = []
-      // 删除属性
-      if (!menu.dataValues.parent_id && menu.dataValues.type === 1) {
-        delete menu.dataValues.parent_id
-      } else if (!menu.dataValues.icon) {
-        delete menu.dataValues.icon
-      }
-      // 循环添加子菜单
-      for (let i = 0; i < MenuListResult.length; i++) {
-        if (
-          MenuListResult[i].parent_id === menu.dataValues.id &&
-          MenuListResult[i].type === 2
-        ) {
-          menu.dataValues.children.push(MenuListResult[i])
-        }
-      }
-    })
-
-    // 循环清除已添加过的子级菜单
-    for (let i = 0; i < MenuListResult.length; i++) {
-      if (MenuListResult[i].parent_id && MenuListResult[i].type === 2) {
-        MenuListResult.splice(i, 1)
-        i--
-      }
-    }
+    const a = []
+    handleMenu(MenuListResult, menusId)
     return MenuListResult
   }
 
+  // 根据id修改菜单
   async alterMenuById(id, menuInfo) {
     try {
       const result = await Menu.update(menuInfo, {
@@ -125,6 +108,10 @@ class MenuService {
     const result = await Menu.findAll({
       limit: option.limit,
       offset: option.offset,
+      order: [
+        ['sort', 'ASC'],
+        ['children', 'sort', 'ASC']
+      ],
       where: {
         type: 1
       },

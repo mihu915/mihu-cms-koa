@@ -8,6 +8,14 @@ function paramsInit(ctx) {
   ctx.request.query.$ip = ip
   ctx.request.query.$time = now
 
+  const params =  ['POST','PATCH'].includes(ctx.method) ? ctx.request.body : ctx.request.query
+
+  Object.keys(params).forEach((key) => {
+    if(params[key] === null || typeof params[key] === 'string' && params[key].length === 0){
+      delete params[key]
+    }
+  })
+
 }
 
 module.exports = {
