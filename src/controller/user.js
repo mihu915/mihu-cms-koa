@@ -11,6 +11,10 @@ class userController {
       message: '获取用户信息成功'
     }
   }
+
+  async createNewUser(ctx, next){
+    
+  }
 }
 
 module.exports = new userController()
