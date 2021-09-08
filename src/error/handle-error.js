@@ -49,6 +49,15 @@ const handleError = (error, ctx) => {
       code = 403
       message = '禁止删除该数据'
       break
+    case errorTypes.ACCOUNT_IS_BANNED:
+      code = 403
+      message = '该账号已被封禁'
+      break
+    case errorTypes.UNABLE_TO_DISABLE:
+      code = 403
+      message = '无法禁用该用户'
+      break
+
     default:
       code = 500
       message = 'Server Error'

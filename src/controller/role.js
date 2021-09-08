@@ -1,9 +1,7 @@
 const { userRoleList } = require('../service/role')
 class RoleController {
-  async getRoleList(ctx, next) {
-    const option = ctx.request.query
-
-    const result = await userRoleList(option)
+  async getUserRoleList(ctx) {
+    const result = await userRoleList(ctx.request.query)
     ctx.body = {
       code: 200,
       data: result,

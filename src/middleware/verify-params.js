@@ -21,8 +21,12 @@ class VerifyParams {
     ctx.request.query.offset = parseInt(ctx.request.query.offset)
     ctx.request.query.limit = parseInt(ctx.request.query.limit)
 
-    if (!ctx.request.query.offset) ctx.request.query.offset = 0
-    if (!ctx.request.query.limit) ctx.request.query.limit = 10
+    if (!ctx.request.query.offset && ctx.request.query.offset !== 0) {
+      ctx.request.query.offset = undefined
+    }
+    if (!ctx.request.query.limit && ctx.request.query.limit !== 0) {
+      ctx.request.query.limit = undefined
+    }
 
     await next()
   }

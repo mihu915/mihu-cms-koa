@@ -1,27 +1,12 @@
 const { sequelize, Op } = require('../app/database')
 const { User, Role, Menu } = sequelize.models
 class RoleService {
-  // 获取所有用户的角色信息
+  // 获取角色列表
   async userRoleList(option) {
-    const { limit, offset } = option
-    console.log(typeof limit)
-    const result = await User.findAll({
-      limit,
+    const { offset, limit } = option
+    const result = await Role.findAll({
       offset,
-      raw: true,
-      attributes: {
-        include: [
-          [sequelize.literal('user_role.role_name'), 'role_name'],
-          [sequelize.literal('user_role.role_intro'), 'role_intro'],
-          [sequelize.literal('user_role.role_menu'), 'role_menu']
-        ],
-        exclude: ['id', 'password']
-      },
-      include: {
-        model: Role,
-        as: 'user_role',
-        attributes: []
-      }
+      limit
     })
       .then((res) => {
         return res
@@ -32,7 +17,6 @@ class RoleService {
 
     return result
   }
-
 
   // 更新超级管理员的菜单列表
   async updateSuperAdminRoleMenu() {

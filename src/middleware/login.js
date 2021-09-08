@@ -5,7 +5,6 @@ const { errorTypes } = require('../error/error-types')
 class LoginMiddleware {
   // 校验登录参数中间件
   async verifyLogin(ctx, next) {
-
     const { username, password } = ctx.request.body
 
     // 校验是否为空或没传值
@@ -16,6 +15,8 @@ class LoginMiddleware {
     // 用户是否存在
     ctx.user = await getUserByName(username)
     if (!ctx.user) ctx.emitError(errorTypes.INCORRECT_USERNAME_OR_PASSWORD)
+    if(!ctx.user.enable) ctx.emitError()
+    console.log()
 
     // 密码是否正确
     if (md5Password(password) !== ctx.user.password) {

@@ -26,6 +26,14 @@ const errorTypes = {
   // 禁止删除
   PROHIBIT_DELETION: 'prohibit_deletion',
 
+  // 账号已被封禁
+  ACCOUNT_IS_BANNED: 'account_is_banned',
+
+  // 无法禁用
+  UNABLE_TO_DISABLE: 'unable_to_disable',
+
+  
+
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'

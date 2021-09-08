@@ -3,7 +3,35 @@ const { sequelize } = require('../app/database')
 const { User, Role } = sequelize.models
 
 class UserService {
-  // 查询用户表
+  // 获取所有用户的角色信息
+  async userList(option) {
+    const { limit, offset } = option
+    console.log(typeof limit)
+    const result = await User.findAll({
+      limit,
+      offset,
+      raw: true,
+      attributes: {
+        include: [[sequelize.literal('user_role.role_name'), 'role_name']],
+        exclude: ['password']
+      },
+      include: {
+        model: Role,
+        as: 'user_role',
+        attributes: []
+      }
+    })
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
+
+    return result
+  }
+
+  // 查询用户列表
   async getUserByName(username) {
     try {
       const [result] = await User.findAll({
@@ -17,20 +45,51 @@ class UserService {
     }
   }
 
-  // 用户注册,创建用户
-  async createUser(params) {
-    const { username, password, $ip, $time } = params
-    try {
-      await User.create({
-        username,
-        password,
-        register_ip: $ip,
-        register_time: $time,
-        realname: username
+  // 根据id删除用户
+  async deleteUserById(id) {
+    await User.destroy({
+      where: {
+        id
+      }
+    })
+      .then((res) => {
+        return res
       })
-    } catch (error) {
-      throw error
-    }
+      .catch((err) => {
+        throw err
+      })
+  }
+
+  // 切换启用用户状态
+  async switchUserEnable(params) {
+    const { id, enable } = params
+    await User.update(
+      {
+        enable
+      },
+      {
+        where: {
+          id
+        }
+      }
+    )
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
+  }
+
+  // 超管创建用户
+  async createUser(params) {
+    await User.create(params)
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
   }
 
   // 更新用户数据，登录操作
@@ -54,7 +113,7 @@ class UserService {
     }
   }
 
-  // 获取用户信息
+  // 获取登录用户信息
   async getUserInfoById(id) {
     const [result] = await User.findAll({
       attributes: {
