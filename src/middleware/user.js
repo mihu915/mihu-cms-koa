@@ -2,20 +2,17 @@ const { errorTypes } = require('../error/error-types')
 const { getUserByName } = require('../service/user')
 
 class UserMiddleware {
-  async verifyUserSignup(ctx, next) {
-    const { username, password } = ctx.request.body
-    // 判断是否有值或为空
-    if (!username || !password) {
-      ctx.emitError(errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED)
-    }
+  // 校验修改用户信息的参数
+  async verifyUserInfo(ctx, next) {
+    const { username } = ctx.request.body
 
-    // 判断用户是否存在
-    const result = await getUserByName(username)
-    if (result) ctx.emitError(errorTypes.USER_ALREADY_EXISTS)
+    // 如果没设置昵称则将用户名设置为默认
+    if (!ctx.request.body.nickname) ctx.request.body.nickname = username
 
     await next()
   }
 
+  // 校验切换用户状态接口的参数
   async verifyUserEnable(ctx, next) {
     const { role_id, enable } = ctx.request.query
     const { id } = ctx.request.params
@@ -29,6 +26,7 @@ class UserMiddleware {
     await next()
   }
 
+  // 校验删除用户的参数
   async verifyDeleteUser(ctx, next) {
     const { id } = ctx.request.params
     if (parseInt(id) <= 10) {

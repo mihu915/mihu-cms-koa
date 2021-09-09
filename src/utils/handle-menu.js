@@ -3,25 +3,42 @@ const handleMenu = (menuList, range) => {
     range[index] = parseInt(range[index])
   }
 
-  let parentIndex = 0
-  menuList.forEach((parentMenu) => {
-    const parent = range.includes(parentMenu.id)
-    if (!parent) {
-      menuList.splice(parentIndex, 1)
-    }
+  const finalMenuList = menuList.filter((parentMenu) => {
+    if (!range.includes(parentMenu.dataValues.id)) {
+      return false
+    } else {
+      const finalChildMenu = parentMenu.dataValues.children.filter(
+        (childMenu) => {
+          if (!range.includes(childMenu.dataValues.id)) return false
+          return true
+        }
+      )
 
-    let childrenIndex = 0
-    parentMenu.dataValues.children.forEach((childrenMenu) => {
-      const children = range.includes(childrenMenu.id)
-      if (!children) {
-        parentMenu.dataValues.children.splice(childrenIndex, 1)
-      }
-      console.log(children, 'children', childrenMenu.id)
-      childrenIndex++
-    })
-    console.log(parent, 'parent', parentMenu.id)
-    parentIndex++
+      parentMenu.dataValues.children = finalChildMenu
+    }
+    return true
   })
+
+  return finalMenuList
+  // menuList.forEach((parentMenu) => {
+  //   console.log(JSON.stringify(parentMenu))
+  //   const parent = range.includes(parentMenu.id)
+  //   if (!parent) {
+  //     menuList.splice(parentIndex, 1)
+  //   }
+
+  //   let childrenIndex = 0
+  //   parentMenu.dataValues.children.forEach((childrenMenu) => {
+  //     const children = range.includes(childrenMenu.id)
+  //     if (!children) {
+  //       parentMenu.dataValues.children.splice(childrenIndex, 1)
+  //     }
+  //     console.log(children, 'children', childrenMenu.id)
+  //     childrenIndex++
+  //   })
+  //   console.log(parent, 'parent', parentMenu.id)
+  //   parentIndex++
+  // })
 
   // 将子级菜单添加至父级菜单
   // menuList.forEach((menu) => {

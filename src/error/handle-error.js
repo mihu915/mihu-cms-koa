@@ -23,7 +23,7 @@ const handleError = (error, ctx) => {
       break
     case errorTypes.USER_ALREADY_EXISTS:
       code = 400
-      message = '用户已存在'
+      message = '用户名已存在'
       break
     case errorTypes.INCORRECT_USERNAME_OR_PASSWORD:
       code = 400

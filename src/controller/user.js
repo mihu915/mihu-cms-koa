@@ -3,7 +3,8 @@ const {
   createUser,
   getUserInfoById,
   switchUserEnable,
-  deleteUserById
+  deleteUserById,
+  alterUserInfoById
 } = require('../service/user')
 
 class userController {
@@ -67,7 +68,15 @@ class userController {
     }
   }
 
-  async createNewUser(ctx, next) {}
+  async alterUserInfo(ctx, next) {
+    const { id } = ctx.request.params
+
+    await alterUserInfoById(id, ctx.request.body)
+    ctx.body = {
+      code: 200,
+      message: '修改用户信息成功'
+    }
+  }
 }
 
 module.exports = new userController()

@@ -5,13 +5,14 @@ const {
   userSignup,
   getUserList,
   userEnable,
-  deleteUser
+  deleteUser,
+  alterUserInfo
 } = require('../controller/user')
 
 const {
-  verifyUserSignup,
   verifyUserEnable,
-  verifyDeleteUser
+  verifyDeleteUser,
+  verifyUserInfo
 } = require('../middleware/user')
 
 const { handleListParam } = require('../middleware/verify-params')
@@ -19,16 +20,19 @@ const { verifyAuth } = require('../middleware/auth')
 
 const userRouter = new Router({ prefix: '/user' })
 
-// 获取登录用户信息
+// 登录后获取用户信息
 userRouter.get('/', verifyAuth, userInfo)
 
-// 创建用户
-userRouter.post('/', verifyAuth, verifyUserSignup, userSignup)
+// 管理员创建用户
+userRouter.post('/', verifyAuth, verifyUserInfo, userSignup)
 
-// 获取用户列表
+// 管理员修改用户信息
+userRouter.patch('/:id', verifyAuth, verifyUserInfo, alterUserInfo)
+
+// 管理员获取用户列表
 userRouter.get('/list', verifyAuth, handleListParam, getUserList)
 
-// 切换用户状态
+// 管理员切换用户状态
 userRouter.get('/enable/:id', verifyAuth, verifyUserEnable, userEnable)
 
 // 删除用户

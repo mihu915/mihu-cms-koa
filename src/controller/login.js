@@ -6,6 +6,7 @@ const { updateUserData } = require('../service/user')
 class loginController {
   async userLogin(ctx, next) {
     const { id, username, role_id } = ctx.user
+    console.log(ctx.request.body)
     const params = ctx.request.body
 
     // 更新登录数据

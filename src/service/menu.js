@@ -58,6 +58,7 @@ class MenuService {
       }
     })
       .then((res) => {
+        if (!res[0].role_menu) return []
         return res[0].role_menu.split(',')
       })
       .catch((err) => {
@@ -65,7 +66,7 @@ class MenuService {
       })
 
     // 查询出所有的菜单，顺序为升序
-    const MenuListResult = await Menu.findAll({
+    const menuListResult = await Menu.findAll({
       include: {
         model: Menu,
         as: 'children'
@@ -84,9 +85,8 @@ class MenuService {
       .catch((err) => {
         throw err
       })
-    const a = []
-    handleMenu(MenuListResult, menusId)
-    return MenuListResult
+    const menuList = handleMenu(menuListResult, menusId)
+    return menuList
   }
 
   // 根据id修改菜单
@@ -105,16 +105,35 @@ class MenuService {
 
   // 分页获取菜单列表
   async getAllMenuList(option) {
+    const { offset, limit, title, type, url, icon, startTime, endTime } = option
+    const filter = {
+      type: type || 1,
+      title: {
+        [Op.like]: title ? '%' + title + '%' : '%'
+      },
+      url: {
+        [Op.like]: url ? '%' + url + '%' : '%'
+      },
+      icon: {
+        [Op.like]: icon ? '%' + icon + '%' : '%'
+      },
+      created: {
+        [Op.gte]: startTime,
+        [Op.lte]: endTime
+      }
+    }
+
+    if (!startTime || !endTime) delete filter.created
+
+    console.log(filter)
     const result = await Menu.findAll({
-      limit: option.limit,
-      offset: option.offset,
+      limit: limit,
+      offset: offset,
       order: [
         ['sort', 'ASC'],
         ['children', 'sort', 'ASC']
       ],
-      where: {
-        type: 1
-      },
+      where: filter,
       include: {
         model: Menu,
         as: 'children'

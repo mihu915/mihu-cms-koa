@@ -6,7 +6,7 @@ const errorTypes = {
   USERNAME_OR_PASSWORD_ILLEGAL: 'username_or_password_illegal',
 
   // 用户已存在
-  USER_ALREADY_EXISTS: 'user_already_exists',
+  USER_ALREADY_EXISTS: 'mh_user.username must be unique',
 
   // 账号或密码错误
   INCORRECT_USERNAME_OR_PASSWORD: 'incorrect_username_or_password',
@@ -31,8 +31,6 @@ const errorTypes = {
 
   // 无法禁用
   UNABLE_TO_DISABLE: 'unable_to_disable',
-
-  
 
   NO_OPERATION_PERMISSION: {
     code: 401,

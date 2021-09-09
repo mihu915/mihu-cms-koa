@@ -7,18 +7,14 @@ class LoginMiddleware {
   async verifyLogin(ctx, next) {
     const { username, password } = ctx.request.body
 
-    // 校验是否为空或没传值
-    if (!username || !password) {
-      ctx.emitError(errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED)
-    }
-
     // 用户是否存在
     ctx.user = await getUserByName(username)
     if (!ctx.user) ctx.emitError(errorTypes.INCORRECT_USERNAME_OR_PASSWORD)
-    if(!ctx.user.enable) ctx.emitError()
-    console.log()
 
-    // 密码是否正确
+    // 校验是否被封禁
+    if (!ctx.user.enable) ctx.emitError(errorTypes.ACCOUNT_IS_BANNED)
+
+    // 校验密码是否正确
     if (md5Password(password) !== ctx.user.password) {
       ctx.emitError(errorTypes.INCORRECT_USERNAME_OR_PASSWORD)
     }

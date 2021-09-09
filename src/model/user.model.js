@@ -10,18 +10,22 @@ function registerUserModel(sequelize) {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true, // 主键
-        autoIncrement: true // 自增
+        autoIncrement: true, // 自增
+        unique: true
       },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
         validate: {
+          notNull: {
+            msg: errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED
+          },
           is: {
             args: /^[a-zA-Z0-9]{6,12}$/,
             msg: errorTypes.USERNAME_OR_PASSWORD_ILLEGAL
           }
-        }
+        },
+        unique: true
       },
       password: {
         type: DataTypes.STRING,
@@ -29,7 +33,10 @@ function registerUserModel(sequelize) {
         validate: {
           is: {
             args: /^[a-zA-Z0-9.]{6,12}$/,
-            msg: 'errorTypes.USERNAME_OR_PASSWORD_ILLEGAL'
+            msg: errorTypes.USERNAME_OR_PASSWORD_ILLEGAL
+          },
+          notNull: {
+            msg: errorTypes.username_or_password_is_required
           }
         }
       },
@@ -45,19 +52,15 @@ function registerUserModel(sequelize) {
           key: 'id'
         }
       },
-      register_ip: DataTypes.STRING,
       operator_ip: DataTypes.STRING,
-      register_time: DataTypes.INTEGER,
       operator_time: DataTypes.INTEGER,
       last_login_ip: DataTypes.STRING,
       last_login_time: DataTypes.INTEGER,
-      realname: DataTypes.STRING,
+      nickname: DataTypes.STRING,
       mobile: DataTypes.STRING,
-
       qq: {
         type: DataTypes.STRING
       },
-      position: DataTypes.STRING,
       created: {
         type: DataTypes.INTEGER
       },

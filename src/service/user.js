@@ -1,4 +1,4 @@
-const { sequelize } = require('../app/database')
+const { sequelize, Op } = require('../app/database')
 
 const { User, Role } = sequelize.models
 
@@ -31,8 +31,8 @@ class UserService {
     return result
   }
 
-  // 查询用户列表
-  async getUserByName(username) {
+  // 根据用户名查询用户信息
+  async getUserByName(username, id) {
     try {
       const [result] = await User.findAll({
         where: {
@@ -48,6 +48,21 @@ class UserService {
   // 根据id删除用户
   async deleteUserById(id) {
     await User.destroy({
+      where: {
+        id
+      }
+    })
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
+  }
+
+  // 根据id修改用户信息
+  async alterUserInfoById(id, info) {
+    await User.update(info, {
       where: {
         id
       }
