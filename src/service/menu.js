@@ -1,7 +1,7 @@
 const { sequelize, Op } = require('../app/database')
 const { updateSuperAdminRoleMenu } = require('../service/role')
 const { handleMenu } = require('../utils/handle-menu')
-
+const { handleWhere } = require('../utils/handle-where')
 const { Menu, Role } = sequelize.models
 
 class MenuService {
@@ -106,26 +106,33 @@ class MenuService {
   // 分页获取菜单列表
   async getAllMenuList(option) {
     const { offset, limit, title, type, url, icon, startTime, endTime } = option
-    const filter = {
-      type: type || 1,
+
+    const whereRule = {
+      type: {
+        value: type || 1
+      },
       title: {
-        [Op.like]: title ? '%' + title + '%' : '%'
+        type: 'like',
+        value: title
       },
       url: {
-        [Op.like]: url ? '%' + url + '%' : '%'
+        type: 'like',
+        value: url
       },
       icon: {
-        [Op.like]: icon ? '%' + icon + '%' : '%'
+        type: 'like',
+        value: icon
       },
       created: {
-        [Op.gte]: startTime,
-        [Op.lte]: endTime
+        type: 'interval',
+        value: {
+          startTime,
+          endTime
+        }
       }
     }
+    const where = handleWhere(whereRule, Op)
 
-    if (!startTime || !endTime) delete filter.created
-
-    console.log(filter)
     const result = await Menu.findAll({
       limit: limit,
       offset: offset,
@@ -133,14 +140,18 @@ class MenuService {
         ['sort', 'ASC'],
         ['children', 'sort', 'ASC']
       ],
-      where: filter,
+      where,
+
       include: {
         model: Menu,
         as: 'children'
       }
     })
       .then((res) => {
-        return res
+        return {
+          list: res,
+          total_count: res.length
+        }
       })
       .catch((err) => {
         throw err
