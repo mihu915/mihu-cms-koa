@@ -20,6 +20,7 @@ class VerifyParams {
   async handleListParam(ctx, next) {
     ctx.request.query.offset = parseInt(ctx.request.query.offset)
     ctx.request.query.limit = parseInt(ctx.request.query.limit)
+    console.log(ctx.request.query)
 
     if (!ctx.request.query.offset && ctx.request.query.offset !== 0) {
       ctx.request.query.offset = undefined
@@ -27,7 +28,7 @@ class VerifyParams {
     if (!ctx.request.query.limit && ctx.request.query.limit !== 0) {
       ctx.request.query.limit = undefined
     }
-
+    console.log(ctx.request.query)
     await next()
   }
 }

@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const { errorTypes } = require('../error/error-types')
 
 function registerRoleModel(sequelize) {
   class Role extends Model {}
@@ -21,7 +22,8 @@ function registerRoleModel(sequelize) {
         type: DataTypes.STRING,
         validate: {
           is: {
-            args: /^(\d+\,)+\d+$/
+            args: /^(\d+\,)+\d+$/,
+            msg: errorTypes.PARAMETER_IS_NOT_LEGAL
           }
         }
       },

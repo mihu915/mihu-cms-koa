@@ -1,15 +1,40 @@
 const { sequelize, Op } = require('../app/database')
 
 const { User, Role } = sequelize.models
+const { handleWhere } = require('../utils/handle-where')
 
 class UserService {
   // 获取所有用户的角色信息
-  async userList(option) {
-    const { limit, offset } = option
-    console.log(typeof limit)
+  async userPageList(option) {
+    const { limit, offset, username, enable, nickname, startTime, endTime } =
+      option
+    const whereRule = {
+      username: {
+        type: 'like',
+        value: username
+      },
+      nickname: {
+        type: 'like',
+        value: nickname
+      },
+      enable: {
+        value: enable
+      },
+      created: {
+        type: 'interval',
+        value: {
+          startTime,
+          endTime
+        }
+      }
+    }
+
+    const where = handleWhere(whereRule, Op)
+
     const result = await User.findAll({
       limit,
       offset,
+      where,
       raw: true,
       attributes: {
         include: [[sequelize.literal('user_role.role_name'), 'role_name']],
@@ -21,8 +46,12 @@ class UserService {
         attributes: []
       }
     })
-      .then((res) => {
-        return res
+      .then(async (res) => {
+        const total_count = await User.count({where})
+        return {
+          list: res,
+          total_count
+        }
       })
       .catch((err) => {
         throw err

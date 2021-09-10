@@ -1,5 +1,5 @@
 const {
-  userList,
+  userPageList,
   createUser,
   getUserInfoById,
   switchUserEnable,
@@ -13,7 +13,7 @@ class userController {
     await createUser(ctx.request.body)
     ctx.body = {
       code: 200,
-      message: '注册成功'
+      message: '用户创建成功'
     }
   }
 
@@ -45,10 +45,10 @@ class userController {
     }
   }
 
-  // 获取用户列表
+  // 获取用户分页列表
   async getUserList(ctx, next) {
     const option = ctx.request.query
-    const result = await userList(option)
+    const result = await userPageList(option)
     ctx.body = {
       code: 200,
       data: result,

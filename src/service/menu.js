@@ -104,7 +104,7 @@ class MenuService {
   }
 
   // 分页获取菜单列表
-  async getAllMenuList(option) {
+  async getMenuPageList(option) {
     const { offset, limit, title, type, url, icon, startTime, endTime } = option
 
     const whereRule = {
@@ -147,10 +147,12 @@ class MenuService {
         as: 'children'
       }
     })
-      .then((res) => {
+      .then(async (res) => {
+        const total_count = await Menu.count({ where })
+
         return {
           list: res,
-          total_count: res.length
+          total_count
         }
       })
       .catch((err) => {
