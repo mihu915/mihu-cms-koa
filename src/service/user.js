@@ -157,19 +157,12 @@ class UserService {
 
   // 更新用户数据，登录操作
   async updateUserData(id, params) {
-    const { $ip, $time } = params
     try {
-      const [result] = await User.update(
-        {
-          last_login_ip: $ip,
-          last_login_time: $time
-        },
-        {
-          where: {
-            id
-          }
+      const [result] = await User.update(params, {
+        where: {
+          id
         }
-      )
+      })
       return result
     } catch (error) {
       throw error

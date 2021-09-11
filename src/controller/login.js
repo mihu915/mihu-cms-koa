@@ -7,7 +7,11 @@ class loginController {
   async userLogin(ctx, next) {
     const { id, username, role_id } = ctx.user
     console.log(ctx.request.body)
-    const params = ctx.request.body
+    const {$time, $ip} = ctx.request.body
+    const params = {
+      last_login_ip: $ip,
+      last_login_time: $time
+    }
 
     // 更新登录数据
     await updateUserData(id, params)
