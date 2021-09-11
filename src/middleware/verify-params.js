@@ -4,7 +4,13 @@ class VerifyParams {
   // 校验删除菜单的id
   async verifyDeleteMenu(ctx, next) {
     const { id } = ctx.request.params
-    if (id >= 25 && id <= 28) ctx.emitError(errorTypes.PROHIBIT_DELETION)
+    if (id <= 28) ctx.emitError(errorTypes.PROHIBIT_DELETION)
+    await next()
+  }
+
+  async verifyDeleteRoleId(ctx, next) {
+    const { id } = ctx.request.params
+    if (id <= 3) ctx.emitError(errorTypes.PROHIBIT_DELETION)
     await next()
   }
 

@@ -58,7 +58,18 @@ class RoleService {
       })
   }
 
-  // 删除用户角色信息
+  // 创建角色权限
+  async createRole(params) {
+    await Role.create(params)
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
+  }
+
+  // 删除用户角色权限信息
   async deleteUserRoleById(id) {
     await Role.destroy({
       where: {

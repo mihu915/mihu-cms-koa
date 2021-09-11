@@ -1,13 +1,24 @@
 const { sequelize, Op } = require('../app/database')
 
-const { User, Role } = sequelize.models
+const { User, Role, Menu } = sequelize.models
 const { handleWhere } = require('../utils/handle-where')
+const { getMenuPageList } = require('./menu')
 
 class UserService {
   // 获取所有用户的角色信息
   async userPageList(option) {
-    const { limit, offset, username, enable, nickname, startTime, endTime } =
-      option
+    const {
+      limit,
+      offset,
+      username,
+      enable,
+      nickname,
+      startTime,
+      endTime,
+      qq,
+      mobile
+    } = option
+
     const whereRule = {
       username: {
         type: 'like',
@@ -16,6 +27,14 @@ class UserService {
       nickname: {
         type: 'like',
         value: nickname
+      },
+      qq: {
+        type: 'like',
+        value: qq
+      },
+      mobile: {
+        type: 'like',
+        value: mobile
       },
       enable: {
         value: enable
@@ -47,7 +66,7 @@ class UserService {
       }
     })
       .then(async (res) => {
-        const total_count = await User.count({where})
+        const total_count = await User.count({ where })
         return {
           list: res,
           total_count
@@ -158,7 +177,7 @@ class UserService {
   }
 
   // 获取登录用户信息
-  async getUserInfoById(id) {
+  async getUserInfoById(id, role_id) {
     const [result] = await User.findAll({
       attributes: {
         exclude: ['password']
@@ -171,7 +190,12 @@ class UserService {
         id
       }
     })
-      .then((res) => {
+      .then(async (res) => {
+        if (role_id === 1) {
+          const allMenuList = await getMenuPageList({})
+          res[0].dataValues.all_menu_list = allMenuList.list
+        }
+        console.log(res[0])
         return res
       })
       .catch((err) => {

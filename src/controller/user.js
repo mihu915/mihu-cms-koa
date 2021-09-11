@@ -56,10 +56,10 @@ class userController {
     }
   }
 
+  // 获取用户基本信息
   async userInfo(ctx, next) {
-    const { id } = ctx.user
-
-    const result = await getUserInfoById(id)
+    const { id, role_id } = ctx.user
+    const result = await getUserInfoById(id, role_id)
 
     ctx.body = {
       code: 200,

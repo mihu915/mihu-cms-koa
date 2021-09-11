@@ -18,11 +18,11 @@ class MenuController {
     }
   }
 
+  // 添加菜单
   async createMenu(ctx) {
     const menuInfo = ctx.request.body
 
     await addMenu(menuInfo)
-
     ctx.body = {
       code: 200,
       message: '创建菜单成功'
