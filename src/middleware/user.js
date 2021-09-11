@@ -30,7 +30,7 @@ class UserMiddleware {
   async verifyDeleteUser(ctx, next) {
     const { id } = ctx.request.params
     if (parseInt(id) <= 10) {
-      emitError(errorTypes.PROHIBIT_DELETION)
+      ctx.emitError(errorTypes.PROHIBIT_DELETION)
     }
     await next()
   }
