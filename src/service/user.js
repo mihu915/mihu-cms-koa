@@ -5,7 +5,7 @@ const { handleWhere } = require('../utils/handle-where')
 const { getMenuPageList } = require('./menu')
 
 class UserService {
-  // 获取所有用户的角色信息
+  // 查询用户的信息
   async userPageList(option) {
     const {
       limit,

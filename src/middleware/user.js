@@ -4,10 +4,10 @@ const { getUserByName } = require('../service/user')
 class UserMiddleware {
   // 校验修改用户信息的参数
   async verifyUserInfo(ctx, next) {
-    const { username } = ctx.request.body
+    const { username, nickname } = ctx.request.body
 
     // 如果没设置昵称则将用户名设置为默认
-    if (!ctx.request.body.nickname) ctx.request.body.nickname = username
+    if (!nickname) ctx.request.body.nickname = username
 
     await next()
   }
