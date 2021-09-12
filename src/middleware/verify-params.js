@@ -21,10 +21,10 @@ class VerifyParams {
     console.log(ctx.request.query)
 
     if (!ctx.request.query.offset && ctx.request.query.offset !== 0) {
-      ctx.request.query.offset = undefined
+      ctx.request.query.offset = 0
     }
     if (!ctx.request.query.limit && ctx.request.query.limit !== 0) {
-      ctx.request.query.limit = undefined
+      ctx.request.query.limit = 10
     }
     console.log(ctx.request.query)
     await next()

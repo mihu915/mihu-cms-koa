@@ -28,6 +28,9 @@ class RoleService {
     const result = await Role.findAll({
       offset,
       limit,
+      order:[
+        ['created', 'DESC']
+      ],
       where
     })
       .then(async (res) => {

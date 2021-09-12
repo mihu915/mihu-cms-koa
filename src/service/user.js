@@ -54,6 +54,7 @@ class UserService {
       limit,
       offset,
       where,
+      order: [['created', 'DESC']],
       raw: true,
       attributes: {
         include: [[sequelize.literal('user_role.role_name'), 'role_name']],
@@ -170,7 +171,7 @@ class UserService {
   }
 
   // 获取登录用户信息
-  async getUserInfoById(id, role_id) {
+  async getUserInfoById(id) {
     const [result] = await User.findAll({
       attributes: {
         exclude: ['password']
@@ -184,11 +185,6 @@ class UserService {
       }
     })
       .then(async (res) => {
-        if (role_id === 1) {
-          const allMenuList = await getMenuPageList({})
-          res[0].dataValues.all_menu_list = allMenuList.list
-        }
-        console.log(res[0])
         return res
       })
       .catch((err) => {
