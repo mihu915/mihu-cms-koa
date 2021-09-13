@@ -97,7 +97,6 @@ class MenuService {
           id
         }
       })
-      console.log(result)
     } catch (error) {
       throw error
     }
@@ -105,33 +104,7 @@ class MenuService {
 
   // 分页获取菜单列表
   async getMenuPageList(option) {
-    const { offset, limit, title, type, url, icon, startTime, endTime } = option
-
-    const whereRule = {
-      type: {
-        value: type || 1
-      },
-      title: {
-        type: 'like',
-        value: title
-      },
-      url: {
-        type: 'like',
-        value: url
-      },
-      icon: {
-        type: 'like',
-        value: icon
-      },
-      created: {
-        type: 'interval',
-        value: {
-          startTime,
-          endTime
-        }
-      }
-    }
-    const where = handleWhere(whereRule, Op)
+    const { offset, limit } = option
 
     const result = await Menu.findAll({
       limit: limit,
@@ -140,7 +113,9 @@ class MenuService {
         ['sort', 'ASC'],
         ['children', 'sort', 'ASC']
       ],
-      where,
+      where: {
+        type: 1
+      },
 
       include: {
         model: Menu,
@@ -148,7 +123,7 @@ class MenuService {
       }
     })
       .then(async (res) => {
-        const total_count = await Menu.count({ where })
+        const total_count = await Menu.count()
 
         return {
           list: res,

@@ -8,7 +8,7 @@ const {
 class RoleController {
   // 获取角色权限列表
   async getUserRoleList(ctx) {
-    const result = await getUserRolePageList(ctx.request.query)
+    const result = await getUserRolePageList(ctx.request.body)
     ctx.body = {
       code: 200,
       data: result,

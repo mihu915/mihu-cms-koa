@@ -11,7 +11,6 @@ const {
 
 const {
   verifyDeleteMenu,
-  verifyMenuExist,
   handleListParam
 } = require('../middleware/verify-params')
 const { verifyAuth } = require('../middleware/auth')
@@ -19,7 +18,7 @@ const { verifyAuth } = require('../middleware/auth')
 const { updateOperationInfo } = require('../middleware/operation')
 
 // 获取菜单列表
-menuRouter.get('/list', verifyAuth, handleListParam, getMenuList)
+menuRouter.post('/list', verifyAuth, handleListParam, getMenuList)
 
 // 查询用户对应菜单
 menuRouter.get('/', verifyAuth, getRoleMenu)

@@ -5,7 +5,7 @@ const { User, Role, Menu } = sequelize.models
 class RoleService {
   // 获取角色列表
   async getUserRolePageList(option) {
-    const { offset, limit, role_name, role_intro, startTime, endTime } = option
+    const { offset, limit, role_name, role_intro, created } = option
     const whereRule = {
       role_name: {
         type: 'like',
@@ -17,10 +17,7 @@ class RoleService {
       },
       created: {
         type: 'interval',
-        value: {
-          startTime,
-          endTime
-        }
+        value: created
       }
     }
     const where = handleWhere(whereRule, Op)
@@ -28,9 +25,7 @@ class RoleService {
     const result = await Role.findAll({
       offset,
       limit,
-      order:[
-        ['created', 'DESC']
-      ],
+      order: [['created', 'DESC']],
       where
     })
       .then(async (res) => {
@@ -79,7 +74,20 @@ class RoleService {
         id
       }
     })
-      .then((res) => {
+      .then(async (res) => {
+        await User.update(
+          {
+            role_id: 3
+          },
+          {
+            where: {
+              role_id: id
+            }
+          }
+        ).catch((err) => {
+          throw err
+        })
+
         return res
       })
       .catch((err) => {

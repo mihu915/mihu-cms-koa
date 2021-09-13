@@ -16,7 +16,7 @@ const { verifyAuth } = require('../middleware/auth')
 const { updateOperationInfo } = require('../middleware/operation')
 const RoleRouter = new Router({ prefix: '/role' })
 // 查询列表
-RoleRouter.get('/list', verifyAuth, handleListParam, getUserRoleList)
+RoleRouter.post('/list', verifyAuth, handleListParam, getUserRoleList)
 // 修改
 RoleRouter.patch('/:id', verifyAuth, updateOperationInfo, alterUserRoleList)
 // 删除

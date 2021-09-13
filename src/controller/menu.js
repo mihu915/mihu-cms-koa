@@ -9,7 +9,7 @@ const {
 class MenuController {
   // 根据分页获取所有菜单列表
   async getMenuList(ctx) {
-    const result = await getMenuPageList(ctx.request.query)
+    const result = await getMenuPageList(ctx.request.body)
 
     ctx.body = {
       code: 200,

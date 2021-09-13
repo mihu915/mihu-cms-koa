@@ -13,19 +13,17 @@ const handleWhere = (rule, Op) => {
         }
         break
       case 'interval':
-        if (typeof rule[ruleKey].value === 'object') {
-          if (rule[ruleKey].value.startTime) {
-            where[ruleKey] = { [Op.gte]: rule[ruleKey].value.startTime }
+        if (Array.isArray(rule[ruleKey].value)) {
+          rule[ruleKey].value
+          where[ruleKey] = {
+            [Op.gte]: rule[ruleKey].value[0],
+            [Op.lte]: rule[ruleKey].value[1]
           }
-          if (rule[ruleKey].value.endTime) {
-            where[ruleKey] = { [Op.lte]: rule[ruleKey].value.endTime }
-          }
-          if (rule[ruleKey].value.startTime && rule[ruleKey].value.endTime) {
-            where[ruleKey] = {
-              [Op.gte]: rule[ruleKey].value.startTime,
-              [Op.lte]: rule[ruleKey].value.endTime
-            }
-          }
+        } else if (
+          typeof rule[ruleKey].value === 'string' ||
+          typeof rule[ruleKey].value === 'number'
+        ) {
+          where[ruleKey] = rule[ruleKey].value
         }
         break
       default:
@@ -36,7 +34,6 @@ const handleWhere = (rule, Op) => {
         break
     }
   })
-
   return where
 }
 

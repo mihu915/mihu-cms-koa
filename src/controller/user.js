@@ -47,8 +47,7 @@ class userController {
 
   // 获取用户分页列表
   async getUserList(ctx, next) {
-    const option = ctx.request.query
-    const result = await userPageList(option)
+    const result = await userPageList(ctx.request.body)
     ctx.body = {
       code: 200,
       data: result,

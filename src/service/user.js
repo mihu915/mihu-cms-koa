@@ -13,8 +13,7 @@ class UserService {
       username,
       enable,
       nickname,
-      startTime,
-      endTime,
+      created,
       qq,
       mobile
     } = option
@@ -41,10 +40,7 @@ class UserService {
       },
       created: {
         type: 'interval',
-        value: {
-          startTime,
-          endTime
-        }
+        value: created
       }
     }
 

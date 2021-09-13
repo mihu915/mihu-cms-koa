@@ -25,7 +25,7 @@ const userRouter = new Router({ prefix: '/user' })
 userRouter.get('/', verifyAuth, userInfo)
 
 // 管理员获取用户列表
-userRouter.get('/list', verifyAuth, handleListParam, getUserList)
+userRouter.post('/list', verifyAuth, handleListParam, getUserList)
 
 // 管理员创建用户
 userRouter.post(

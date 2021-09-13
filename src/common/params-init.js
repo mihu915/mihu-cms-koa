@@ -11,8 +11,6 @@ function paramsInit(ctx) {
   const params = ['POST', 'PATCH'].includes(ctx.method)
     ? ctx.request.body
     : ctx.request.query
-  console.log(ctx.request.body)
-  console.log(ctx.request.query)
   Object.keys(params).forEach((key) => {
     if (
       params[key] === null ||
