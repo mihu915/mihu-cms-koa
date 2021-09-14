@@ -1,5 +1,4 @@
 const { errorTypes } = require('../error/error-types')
-const { getMenuById } = require('../service/menu')
 class VerifyParams {
   // 校验删除菜单的id
   async verifyDeleteMenu(ctx, next) {

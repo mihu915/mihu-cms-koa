@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 14/09/2021 18:52:07
+ Date: 15/09/2021 00:14:05
 */
 
 SET NAMES utf8mb4;
@@ -78,7 +78,7 @@ CREATE TABLE `mh_user`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户密码',
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户头像',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户头像',
   `enable` int NULL DEFAULT 1 COMMENT '是否启用;1:启用0:禁用',
   `role_id` int NULL DEFAULT 3 COMMENT '权限id',
   `operator_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作ip',
@@ -98,7 +98,7 @@ CREATE TABLE `mh_user`  (
 -- ----------------------------
 -- Records of mh_user
 -- ----------------------------
-INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', NULL, 1, 1, '192.168.10.28', 1631516005, '192.168.10.45', 1631583223, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631583223);
+INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', NULL, 1, 1, '127.0.0.1', 1631635954, '127.0.0.1', 1631633146, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631635954);
 INSERT INTO `mh_user` VALUES (37, 'test123', 'cc03e747a6afbbcbf8be7668acfebee5', NULL, 1, 3, NULL, NULL, '127.0.0.1', 1631240891, 'test123', NULL, '12311', 1631175667, 1631240891);
 INSERT INTO `mh_user` VALUES (38, 'test111', '309031d05eb343448b725b09a3635f13', NULL, 0, 3, NULL, NULL, NULL, NULL, 'test456', NULL, NULL, 1631178264, 1631262319);
 INSERT INTO `mh_user` VALUES (39, 'test222211', '88ac78015b2a7a0b536c7dd679d6032d', NULL, 1, 3, NULL, NULL, NULL, NULL, 'test2222', NULL, NULL, 1631257531, 1631504040);
@@ -112,6 +112,7 @@ INSERT INTO `mh_user` VALUES (48, 'test2211', '19b30abe03267c1602807543e4dd4825'
 INSERT INTO `mh_user` VALUES (49, 'testhhh', '183946b92358420fb7bbfacaa20d70cb', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testhhh', NULL, NULL, 1631262147, 1631262147);
 INSERT INTO `mh_user` VALUES (50, 'test1133', '14fd39cfecc240f56df9f963c54d2bf0', NULL, 1, 9, NULL, NULL, NULL, NULL, 'test1133', NULL, NULL, 1631262534, 1631495385);
 INSERT INTO `mh_user` VALUES (51, 'testaaaa', 'da7a4c1171e14afc0744bf2f34d8515f', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testaaaa', NULL, NULL, 1631500303, 1631503969);
+INSERT INTO `mh_user` VALUES (54, 'test777', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17be514bf62.jpg', 1, 3, NULL, NULL, NULL, NULL, 'test777', NULL, NULL, 1631633722, 1631635954);
 
 -- ----------------------------
 -- Table structure for mh_user_role

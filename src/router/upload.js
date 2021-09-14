@@ -4,6 +4,6 @@ const { verifyUploadIcon } = require('../middleware/upload')
 const uploadRouter = new Router({ prefix: '/files' })
 
 // 上传头像
-uploadRouter.post('/icon', verifyUploadIcon, uploadIcon)
+uploadRouter.post('/avatar', verifyUploadIcon, uploadIcon)
 
 module.exports = uploadRouter

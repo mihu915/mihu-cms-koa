@@ -40,7 +40,7 @@ function registerUserModel(sequelize) {
           }
         }
       },
-      icon: {
+      avatar: {
         type: DataTypes.STRING
       },  
       enable: {

@@ -2,10 +2,10 @@ const { uploadConfig } = require('../utils/upload-config')
 const { errorTypes } = require('../error/error-types')
 class UploadMiddleware {
   async verifyUploadIcon(ctx, next) {
-    const upload = uploadConfig('/icon')
+    const upload = uploadConfig('/avatar')
 
     const err = await upload
-      .single('icon')(ctx, next)
+      .single('avatar')(ctx, next)
       .then((res) => res)
       .catch((err) => err)
 
