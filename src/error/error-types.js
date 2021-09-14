@@ -32,10 +32,14 @@ const errorTypes = {
   // 无法禁用
   UNABLE_TO_DISABLE: 'unable_to_disable',
 
+  // 不支持的文件类型
+  NOT_SUPPORTED_FILE_TYPE: 'not_supported_file_type',
+
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'
   },
+
   DO_NOT_ADD_DATA_REPEATEDLY: {
     code: 400,
     message: '请勿重复添加数据'

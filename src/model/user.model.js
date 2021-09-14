@@ -40,6 +40,9 @@ function registerUserModel(sequelize) {
           }
         }
       },
+      icon: {
+        type: DataTypes.STRING
+      },  
       enable: {
         type: DataTypes.INTEGER,
         defaultValue: 1

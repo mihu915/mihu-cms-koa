@@ -57,7 +57,10 @@ const handleError = (error, ctx) => {
       code = 403
       message = '无法禁用该用户'
       break
-
+    case errorTypes.NOT_SUPPORTED_FILE_TYPE:
+      code = 406
+      message = '不支持的文件类型'
+      break
     default:
       code = 500
       message = 'Server Error'
