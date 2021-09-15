@@ -12,9 +12,12 @@ class UploadMiddleware {
       .then((res) => res)
       .catch((err) => err)
 
-    console.log(err, '----文件上传')
     if (err) {
-      if (err.storageErrors && err.storageErrors.length) ctx.emitError(errorTypes.PARAMETER_IS_NOT_LEGAL)
+      if (err.field && field !== err.field) {
+        ctx.emitError(errorTypes.PARAMETER_IS_NOT_LEGAL)
+      } else {
+        ctx.emitError(err)
+      }
     }
   }
 }
