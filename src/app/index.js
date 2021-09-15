@@ -24,4 +24,6 @@ app.use(MhGlobalMiddleware(app, handleError))
 // 自动注册router方法
 autoRegisterRouter(app)
 
+
+
 module.exports = app
