@@ -12,7 +12,7 @@ class UploadMiddleware {
       .then((res) => res)
       .catch((err) => err)
 
-    console.log(err)
+    console.log(err, '----文件上传')
     if (err) {
       if (field !== err.field) ctx.emitError(errorTypes.PARAMETER_IS_NOT_LEGAL)
     }
