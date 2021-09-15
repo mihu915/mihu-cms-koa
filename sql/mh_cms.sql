@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 15/09/2021 00:14:05
+ Date: 15/09/2021 18:47:13
 */
 
 SET NAMES utf8mb4;
@@ -42,13 +42,9 @@ INSERT INTO `mh_menu` VALUES (26, '菜单管理', NULL, 0, 2, '/main/system/menu
 INSERT INTO `mh_menu` VALUES (27, '用户管理', NULL, 1, 2, '/main/system/user', 25, 1629189286, 1630998885);
 INSERT INTO `mh_menu` VALUES (28, '权限管理', NULL, 2, 2, '/main/system/role', 25, 1629189336, 1630999525);
 INSERT INTO `mh_menu` VALUES (34, '系统总览', 'el-icon-monitor', 0, 1, '/main/analysis', NULL, 1629272896, 1631007869);
-INSERT INTO `mh_menu` VALUES (70, '技术总览', NULL, 0, 2, '/main/analysis/skill', 34, 1631007849, 1631007849);
-INSERT INTO `mh_menu` VALUES (71, '文章管理', 'el-icon-document', 1, 1, '/main/essay', NULL, 1631070422, 1631516005);
-INSERT INTO `mh_menu` VALUES (73, '子菜单2', NULL, 1, 2, '111/1111', 71, 1631174586, 1631174696);
-INSERT INTO `mh_menu` VALUES (74, '子菜单3', NULL, 2, 2, '111/22', 71, 1631174618, 1631174626);
-INSERT INTO `mh_menu` VALUES (76, 'test123', NULL, 0, 2, '111/123', 71, 1631494836, 1631494836);
-INSERT INTO `mh_menu` VALUES (77, 'test456', NULL, 0, 2, '111/456', 71, 1631495319, 1631495319);
-INSERT INTO `mh_menu` VALUES (79, 'test111', NULL, 0, 2, '111/222', 71, 1631502197, 1631502197);
+INSERT INTO `mh_menu` VALUES (70, '核心技术', NULL, 0, 2, '/main/analysis/skill', 34, 1631007849, 1631676774);
+INSERT INTO `mh_menu` VALUES (71, '文章管理', 'el-icon-document', 1, 1, '/main/essay', NULL, 1631070422, 1631689059);
+INSERT INTO `mh_menu` VALUES (76, '编写文章', NULL, 0, 2, '/main/essay/write', 71, 1631494836, 1631689097);
 
 -- ----------------------------
 -- Table structure for mh_moment
@@ -93,12 +89,12 @@ CREATE TABLE `mh_user`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE,
   UNIQUE INDEX `mh_user_username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mh_user
 -- ----------------------------
-INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', NULL, 1, 1, '127.0.0.1', 1631635954, '127.0.0.1', 1631633146, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631635954);
+INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', 'http://localhost:1118/avatar/avatar-17be75ea3c9.JPG', 1, 1, '127.0.0.1', 1631697205, '127.0.0.1', 1631687677, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631697205);
 INSERT INTO `mh_user` VALUES (37, 'test123', 'cc03e747a6afbbcbf8be7668acfebee5', NULL, 1, 3, NULL, NULL, '127.0.0.1', 1631240891, 'test123', NULL, '12311', 1631175667, 1631240891);
 INSERT INTO `mh_user` VALUES (38, 'test111', '309031d05eb343448b725b09a3635f13', NULL, 0, 3, NULL, NULL, NULL, NULL, 'test456', NULL, NULL, 1631178264, 1631262319);
 INSERT INTO `mh_user` VALUES (39, 'test222211', '88ac78015b2a7a0b536c7dd679d6032d', NULL, 1, 3, NULL, NULL, NULL, NULL, 'test2222', NULL, NULL, 1631257531, 1631504040);
@@ -112,7 +108,7 @@ INSERT INTO `mh_user` VALUES (48, 'test2211', '19b30abe03267c1602807543e4dd4825'
 INSERT INTO `mh_user` VALUES (49, 'testhhh', '183946b92358420fb7bbfacaa20d70cb', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testhhh', NULL, NULL, 1631262147, 1631262147);
 INSERT INTO `mh_user` VALUES (50, 'test1133', '14fd39cfecc240f56df9f963c54d2bf0', NULL, 1, 9, NULL, NULL, NULL, NULL, 'test1133', NULL, NULL, 1631262534, 1631495385);
 INSERT INTO `mh_user` VALUES (51, 'testaaaa', 'da7a4c1171e14afc0744bf2f34d8515f', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testaaaa', NULL, NULL, 1631500303, 1631503969);
-INSERT INTO `mh_user` VALUES (54, 'test777', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17be514bf62.jpg', 1, 3, NULL, NULL, NULL, NULL, 'test777', NULL, NULL, 1631633722, 1631635954);
+INSERT INTO `mh_user` VALUES (54, 'test777', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17be804757b.jpg', 1, 3, NULL, NULL, NULL, NULL, 'test777', NULL, NULL, 1631633722, 1631685213);
 
 -- ----------------------------
 -- Table structure for mh_user_role
@@ -131,7 +127,7 @@ CREATE TABLE `mh_user_role`  (
 -- ----------------------------
 -- Records of mh_user_role
 -- ----------------------------
-INSERT INTO `mh_user_role` VALUES (1, '超级管理员', '所有权限', '25,26,27,28,34,70,71,73,74,76,77,79', NULL, 1631514343);
+INSERT INTO `mh_user_role` VALUES (1, '超级管理员', '所有权限', '25,26,27,28,34,70,71,76', NULL, 1631697205);
 INSERT INTO `mh_user_role` VALUES (2, '管理员', '部分权限', '34,70,25,26,27,28,78,71,76,77,79,73,74', NULL, 1631503952);
 INSERT INTO `mh_user_role` VALUES (3, '普通会员', '普通权限', '34,70', NULL, 1631503939);
 
