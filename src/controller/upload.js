@@ -3,7 +3,7 @@ const { DOMAIN_NAME, APP_PORT } = require('../app/config')
 class UploadController {
   async uploadIcon(ctx, next) {
     const fileName = ctx.req.file.filename
-
+    
     const avatar = DOMAIN_NAME + ':' + APP_PORT + '/avatar/' + fileName
 
     ctx.body = {

@@ -10,7 +10,7 @@ function uploadConfig(extraPath) {
       let finalPath
       if (extraPath) {
         finalPath = PUBLIC_RESOURCE_PATH + extraPath
-      }else {
+      } else {
         finalPath = PUBLIC_RESOURCE_PATH
       }
       cb(null, finalPath)

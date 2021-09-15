@@ -8,7 +8,6 @@ function MhGlobalMiddleware(app, handleError) {
     this.throw(errorType)
   }
 
-
   // 全局中间件
   return async function (ctx, next) {
     paramsInit(ctx)

@@ -16,7 +16,7 @@ function paramsInit(ctx) {
       params[key] === null ||
       (typeof params[key] === 'string' && params[key].length === 0)
     ) {
-      delete params[key]
+      params[key] = null
     }
   })
 }
