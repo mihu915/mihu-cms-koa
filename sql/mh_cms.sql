@@ -11,11 +11,31 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 15/09/2021 18:47:13
+ Date: 16/09/2021 18:35:23
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for mh_essay
+-- ----------------------------
+DROP TABLE IF EXISTS `mh_essay`;
+CREATE TABLE `mh_essay`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文章封面',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文章标题',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '文章内容',
+  `created` int NULL DEFAULT NULL COMMENT '创建时间',
+  `updated` int NULL DEFAULT NULL COMMENT '更新时间',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文章描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mh_essay
+-- ----------------------------
+INSERT INTO `mh_essay` VALUES (1, NULL, '123', 'hello world~', 1631776217, 1631785094, 'testa123123');
 
 -- ----------------------------
 -- Table structure for mh_menu
@@ -94,7 +114,7 @@ CREATE TABLE `mh_user`  (
 -- ----------------------------
 -- Records of mh_user
 -- ----------------------------
-INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', 'http://localhost:1118/avatar/avatar-17be75ea3c9.JPG', 1, 1, '127.0.0.1', 1631697205, '127.0.0.1', 1631687677, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631697205);
+INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', 'http://localhost:1118/avatar/avatar-17be75ea3c9.JPG', 1, 1, '192.168.10.75', 1631756620, '192.168.10.75', 1631788259, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631788259);
 INSERT INTO `mh_user` VALUES (37, 'test123', 'cc03e747a6afbbcbf8be7668acfebee5', NULL, 1, 3, NULL, NULL, '127.0.0.1', 1631240891, 'test123', NULL, '12311', 1631175667, 1631240891);
 INSERT INTO `mh_user` VALUES (38, 'test111', '309031d05eb343448b725b09a3635f13', NULL, 0, 3, NULL, NULL, NULL, NULL, 'test456', NULL, NULL, 1631178264, 1631262319);
 INSERT INTO `mh_user` VALUES (39, 'test222211', '88ac78015b2a7a0b536c7dd679d6032d', NULL, 1, 3, NULL, NULL, NULL, NULL, 'test2222', NULL, NULL, 1631257531, 1631504040);
@@ -107,8 +127,8 @@ INSERT INTO `mh_user` VALUES (47, 'test1100', 'ab9bc1e514d787624486de321c65a9a6'
 INSERT INTO `mh_user` VALUES (48, 'test2211', '19b30abe03267c1602807543e4dd4825', NULL, 1, 3, NULL, NULL, NULL, NULL, 'test2211', NULL, NULL, 1631257866, 1631257866);
 INSERT INTO `mh_user` VALUES (49, 'testhhh', '183946b92358420fb7bbfacaa20d70cb', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testhhh', NULL, NULL, 1631262147, 1631262147);
 INSERT INTO `mh_user` VALUES (50, 'test1133', '14fd39cfecc240f56df9f963c54d2bf0', NULL, 1, 9, NULL, NULL, NULL, NULL, 'test1133', NULL, NULL, 1631262534, 1631495385);
-INSERT INTO `mh_user` VALUES (51, 'testaaaa', 'da7a4c1171e14afc0744bf2f34d8515f', NULL, 1, 3, NULL, NULL, NULL, NULL, 'testaaaa', NULL, NULL, 1631500303, 1631503969);
-INSERT INTO `mh_user` VALUES (54, 'test777', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17be804757b.jpg', 1, 3, NULL, NULL, NULL, NULL, 'test777', NULL, NULL, 1631633722, 1631685213);
+INSERT INTO `mh_user` VALUES (51, 'testaaaa', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17bec458830.jpg', 1, 3, NULL, NULL, NULL, NULL, 'testaaaa', NULL, NULL, 1631500303, 1631756586);
+INSERT INTO `mh_user` VALUES (54, 'test777', 'da7a4c1171e14afc0744bf2f34d8515f', 'http://localhost:1118/avatar/avatar-17be804757b.jpg', 1, 3, NULL, NULL, NULL, NULL, 'test777', NULL, '123123123', 1631633722, 1631756620);
 
 -- ----------------------------
 -- Table structure for mh_user_role
