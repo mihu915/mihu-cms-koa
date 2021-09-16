@@ -1,5 +1,6 @@
 const { updateUserData } = require('../service/user')
 class OperationMiddleware {
+  // 更新操作信息
   async updateOperationInfo(ctx, next) {
     const { id } = ctx.user
     const { $ip, $time } = ctx.request.body

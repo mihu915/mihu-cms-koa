@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { errorTypes } = require('../error/error-types')
+
 function registerMenuModel(sequelize) {
   class Menu extends Model {}
   Menu.init(
@@ -8,7 +9,6 @@ function registerMenuModel(sequelize) {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-        
       },
       title: {
         type: DataTypes.STRING,

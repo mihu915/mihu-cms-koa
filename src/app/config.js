@@ -2,14 +2,26 @@ const dotenv = require('dotenv')
 const fs = require('fs')
 const path = require('path')
 
+const { getStat, mkdir, dirExists } = require('../utils/handle-file-path')
+
 dotenv.config()
 
 const PRIVATE_KEY = fs.readFileSync(
   path.resolve(__dirname, './keys/private.key')
 )
+
 const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './keys/public.key'))
-const PUBLIC_RESOURCE_PATH = path.join(__dirname, '..')+ '/public/'
-console.log(PUBLIC_RESOURCE_PATH)
+const PUBLIC_RESOURCE_PATH = path.join(__dirname, '..') + '/public/'
+
+async function test() {
+  const result = await getStat(PUBLIC_RESOURCE_PATH)
+  console.log(path.parse(PUBLIC_RESOURCE_PATH).dir)
+  console.log(result)
+  return result
+}
+
+test()
+
 const {
   APP_HOST,
   APP_PORT,
