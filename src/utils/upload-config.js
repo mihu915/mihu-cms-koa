@@ -1,18 +1,21 @@
 const multer = require('koa-multer')
 const { errorTypes } = require('../error/error-types')
 const { PUBLIC_RESOURCE_PATH } = require('../app/config')
-const path = require('path')
+const { dirExists } = require('./handle-file-path')
 
 function uploadConfig(extraPath) {
   // 存放路径和文件名
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: async (req, file, cb) => {
       let finalPath
       if (extraPath) {
         finalPath = PUBLIC_RESOURCE_PATH + extraPath
       } else {
         finalPath = PUBLIC_RESOURCE_PATH
       }
+      const result = await dirExists(finalPath)
+      
+      if(!result) throw new Error('create file error')
       cb(null, finalPath)
     },
 
@@ -39,9 +42,9 @@ function uploadConfig(extraPath) {
     }
   }
 
-  const uploadConfig = multer({ storage, limits, fileFilter })
+  const upload = multer({ storage, limits, fileFilter })
 
-  return uploadConfig
+  return upload
 }
 
 module.exports = {

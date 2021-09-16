@@ -13,15 +13,6 @@ const PRIVATE_KEY = fs.readFileSync(
 const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './keys/public.key'))
 const PUBLIC_RESOURCE_PATH = path.join(__dirname, '..') + '/public/'
 
-async function test() {
-  const result = await getStat(PUBLIC_RESOURCE_PATH)
-  console.log(path.parse(PUBLIC_RESOURCE_PATH).dir)
-  console.log(result)
-  return result
-}
-
-test()
-
 const {
   APP_HOST,
   APP_PORT,

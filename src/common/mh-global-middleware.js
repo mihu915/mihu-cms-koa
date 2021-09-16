@@ -11,6 +11,7 @@ function MhGlobalMiddleware(app, handleError) {
   // 全局中间件
   return async function (ctx, next) {
     paramsInit(ctx)
+    console.log(ctx.req.file)
     try {
       await next()
     } catch (error) {

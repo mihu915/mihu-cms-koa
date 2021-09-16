@@ -1,7 +1,7 @@
 /*
  * @Author: mihu
  * @Date: 2021-09-16 17:47:43
- * @LastEditTime: 2021-09-16 18:05:14
+ * @LastEditTime: 2021-09-16 20:37:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mihu_cms_koa\src\utils\handle-file-path.js
@@ -53,10 +53,9 @@ async function dirExists(dir) {
   let isExists = await getStat(dir)
   if (isExists && isExists.isDirectory()) {
     return true
-  } else if (isExists) {
-    false
   }
 
+  console.log('123123')
   //如果该路径不存在
   let tempDir = path.parse(dir).dir //拿到上级路径
   //递归判断，如果上级目录也不存在，则会代码会在此处继续循环执行，直到目录存在
