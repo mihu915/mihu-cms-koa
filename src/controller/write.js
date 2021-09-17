@@ -33,7 +33,7 @@ class WriteController {
     await updateWriteById(id, info)
     ctx.body = {
       code: 200,
-      message: '修改文章信息成功'
+      message: '保存成功'
     }
   }
 
@@ -43,7 +43,7 @@ class WriteController {
     await deleteWriteById(id)
     ctx.body = {
       code: 200,
-      message: '删除文章信息成功'
+      message: '保存成功'
     }
   }
 }
