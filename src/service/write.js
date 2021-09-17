@@ -1,11 +1,11 @@
 const { sequelize, Op } = require('../app/database')
 const { handleWhere } = require('../utils/handle-where')
-const { Essay } = sequelize.models
+const { Write } = sequelize.models
 
-class EssayService {
+class WriteService {
   // 新建文章
-  async insertEssay(info) {
-    const result = await Essay.create(info)
+  async insertWrite(info) {
+    const result = await Write.create(info)
       .then((res) => {
         return res
       })
@@ -14,7 +14,7 @@ class EssayService {
       })
   }
 
-  async selectEssay(option) {
+  async selectWrite(option) {
     const { offset, limit, title, created } = option
     const whereRule = {
       title: {
@@ -27,14 +27,14 @@ class EssayService {
       }
     }
     const where = handleWhere(whereRule, Op)
-    const result = await Essay.findAll({
+    const result = await Write.findAll({
       offset,
       limit,
       where,
       order: [['created', 'DESC']]
     })
       .then(async (res) => {
-        const total_count = await Essay.count({ where })
+        const total_count = await Write.count({ where })
         return {
           list: res,
           total_count
@@ -48,8 +48,8 @@ class EssayService {
   }
 
   // 更新文章表内容
-  async updateEssayById(id, info) {
-    const result = await Essay.update(info, {
+  async updateWriteById(id, info) {
+    const result = await Write.update(info, {
       where: {
         id
       }
@@ -65,8 +65,8 @@ class EssayService {
   }
 
   // 根据id删除
-  async deleteEssayById(id) {
-    const result = await Essay.destroy({
+  async deleteWriteById(id) {
+    const result = await Write.destroy({
       where: {
         id
       }
@@ -81,4 +81,4 @@ class EssayService {
   }
 }
 
-module.exports = new EssayService()
+module.exports = new WriteService()

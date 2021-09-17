@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize')
 const { errorTypes } = require('../error/error-types')
 
-function registerEssayModule(sequelize) {
-  class Essay extends Model {}
-  Essay.init(
+function registerWriteModule(sequelize) {
+  class Write extends Model {}
+  Write.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -30,10 +30,10 @@ function registerEssayModule(sequelize) {
       }
     },
     {
-      tableName: 'mh_essay',
+      tableName: 'mh_write',
       sequelize
     }
   )
 }
 
-module.exports = registerEssayModule
+module.exports = registerWriteModule

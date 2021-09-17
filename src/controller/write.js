@@ -1,24 +1,24 @@
 const {
-  insertEssay,
-  selectEssay,
-  updateEssayById,
-  deleteEssayById
-} = require('../service/essay')
+  insertWrite,
+  selectWrite,
+  updateWriteById,
+  deleteWriteById
+} = require('../service/write')
 
-class EssayController {
-  async createEssay(ctx, next) {
+class WriteController {
+  async createWrite(ctx, next) {
     const info = ctx.request.body
 
-    await insertEssay(info)
+    await insertWrite(info)
     ctx.body = {
       code: 200,
       message: '创建文章成功'
     }
   }
 
-  async getEssayList(ctx) {
+  async getWriteList(ctx) {
     const option = ctx.request.body
-    const result = await selectEssay(option)
+    const result = await selectWrite(option)
     ctx.body = {
       code: 200,
       data: result,
@@ -27,10 +27,10 @@ class EssayController {
   }
 
   // 修改
-  async alterEssay(ctx) {
+  async alterWrite(ctx) {
     const { id } = ctx.request.params
     const info = ctx.request.body
-    await updateEssayById(id, info)
+    await updateWriteById(id, info)
     ctx.body = {
       code: 200,
       message: '修改文章信息成功'
@@ -38,9 +38,9 @@ class EssayController {
   }
 
   // 删除
-  async deleteEssay(ctx) {
+  async deleteWrite(ctx) {
     const { id } = ctx.request.params
-    await deleteEssayById(id)
+    await deleteWriteById(id)
     ctx.body = {
       code: 200,
       message: '删除文章信息成功'
@@ -48,4 +48,4 @@ class EssayController {
   }
 }
 
-module.exports = new EssayController()
+module.exports = new WriteController()

@@ -3,19 +3,15 @@ const { errorTypes } = require('../error/error-types')
 const { PUBLIC_RESOURCE_PATH } = require('../app/config')
 const { dirExists } = require('./handle-file-path')
 
-function uploadConfig(extraPath) {
+function uploadConfig() {
   // 存放路径和文件名
   const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-      let finalPath
-      if (extraPath) {
-        finalPath = PUBLIC_RESOURCE_PATH + extraPath
-      } else {
-        finalPath = PUBLIC_RESOURCE_PATH
-      }
+      const finalPath = PUBLIC_RESOURCE_PATH + req.url.split('/')[2]
+
       const result = await dirExists(finalPath)
-      
-      if(!result) throw new Error('create file error')
+
+      if (!result) throw new Error('create file error')
       cb(null, finalPath)
     },
 
