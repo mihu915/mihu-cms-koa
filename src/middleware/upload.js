@@ -5,13 +5,16 @@ class UploadMiddleware {
   // uploadConfig方法返回upload中间件实例
 
   async setUploadConfig(ctx, next) {
-    let field
+    
     switch (ctx.path) {
       case '/files/cover':
-        field = 'cover'
+        ctx.uploadField = 'cover'
         break
       case '/files/avatar':
-        field = 'avatar'
+        ctx.uploadField = 'avatar'
+        break
+      case '/files/screenshot':
+        ctx.uploadField = 'screenshot'
         break
     }
 
@@ -19,7 +22,7 @@ class UploadMiddleware {
 
     // 监听error，并处理错误
     const err = await upload
-      .single(field)(ctx, next)
+      .single(ctx.uploadField)(ctx, next)
       .then((res) => res)
       .catch((err) => err)
 

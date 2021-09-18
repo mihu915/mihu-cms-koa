@@ -23,9 +23,9 @@ function uploadConfig() {
 
   // 文件上传设置
   const limits = {
-    fields: 10, // 非文件字段的数量
+    fields: 0, // 非文件字段的数量
     fileSize: 500 * 1024, //单位大小kb
-    files: 1 // 文件数量
+    files: 3 // 文件数量
   }
 
   const fileFilter = (req, file, cb) => {
