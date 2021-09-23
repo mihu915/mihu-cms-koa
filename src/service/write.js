@@ -15,11 +15,15 @@ class WriteService {
   }
 
   async selectWrite(option) {
-    const { offset, limit, title, created } = option
+    const { offset, limit, title, description, created } = option
     const whereRule = {
       title: {
         type: 'like',
         value: title
+      },
+      description: {
+        type: 'like',
+        value: description
       },
       created: {
         type: 'interval',
@@ -70,12 +74,13 @@ class WriteService {
       where: {
         id
       }
-    }).then((res) => {
-      return res
-      
-    }).catch(err => {
-      throw err
     })
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        throw err
+      })
 
     return result
   }
