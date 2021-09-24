@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 17/09/2021 18:56:33
+ Date: 23/09/2021 15:21:23
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `mh_menu`  (
   `created` int NULL DEFAULT NULL COMMENT '创建时间',
   `updated` int NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mh_menu
@@ -43,8 +43,8 @@ INSERT INTO `mh_menu` VALUES (27, '用户管理', NULL, 1, 2, '/main/system/user
 INSERT INTO `mh_menu` VALUES (28, '权限管理', NULL, 2, 2, '/main/system/role', 25, 1629189336, 1630999525);
 INSERT INTO `mh_menu` VALUES (29, '系统总览', 'el-icon-monitor', 0, 1, '/main/analysis', NULL, 1629272896, 1631007869);
 INSERT INTO `mh_menu` VALUES (30, '核心技术', NULL, 0, 2, '/main/analysis/skill', 29, 1631007849, 1631676774);
-INSERT INTO `mh_menu` VALUES (31, '内容管理', 'el-icon-document', 1, 1, '/main/essay', NULL, 1631070422, 1631859492);
-INSERT INTO `mh_menu` VALUES (32, '文章管理', NULL, 0, 2, '/main/essay/write', 31, 1631494836, 1631859500);
+INSERT INTO `mh_menu` VALUES (31, '博客管理', 'el-icon-document', 1, 1, '/main/blog', NULL, 1631070422, 1631929451);
+INSERT INTO `mh_menu` VALUES (32, '文章管理', NULL, 0, 2, '/main/blog/write', 31, 1631494836, 1631929460);
 
 -- ----------------------------
 -- Table structure for mh_moment
@@ -94,7 +94,7 @@ CREATE TABLE `mh_user`  (
 -- ----------------------------
 -- Records of mh_user
 -- ----------------------------
-INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', 'http://localhost:1118/avatar/avatar-17bf1b776b1.jpg', 1, 1, '192.168.10.66', 1631859500, '192.168.10.66', 1631847766, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1631859500);
+INSERT INTO `mh_user` VALUES (1, 'mihu0915', 'ea4ee1d8c29d7b6cf4438644ea4d88ca', 'http://localhost:1118/avatar/avatar-17bf1b776b1.jpg', 1, 1, '192.168.10.74', 1631929460, '192.168.10.69', 1632361380, '喝甜酒也迷糊', NULL, '2285088054', 1630508538, 1632361380);
 INSERT INTO `mh_user` VALUES (37, 'test123', 'cc03e747a6afbbcbf8be7668acfebee5', NULL, 1, 3, NULL, NULL, '127.0.0.1', 1631240891, 'test123', NULL, '12311', 1631175667, 1631240891);
 INSERT INTO `mh_user` VALUES (38, 'test111', '309031d05eb343448b725b09a3635f13', NULL, 0, 3, NULL, NULL, NULL, NULL, 'test456', NULL, NULL, 1631178264, 1631262319);
 INSERT INTO `mh_user` VALUES (39, 'test222211', '88ac78015b2a7a0b536c7dd679d6032d', NULL, 1, 3, NULL, NULL, NULL, NULL, 'test2222', NULL, NULL, 1631257531, 1631504040);
@@ -149,8 +149,8 @@ CREATE TABLE `mh_write`  (
 -- ----------------------------
 -- Records of mh_write
 -- ----------------------------
-INSERT INTO `mh_write` VALUES (9, 'http://localhost:1118/cover/cover-17bf1b28ec5.png', '123123', NULL, 1631847623, 1631872939, '123123123asdasd');
-INSERT INTO `mh_write` VALUES (11, 'http://localhost:1118/cover/cover-17bf3496383.png', '123123', NULL, 1631873212, 1631874575, '123123');
-INSERT INTO `mh_write` VALUES (12, NULL, '123', NULL, 1631873483, 1631874315, '123123');
+INSERT INTO `mh_write` VALUES (9, 'http://localhost:1118/cover/cover-17bf1b28ec5.png', '123123', NULL, 1631847623, 1631955471, '123123123asdasd');
+INSERT INTO `mh_write` VALUES (11, 'http://localhost:1118/cover/cover-17bf3496383.png', 'Markdown测试', '# title\n\ntest\n\ntets\n\n> test2222\n>\n> hhhh\n\n```js\nhahahah \n```\n\nhahah\n\n```js\nconsole.log(123123123123)\n// 查询文章列表\nwriteRouter.post(\'/list\', verifyAuth, handleListParam, getWriteList)\n\n// 添加文章\nwriteRouter.post(\'/\', verifyAuth, createWrite)\n\n// 修改文章信息\nwriteRouter.patch(\'/:id\', verifyAuth, alterWrite)\n\n// 删除文章信息\nwriteRouter.delete(\'/:id\', verifyAuth, deleteWrite)\n\nmodule.exports = writeRouter\n```\n\n123123\n\nasdasdasd\n\nasdasdasd\n\n# 哈哈哈哈123123123123123123\n\n```js\nconsole.log(123123123123)\n// 查询文章列表\nwriteRouter.post(\'/list\', verifyAuth, handleListParam, getWriteList)\n\n// 添加文章\nwriteRouter.post(\'/\', verifyAuth, createWrite)\n\n// 修改文章信息\nwriteRouter.patch(\'/:id\', verifyAuth, alterWrite)\n\n// 删除文章信息\nwriteRouter.delete(\'/:id\', verifyAuth, deleteWrite)\n\nmodule.exports = writeRouter\n```\n\n![screenshot.jpg](http://localhost:1118/screenshot/screenshot-17c10bc4389.png)\n\n123123123\n\n## hahahah\n\nasdasdasdasd\n\n1q2ewadeasdasd\n\nasdasdasdasd\n\n# test22222\n\n# test33333\n\n# test4444\n\n# test55555\n\nasdasdasdasd\n\n# test6666\n\n# test676777\n\n# test8888\n\n## hahahah\n\n## asdasdasd\n\n## saeose\n\n# asdfasfasf\n\n# asdasfdsdgsfdgfdg\n\n# sadfsdfsdg\n\n## sdfsdgsg\n\n# araerarae\n\n## asdfsdgfsdg\n\nasfdafsdgsdg\n\nsgfgsfdgsfdgf\n\n# sdfgsdgsdfgfg\n\n# sdgsdfgsddddddddsgd\n\n# safgfgfgfgfgfgfgfgfgfgfgfgfgs\n', 1631873212, 1632381009, '这条做测试');
+INSERT INTO `mh_write` VALUES (12, 'http://localhost:1118/cover/cover-17bf6c2163c.png', '123', '# title\n\n> asdasd\n\n![screenshot.jpg](http://localhost:1118/screenshot/screenshot-17bf793cc33.png)\n\ntest\n\n\n123123\n', 1631873483, 1632281941, '123123');
 
 SET FOREIGN_KEY_CHECKS = 1;
