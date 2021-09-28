@@ -5,13 +5,12 @@ class ModelHooks {
     instance.password = md5Password(instance.password)
   }
 
-  userBeforeValidate(){
+  userBeforeValidate() {
     console.log('userBeforeValidate')
   }
+
   // 校验完成之后
   userAfterValidate(instance, option) {}
-
-
 }
 
 module.exports = new ModelHooks()

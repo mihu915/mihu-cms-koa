@@ -51,7 +51,6 @@ class MenuController {
   async alterMenu(ctx) {
     const { id } = ctx.request.params
     const menuInfo = ctx.request.body
-    console.log(menuInfo)
     await alterMenuById(id, menuInfo)
     ctx.body = {
       code: 200,

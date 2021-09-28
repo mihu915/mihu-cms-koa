@@ -1,5 +1,6 @@
 const fs = require('fs')
 
+// 自动创建模型，并关联表关系
 function autoCreateModule(sequelize) {
   fs.readdirSync(__dirname).forEach((fileName) => {
     if (fileName === 'index.js' || fileName === 'hooks.js') return
