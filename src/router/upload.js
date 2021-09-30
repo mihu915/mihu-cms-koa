@@ -12,4 +12,8 @@ uploadRouter.post('/cover', verifyAuth, setUploadConfig, uploadImage)
 
 // 上传文章截图
 uploadRouter.post('/screenshot', verifyAuth, setUploadConfig, uploadImage)
+
+// 上传blogger头像
+uploadRouter.post('/blog/avatar', verifyAuth, setUploadConfig, uploadImage)
+
 module.exports = uploadRouter

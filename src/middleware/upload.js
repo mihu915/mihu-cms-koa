@@ -16,6 +16,9 @@ class UploadMiddleware {
       case '/files/screenshot':
         ctx.uploadField = 'screenshot'
         break
+      case '/files/blog/avatar':
+        ctx.uploadField = 'blogger_avatar'
+        break
     }
 
     const upload = await uploadConfig()

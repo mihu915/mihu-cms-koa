@@ -7,8 +7,7 @@ function uploadConfig() {
   // 存放路径和文件名
   const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-      const finalPath = PUBLIC_RESOURCE_PATH + req.url.split('/')[2]
-
+      const finalPath = PUBLIC_RESOURCE_PATH + req.url
       const result = await dirExists(finalPath)
 
       if (!result) throw new Error('create file error')

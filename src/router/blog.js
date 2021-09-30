@@ -12,6 +12,7 @@ const {
 const { verifyAuth } = require('../middleware/auth')
 const { handleListParam } = require('../middleware/verify-params')
 
+// 获取博客配置信息
 blogRouter.get('/config', verifyAuth, getBlogConfig)
 
 // 编辑配置

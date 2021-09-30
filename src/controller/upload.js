@@ -6,7 +6,7 @@ class UploadController {
     const fileName = ctx.req.file.filename
 
     const field =
-      DOMAIN_NAME + ':' + APP_PORT + '/' + ctx.uploadField + '/' + fileName
+      DOMAIN_NAME + ':' + APP_PORT + ctx.path + '/' + fileName
 
     ctx.body = {
       code: 200,

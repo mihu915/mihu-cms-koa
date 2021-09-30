@@ -2,8 +2,6 @@ const dotenv = require('dotenv')
 const fs = require('fs')
 const path = require('path')
 
-const { getStat, mkdir, dirExists } = require('../utils/handle-file-path')
-
 dotenv.config()
 
 const PRIVATE_KEY = fs.readFileSync(
