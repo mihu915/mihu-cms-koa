@@ -55,7 +55,6 @@ async function dirExists(dir) {
     return true
   }
 
-  console.log('123123')
   //如果该路径不存在
   let tempDir = path.parse(dir).dir //拿到上级路径
   //递归判断，如果上级目录也不存在，则会代码会在此处继续循环执行，直到目录存在
