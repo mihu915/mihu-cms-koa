@@ -1,10 +1,10 @@
 const { sequelize } = require('../app/database')
-const { BlogStyle, BlogConfig } = sequelize.models
+const { BlogStyle, BlogInfos } = sequelize.models
 
 class BlogService {
   // 编辑博客配置
   async editorInfos(config) {
-    const result = await BlogConfig.findAll()
+    const result = await BlogInfos.findAll()
       .then((res) => {
         return res
       })
@@ -13,7 +13,7 @@ class BlogService {
       })
 
     if (!result.length) {
-      await BlogConfig.create(config)
+      await BlogInfos.create(config)
         .then((res) => {
           return res
         })
@@ -22,7 +22,7 @@ class BlogService {
         })
     } else {
       const id = result[0].id
-      await BlogConfig.update(config, {
+      await BlogInfos.update(config, {
         where: {
           id
         }
@@ -37,7 +37,7 @@ class BlogService {
   }
 
   async getInfos() {
-    const result = await BlogConfig.findAll()
+    const result = await BlogInfos.findAll()
       .then((res) => {
         return res[0]
       })

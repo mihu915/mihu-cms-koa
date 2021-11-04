@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require('sequelize')
 
-function registerBlogConfigModel(sequelize) {
-  class BlogConfig extends Model {}
-  BlogConfig.init(
+function registerBlogInfosModel(sequelize) {
+  class BlogInfos extends Model {}
+  BlogInfos.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -30,9 +30,9 @@ function registerBlogConfigModel(sequelize) {
     },
     {
       sequelize,
-      tableName: 'mh_blog_config'
+      tableName: 'mh_blog_infos'
     }
   )
 }
 
-module.exports = registerBlogConfigModel
+module.exports = registerBlogInfosModel
