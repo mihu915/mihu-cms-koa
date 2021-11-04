@@ -3,7 +3,7 @@ const { BlogStyle, BlogConfig } = sequelize.models
 
 class BlogService {
   // 编辑博客配置
-  async editorConfig(config) {
+  async editorInfos(config) {
     const result = await BlogConfig.findAll()
       .then((res) => {
         return res
@@ -36,7 +36,7 @@ class BlogService {
     }
   }
 
-  async getConfig() {
+  async getInfos() {
     const result = await BlogConfig.findAll()
       .then((res) => {
         return res[0]

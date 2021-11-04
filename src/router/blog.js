@@ -6,17 +6,17 @@ const {
   getBlogStyleList,
   deleteBlogStyle,
   alterBlogStyle,
-  editorBlogConfig,
-  getBlogConfig
+  editorBlogInfos,
+  getBlogInfos
 } = require('../controller/blog')
 const { verifyAuth } = require('../middleware/auth')
 const { handleListParam } = require('../middleware/verify-params')
 
 // 获取博客配置信息
-blogRouter.get('/config', verifyAuth, getBlogConfig)
+blogRouter.get('/infos', verifyAuth, getBlogInfos)
 
 // 编辑配置
-blogRouter.post('/config', verifyAuth, editorBlogConfig)
+blogRouter.post('/infos', verifyAuth, editorBlogInfos)
 
 // 添加风格
 blogRouter.post('/style', verifyAuth, createBlogStyle)

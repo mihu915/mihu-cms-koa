@@ -3,24 +3,24 @@ const {
   getStyleList,
   alterStyle,
   deleteStyle,
-  editorConfig,
-  getConfig
+  editorInfos,
+  getInfos
 } = require('../service/blog')
 
 class BlogController {
-  async getBlogConfig(ctx) {
-    const result = await getConfig()
+  async getBlogInfos(ctx) {
+    const infos = await getInfos()
 
     ctx.body = {
       code: 200,
-      data: result,
+      data: infos,
       message: '获取配置成功'
     }
   }
 
-  async editorBlogConfig(ctx) {
-    const config = ctx.request.body
-    await editorConfig(config)
+  async editorBlogInfos(ctx) {
+    const infos = ctx.request.body
+    await editorInfos(infos)
     ctx.body = {
       code: 200,
       message: '编辑成功'
