@@ -1,13 +1,16 @@
-const {
-  createStyle,
-  getStyleList,
-  alterStyle,
-  deleteStyle,
-  editorInfos,
-  getInfos
-} = require('../service/blog')
+const { editorInfos, getInfos, getMenuList } = require('../service/blog')
 
 class BlogController {
+  async getBlogMenuList(ctx) {
+    const data = await getMenuList()
+    console.log(data)
+    ctx.body = {
+      code: 200,
+      data,
+      message: '获取菜单成功'
+    }
+  }
+
   async getBlogInfos(ctx) {
     const infos = await getInfos()
 
@@ -24,45 +27,6 @@ class BlogController {
     ctx.body = {
       code: 200,
       message: '编辑成功'
-    }
-  }
-
-  async createBlogStyle(ctx, next) {
-    const styleInfo = ctx.request.body
-    await createStyle(styleInfo)
-    ctx.body = {
-      code: '200',
-      message: '创建成功'
-    }
-  }
-
-  async getBlogStyleList(ctx) {
-    const option = ctx.request.body
-    const result = getStyleList(option)
-
-    ctx.body = {
-      code: 200,
-      data: result,
-      message: '查询风格列表成功'
-    }
-  }
-
-  async alterBlogStyle(ctx) {
-    const { id } = ctx.request.params
-    const styleInfo = ctx.request.body
-    await alterStyle(id, styleInfo)
-    ctx.body = {
-      code: 200,
-      message: '修改风格成功'
-    }
-  }
-
-  async deleteBlogStyle(ctx) {
-    const { id } = ctx.request.params
-    await deleteStyle(id)
-    ctx.body = {
-      code: 200,
-      message: '删除风格成功'
     }
   }
 }
