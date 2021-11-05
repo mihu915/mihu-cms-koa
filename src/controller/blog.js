@@ -1,9 +1,24 @@
-const { editorInfos, getInfos, getMenuList } = require('../service/blog')
+const {
+  editorInfos,
+  getInfos,
+  getMenuList,
+  createMenu
+} = require('../service/blog')
 
 class BlogController {
+  // 创建博客菜单
+  async createBlogMenu(ctx) {
+    const blogMenu = ctx.request.body
+    const result = await createMenu(blogMenu)
+    ctx.body = {
+      code: 200,
+      message: '创建菜单成功'
+    }
+  }
+
+  // 获取博客菜单列表
   async getBlogMenuList(ctx) {
     const data = await getMenuList()
-    console.log(data)
     ctx.body = {
       code: 200,
       data,
@@ -13,7 +28,6 @@ class BlogController {
 
   async getBlogInfos(ctx) {
     const infos = await getInfos()
-
     ctx.body = {
       code: 200,
       data: infos,

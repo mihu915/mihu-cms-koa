@@ -12,10 +12,10 @@ class MenuService {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 
@@ -57,11 +57,11 @@ class MenuService {
         id: roleId
       }
     })
-      .then((res) => {
+      .then(res => {
         if (!res[0].role_menu) return []
         return res[0].role_menu.split(',')
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 
@@ -79,10 +79,10 @@ class MenuService {
         ['children', 'sort', 'ASC']
       ]
     })
-      .catch((res) => {
+      .catch(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
     const menuList = handleMenu(menuListResult, menusId)
@@ -122,7 +122,7 @@ class MenuService {
         as: 'children'
       }
     })
-      .then(async (res) => {
+      .then(async res => {
         const total_count = await Menu.count()
 
         return {
@@ -130,7 +130,7 @@ class MenuService {
           total_count
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 

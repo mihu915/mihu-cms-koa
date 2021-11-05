@@ -51,12 +51,30 @@ class BlogService {
   // 获取菜单列表
   async getMenuList() {
     const result = await BlogMenu.findAll()
-      .then(res => {
-        return res[0]
+      .then(async res => {
+        const total_count = await BlogMenu.count()
+        return {
+          list: res,
+          total_count
+        }
       })
       .catch(err => {
         throw err
       })
+    return result
+  }
+
+
+  // 创建博客菜单
+  async createMenu(blogMenu) {
+    const result = await BlogMenu.create(blogMenu)
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
+      })
+
     return result
   }
 }
