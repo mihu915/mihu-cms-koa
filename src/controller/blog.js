@@ -2,7 +2,9 @@ const {
   editorInfos,
   getInfos,
   getMenuList,
-  createMenu
+  createMenu,
+  editMenu,
+  deleteMenu
 } = require('../service/blog')
 
 class BlogController {
@@ -12,7 +14,27 @@ class BlogController {
     const result = await createMenu(blogMenu)
     ctx.body = {
       code: 200,
-      message: '创建菜单成功'
+      message: '创建博客菜单成功'
+    }
+  }
+
+  async editBlogMenu(ctx) {
+    const menu = ctx.request.body
+    const { id } = ctx.request.params
+    const result = await editMenu(menu, id)
+    ctx.body = {
+      code: 200,
+      message: '修改博客菜单成功'
+    }
+  }
+
+  // 删除博客菜单
+  async deleteBlogMenu(ctx) {
+    const { id } = ctx.request.params
+    await deleteMenu(id)
+    ctx.body = {
+      code: 200,
+      message: '删除博客菜单成功'
     }
   }
 
@@ -22,7 +44,7 @@ class BlogController {
     ctx.body = {
       code: 200,
       data,
-      message: '获取菜单成功'
+      message: '获取博客菜单成功'
     }
   }
 

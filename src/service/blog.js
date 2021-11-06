@@ -36,6 +36,7 @@ class BlogService {
     }
   }
 
+  // 获取信息
   async getInfos() {
     const result = await BlogInfos.findAll()
       .then(res => {
@@ -48,9 +49,41 @@ class BlogService {
     return result
   }
 
-  // 获取菜单列表
+  // 编辑菜单信息
+  async editMenu(menu, id) {
+    const result = await BlogMenu.update(menu, {
+      where: {
+        id
+      }
+    })
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
+  // 删除菜单
+  async deleteMenu(id) {
+    const result = await BlogMenu.destroy({
+      where: {
+        id
+      }
+    })
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
+  // 获取博客菜单列表
   async getMenuList() {
-    const result = await BlogMenu.findAll()
+    const result = await BlogMenu.findAll({
+      order: [['sort', 'ASC']]
+    })
       .then(async res => {
         const total_count = await BlogMenu.count()
         return {
@@ -63,7 +96,6 @@ class BlogService {
       })
     return result
   }
-
 
   // 创建博客菜单
   async createMenu(blogMenu) {

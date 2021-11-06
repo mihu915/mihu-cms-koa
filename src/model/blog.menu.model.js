@@ -22,8 +22,9 @@ function registerBlogMenuModel(sequelize) {
         type: DataTypes.STRING
       },
       enable: {
-        type: DataTypes.INTEGER
-      },  
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+      },
       created: {
         type: DataTypes.INTEGER
       },

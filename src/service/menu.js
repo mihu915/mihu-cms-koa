@@ -36,16 +36,18 @@ class MenuService {
 
   // 删除指定id的菜单
   async removeMenuById(id) {
-    try {
-      await Menu.destroy({
-        where: {
-          [Op.or]: [{ id }, { parent_id: id }]
-        }
+    await Menu.destroy({
+      where: {
+        [Op.or]: [{ id }, { parent_id: id }]
+      }
+    })
+      .then(res => {
+        return res
       })
-      await updateSuperAdminRoleMenu()
-    } catch (error) {
-      throw error
-    }
+      .catch(err => {
+        throw err
+      })
+    await updateSuperAdminRoleMenu()
   }
 
   // 根据角色id获取菜单数据
@@ -79,7 +81,7 @@ class MenuService {
         ['children', 'sort', 'ASC']
       ]
     })
-      .catch(res => {
+      .then(res => {
         return res
       })
       .catch(err => {

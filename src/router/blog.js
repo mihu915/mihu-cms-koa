@@ -4,13 +4,24 @@ const blogRouter = new Router({ prefix: '/blog' })
 const {
   editorBlogInfos,
   getBlogInfos,
-  getBlogMenuList
+  getBlogMenuList,
+  createBlogMenu,
+  editBlogMenu,
+  deleteBlogMenu
 } = require('../controller/blog')
 const { verifyAuth } = require('../middleware/auth')
 const { handleListParam } = require('../middleware/verify-params')
 
 // 获取博客菜单列表
 blogRouter.post('/menu/list', verifyAuth, getBlogMenuList)
+
+// 创建博客菜单
+blogRouter.post('/menu', verifyAuth, createBlogMenu)
+
+// 修改博客菜单信息
+blogRouter.patch('/menu/:id', verifyAuth, editBlogMenu)
+
+blogRouter.delete('/menu/:id', verifyAuth, deleteBlogMenu)
 
 // 获取博客配置信息
 blogRouter.get('/infos', verifyAuth, getBlogInfos)
