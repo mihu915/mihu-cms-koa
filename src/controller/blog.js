@@ -4,7 +4,8 @@ const {
   getMenuList,
   createMenu,
   editMenu,
-  deleteMenu
+  deleteMenu,
+  switchStatus
 } = require('../service/blog')
 
 class BlogController {
@@ -25,6 +26,17 @@ class BlogController {
     ctx.body = {
       code: 200,
       message: '修改博客菜单成功'
+    }
+  }
+
+  async switchBlogMenuStatus(ctx) {
+    const { enable } = ctx.request.query
+    const { id } = ctx.request.params
+
+    await switchStatus(enable, id)
+    ctx.body = {
+      code: 200,
+      message: parseInt(enable) ? '启用菜单成功' : '禁用菜单成功'
     }
   }
 

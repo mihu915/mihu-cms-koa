@@ -49,6 +49,26 @@ class BlogService {
     return result
   }
 
+  // 切换菜单状态
+  async switchStatus(status, menu_id) {
+    console.log(status)
+    const result = await BlogMenu.update(
+      {
+        enable: status
+      },
+      {
+        where: {
+          id: menu_id
+        }
+      }
+    )
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
+      })
+  }
   // 编辑菜单信息
   async editMenu(menu, id) {
     const result = await BlogMenu.update(menu, {

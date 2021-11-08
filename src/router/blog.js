@@ -7,7 +7,8 @@ const {
   getBlogMenuList,
   createBlogMenu,
   editBlogMenu,
-  deleteBlogMenu
+  deleteBlogMenu,
+  switchBlogMenuStatus
 } = require('../controller/blog')
 const { verifyAuth } = require('../middleware/auth')
 const { handleListParam } = require('../middleware/verify-params')
@@ -25,6 +26,9 @@ blogRouter.delete('/menu/:id', verifyAuth, deleteBlogMenu)
 
 // 获取博客配置信息
 blogRouter.get('/infos', verifyAuth, getBlogInfos)
+
+// 切换博客菜单状态
+blogRouter.get('/menu/enable/:id', verifyAuth, switchBlogMenuStatus)
 
 // 编辑配置信息
 blogRouter.post('/infos', verifyAuth, editorBlogInfos)
