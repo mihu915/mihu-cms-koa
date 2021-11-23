@@ -22,6 +22,11 @@ function registerWriteModule(sequelize) {
       content: {
         type: DataTypes.TEXT
       },
+
+      see_count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
       created: {
         type: DataTypes.INTEGER
       },
