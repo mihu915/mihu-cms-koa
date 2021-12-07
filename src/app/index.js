@@ -6,11 +6,14 @@ const cors = require('koa2-cors')
 const { MhGlobalMiddleware } = require('../common/mh-global-middleware')
 const { handleError } = require('../error/handle-error')
 const { PUBLIC_RESOURCE_PATH } = require('../app/config')
+const { logger, accessLogger } = require('./logger')
 
 const app = new Koa()
 
 // 解决跨域
 app.use(cors())
+
+app.use(accessLogger())
 
 // 开启静态文件服务器
 app.use(static(PUBLIC_RESOURCE_PATH))
