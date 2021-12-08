@@ -1,4 +1,5 @@
 const { errorTypes } = require('./error-types')
+const { logger } = require('../app/logger')
 
 // 错误处理中间件
 const handleError = (error, ctx) => {
@@ -11,7 +12,8 @@ const handleError = (error, ctx) => {
     errorMessage = error.message
   }
 
-  console.log(error)
+  logger.error(error)
+
   switch (errorMessage) {
     case errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED:
       code = 400

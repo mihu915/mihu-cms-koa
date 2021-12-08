@@ -1,10 +1,14 @@
+const {
+  userBeforeCreate,
+  userBeforeValidate
+} = require('../hooks/use-route-user')
+
 const { Model, DataTypes } = require('sequelize')
-const { userBeforeCreate, userBeforeValidate } = require('./hooks')
+
 const { errorTypes } = require('../error/error-types')
 
 function registerUserModel(sequelize) {
   class User extends Model {}
-
   User.init(
     {
       id: {
@@ -42,7 +46,7 @@ function registerUserModel(sequelize) {
       },
       avatar: {
         type: DataTypes.STRING
-      },  
+      },
       enable: {
         type: DataTypes.INTEGER,
         defaultValue: 1
@@ -57,6 +61,7 @@ function registerUserModel(sequelize) {
       },
       operator_ip: DataTypes.STRING,
       operator_time: DataTypes.INTEGER,
+      operator_id: DataTypes.INTEGER,
       last_login_ip: DataTypes.STRING,
       last_login_time: DataTypes.INTEGER,
       nickname: DataTypes.STRING,

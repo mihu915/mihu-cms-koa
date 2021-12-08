@@ -12,7 +12,7 @@ const {
   verifyDeleteRoleId
 } = require('../middleware/verify-params')
 
-const { verifyAuth } = require('../middleware/auth')
+const { verifyAuth } = require('../middleware/auth.middleware')
 const { updateOperationInfo } = require('../middleware/operation')
 const RoleRouter = new Router({ prefix: '/role' })
 // 查询列表

@@ -2,21 +2,12 @@ const { sequelize, Op } = require('../app/database')
 
 const { User, Role, Menu } = sequelize.models
 const { handleWhere } = require('../utils/handle-where')
-const { getMenuPageList } = require('./menu')
 
 class UserService {
   // 查询用户的信息
   async userPageList(option) {
-    const {
-      limit,
-      offset,
-      username,
-      enable,
-      nickname,
-      created,
-      qq,
-      mobile
-    } = option
+    const { limit, offset, username, enable, nickname, created, qq, mobile } =
+      option
 
     const whereRule = {
       username: {
@@ -62,14 +53,14 @@ class UserService {
         attributes: []
       }
     })
-      .then(async (res) => {
+      .then(async res => {
         const total_count = await User.count({ where })
         return {
           list: res,
           total_count
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 
@@ -97,10 +88,10 @@ class UserService {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
@@ -112,10 +103,10 @@ class UserService {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
@@ -133,10 +124,10 @@ class UserService {
         }
       }
     )
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
@@ -144,26 +135,29 @@ class UserService {
   // 超管创建用户
   async createUser(params) {
     await User.create(params)
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
 
-  // 更新用户数据，登录操作
+  // 更新用户数据，登录
   async updateUserData(id, params) {
-    try {
-      const [result] = await User.update(params, {
-        where: {
-          id
-        }
+    const [result] = await User.update(params, {
+      where: {
+        id: id
+      },
+      aaaaa: '123123'
+    })
+      .then(res => {
+        return res
       })
-      return result
-    } catch (error) {
-      throw error
-    }
+      .catch(err => {
+        throw err
+      })
+    return result
   }
 
   // 获取登录用户信息
@@ -180,10 +174,10 @@ class UserService {
         id
       }
     })
-      .then(async (res) => {
+      .then(async res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 

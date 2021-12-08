@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.21.4",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
@@ -22,7 +23,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/main.js"
+    "dev": "cross-env NODE_ENV=development nodemon ./src/main.js",
+    "start": "pm2 start ./ecosystem.config.js  --env production --watch",
+    "log": "pm2 log mihu_cms_api",
+    "status": "pm2 status",
+    "stop": "pm2 stop mihu_cms_api",
+    "restart": "pm2 delete mihu_cms_api && npm run start"
   },
   "author": "",
   "license": "ISC"

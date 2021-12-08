@@ -10,7 +10,7 @@ const {
   deleteBlogMenu,
   switchBlogMenuStatus
 } = require('../controller/blog')
-const { verifyAuth } = require('../middleware/auth')
+const { verifyAuth } = require('../middleware/auth.middleware')
 const { handleListParam } = require('../middleware/verify-params')
 
 // 获取博客菜单列表

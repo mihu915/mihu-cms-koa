@@ -16,7 +16,7 @@ const {
 } = require('../middleware/user')
 
 const { handleListParam } = require('../middleware/verify-params')
-const { verifyAuth } = require('../middleware/auth')
+const { verifyAuth } = require('../middleware/auth.middleware')
 const { updateOperationInfo } = require('../middleware/operation')
 
 const userRouter = new Router({ prefix: '/user' })
@@ -24,10 +24,10 @@ const userRouter = new Router({ prefix: '/user' })
 // 登录后获取用户信息
 userRouter.get('/', verifyAuth, userInfo)
 
-// 管理员获取用户列表
+// 获取用户列表
 userRouter.post('/list', verifyAuth, handleListParam, getUserList)
 
-// 管理员创建用户
+// 创建用户
 userRouter.post(
   '/',
   verifyAuth,
@@ -36,7 +36,7 @@ userRouter.post(
   userSignup
 )
 
-// 管理员修改用户信息
+// 修改用户信息
 userRouter.patch(
   '/:id',
   verifyAuth,
@@ -45,7 +45,7 @@ userRouter.patch(
   alterUserInfo
 )
 
-// 管理员切换用户状态
+// 切换用户状态
 userRouter.get(
   '/enable/:id',
   verifyAuth,

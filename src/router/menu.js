@@ -13,7 +13,7 @@ const {
   verifyDeleteMenu,
   handleListParam
 } = require('../middleware/verify-params')
-const { verifyAuth } = require('../middleware/auth')
+const { verifyAuth } = require('../middleware/auth.middleware')
 
 const { updateOperationInfo } = require('../middleware/operation')
 

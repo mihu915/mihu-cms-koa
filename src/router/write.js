@@ -5,8 +5,10 @@ const {
   alterWrite,
   deleteWrite
 } = require('../controller/write')
-const { verifyAuth } = require('../middleware/auth')
+
+const { verifyAuth } = require('../middleware/auth.middleware')
 const { handleListParam } = require('../middleware/verify-params')
+
 const writeRouter = new Router({ prefix: '/write' })
 
 // 查询文章列表

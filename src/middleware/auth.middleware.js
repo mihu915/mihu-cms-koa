@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('../app/config')
-const { errorTypes } =require('../error/error-types')
+const { errorTypes } = require('../error/error-types')
 
 // 赋权鉴权中间件
 class AuthMiddleware {
@@ -10,10 +10,12 @@ class AuthMiddleware {
     if (!authorization) ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
 
     const token = authorization.replace('Bearer ', '')
+
     try {
       ctx.user = jwt.verify(token, config.PUBLIC_KEY, {
         algorithms: 'RS256'
       })
+      ctx.setOptions({ userInfo: ctx.user })
     } catch (error) {
       ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
     }

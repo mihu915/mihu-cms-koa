@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const { uploadImage } = require('../controller/upload')
 const { setUploadConfig } = require('../middleware/upload')
-const { verifyAuth } = require('../middleware/auth')
+const { verifyAuth } = require('../middleware/auth.middleware')
 const uploadRouter = new Router({ prefix: '/files' })
 
 // 上传头像

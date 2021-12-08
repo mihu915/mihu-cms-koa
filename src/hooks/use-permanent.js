@@ -1,7 +1,7 @@
-const hooks = {
+const { sequelize } = require('../app/database')
+const usePermanent = {
   // 创建数据之前的钩子函数
-  beforeCreate: (instance) => {
-    console.log('beforeCreate')
+  beforeCreate: instance => {
     let now = Math.round(Date.now() / 1000)
     instance.created = now
     instance.updated = now
@@ -9,20 +9,23 @@ const hooks = {
 
   // 批量更新数据之前调用此钩子函数
   beforeBulkUpdate(option) {
-    console.log('beforeBulkUpdate')
     // 设置所有批量update操作为单个更新操作
     option.individualHooks = true
   },
 
-  // 单个update操作调用此钩子函数
+  // 设置为单个update操作 才会调用此钩子函数
   beforeUpdate: (instance, option) => {
+    // console.log(instance)
+    console.log(sequelize)
     // 如果值有变化则更新updated
     if (instance.changed()) {
       instance.updated = Math.round(Date.now() / 1000)
     }
-  }
+  },
+
+  afterUpdate: (instance, option) => {}
 }
 
 module.exports = {
-  hooks
+  usePermanent
 }

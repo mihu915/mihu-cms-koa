@@ -3,16 +3,18 @@ const bodyParser = require('koa-bodyparser')
 const autoRegisterRouter = require('../router')
 const static = require('koa-static')
 const cors = require('koa2-cors')
-const { MhGlobalMiddleware } = require('../common/mh-global-middleware')
+
+const { MhGlobalMiddleware } = require('../middleware/global.middleware')
 const { handleError } = require('../error/handle-error')
 const { PUBLIC_RESOURCE_PATH } = require('../app/config')
-const { logger, accessLogger } = require('./logger')
+const { accessLogger } = require('./logger')
 
 const app = new Koa()
 
 // 解决跨域
 app.use(cors())
 
+// 注册日志中间件
 app.use(accessLogger())
 
 // 开启静态文件服务器
