@@ -1,5 +1,4 @@
 const fs = require('fs')
-
 // 自动创建模型，并关联表关系
 function autoCreateModule(sequelize) {
   fs.readdirSync(__dirname).forEach(fileName => {
@@ -19,6 +18,8 @@ function autoCreateModule(sequelize) {
     foreignKey: 'parent_id',
     as: 'children'
   })
+
+  exports.models = sequelize.models
 }
 
 module.exports = {

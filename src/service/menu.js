@@ -1,7 +1,6 @@
 const { sequelize, Op } = require('../app/database')
 const { updateSuperAdminRoleMenu } = require('../service/role')
 const { handleMenu } = require('../utils/handle-menu')
-const { handleWhere } = require('../utils/handle-where')
 const { Menu, Role } = sequelize.models
 
 class MenuService {
@@ -26,7 +25,7 @@ class MenuService {
   async addMenu(menuInfo) {
     try {
       // 插入菜单数据
-      await Menu.create(menuInfo)
+      await Menu.scope('userInfo').create(menuInfo)
       // 更新role表中的菜单列表
       await updateSuperAdminRoleMenu()
     } catch (error) {

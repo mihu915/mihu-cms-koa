@@ -15,7 +15,7 @@ class AuthMiddleware {
       ctx.user = jwt.verify(token, config.PUBLIC_KEY, {
         algorithms: 'RS256'
       })
-      ctx.setOptions({ userInfo: ctx.user })
+      ctx.addScope('userInfo', { userInfo: ctx.user })
     } catch (error) {
       ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
     }

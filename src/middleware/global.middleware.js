@@ -9,8 +9,13 @@ function MhGlobalMiddleware(app, handleError) {
   app.context.emitError = function (errorType) {
     this.throw(errorType)
   }
-  app.context.setOptions = function (option) {
-    sequelize.options = { ...sequelize.options, ...option }
+
+  app.context.addScope = function (name, option) {
+    console.log(name)
+    Object.keys(sequelize.models).forEach(key => {
+      sequelize.models[key].addScope(name, option)
+      sequelize.models[key] = sequelize.models[key].scope(name)
+    })
   }
 
   // 全局中间件

@@ -1,4 +1,3 @@
-const { sequelize } = require('../app/database')
 const usePermanent = {
   // 创建数据之前的钩子函数
   beforeCreate: instance => {
@@ -16,7 +15,7 @@ const usePermanent = {
   // 设置为单个update操作 才会调用此钩子函数
   beforeUpdate: (instance, option) => {
     // console.log(instance)
-    console.log(sequelize)
+    console.log(option)
     // 如果值有变化则更新updated
     if (instance.changed()) {
       instance.updated = Math.round(Date.now() / 1000)

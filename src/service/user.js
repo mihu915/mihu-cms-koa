@@ -1,10 +1,12 @@
 const { sequelize, Op } = require('../app/database')
 
-const { User, Role, Menu } = sequelize.models
 const { handleWhere } = require('../utils/handle-where')
+
+const { User, Role, Menu } = sequelize.models
 
 class UserService {
   // 查询用户的信息
+
   async userPageList(option) {
     const { limit, offset, username, enable, nickname, created, qq, mobile } =
       option
@@ -145,11 +147,10 @@ class UserService {
 
   // 更新用户数据，登录
   async updateUserData(id, params) {
-    const [result] = await User.update(params, {
+    const [result] = await sequelize.models.User.update(params, {
       where: {
         id: id
-      },
-      aaaaa: '123123'
+      }
     })
       .then(res => {
         return res
