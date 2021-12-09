@@ -3,7 +3,7 @@ const {
   alterUserRoleById,
   deleteUserRoleById,
   createRole
-} = require('../service/role')
+} = require('../service/role.service')
 
 class RoleController {
   // 获取角色权限列表

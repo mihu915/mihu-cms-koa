@@ -1,9 +1,14 @@
-const { paramsInit } = require('../utils/params-init')
 const { sequelize } = require('../app/database')
+const fs = require('fs')
+const path = require('path')
+const models = require('../model')
+const { paramsInit } = require('../utils/params-init')
 
 function MhGlobalMiddleware(app, handleError) {
   // 注册错误处理中间件
   app.on('error', handleError)
+
+  app.context.scope = []
 
   // 挂载全局的提交error的方法
   app.context.emitError = function (errorType) {
@@ -11,10 +16,18 @@ function MhGlobalMiddleware(app, handleError) {
   }
 
   app.context.addScope = function (name, option) {
-    console.log(name)
-    Object.keys(sequelize.models).forEach(key => {
-      sequelize.models[key].addScope(name, option)
-      sequelize.models[key] = sequelize.models[key].scope(name)
+    if (!this.scope.includes(name)) {
+      this.scope.push(name)
+      Object.keys(models).forEach(key => {
+        models[key].addScope(name, { [name]: option })
+        models[key] = models[key].scope(this.scope)
+      })
+    }
+
+    const services = fs.readdirSync(path.join(__dirname, '../service'))
+
+    services.forEach(file => {
+      require(`../service/${file}`)
     })
   }
 

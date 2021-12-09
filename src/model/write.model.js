@@ -1,44 +1,44 @@
 const { Model, DataTypes } = require('sequelize')
-const { errorTypes } = require('../error/error-types')
+const { sequelize } = require('../app/database')
 
-function registerWriteModule(sequelize) {
-  class Write extends Model {}
-  Write.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      cover: {
-        type: DataTypes.STRING
-      },
-      description: {
-        type: DataTypes.INTEGER
-      },
-      title: {
-        type: DataTypes.STRING
-      },
-      content: {
-        type: DataTypes.TEXT
-      },
-
-      see_count: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      },
-      created: {
-        type: DataTypes.INTEGER
-      },
-      updated: {
-        type: DataTypes.INTEGER
-      }
+class Write extends Model {}
+Write.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    {
-      tableName: 'mh_write',
-      sequelize
-    }
-  )
-}
+    cover: {
+      type: DataTypes.STRING
+    },
+    description: {
+      type: DataTypes.INTEGER
+    },
+    title: {
+      type: DataTypes.STRING
+    },
+    content: {
+      type: DataTypes.TEXT
+    },
 
-module.exports = registerWriteModule
+    see_count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    created: {
+      type: DataTypes.INTEGER
+    },
+    updated: {
+      type: DataTypes.INTEGER
+    }
+  },
+  {
+    tableName: 'mh_write',
+    sequelize
+  }
+)
+
+module.exports = {
+  Write
+}

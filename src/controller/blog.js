@@ -6,7 +6,7 @@ const {
   editMenu,
   deleteMenu,
   switchStatus
-} = require('../service/blog')
+} = require('../service/blog.service')
 
 class BlogController {
   // 创建博客菜单

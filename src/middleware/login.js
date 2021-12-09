@@ -1,4 +1,4 @@
-const { getUserByName } = require('../service/user')
+const { getUserByName } = require('../service/user.service')
 const { md5Password } = require('../utils/handle-password')
 const { errorTypes } = require('../error/error-types')
 

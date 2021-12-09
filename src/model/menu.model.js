@@ -1,7 +1,8 @@
 const { Model, DataTypes } = require('sequelize')
 const { errorTypes } = require('../error/error-types')
+const { sequelize } = require('../app/database')
 
-function registerMenuModel(sequelize) {
+
   class Menu extends Model {}
   Menu.init(
     {
@@ -61,6 +62,8 @@ function registerMenuModel(sequelize) {
       sequelize
     }
   )
-}
 
-module.exports = registerMenuModel
+
+module.exports = {
+  Menu
+}

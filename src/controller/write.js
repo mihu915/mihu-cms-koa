@@ -3,7 +3,7 @@ const {
   selectWrite,
   updateWriteById,
   deleteWriteById
-} = require('../service/write')
+} = require('../service/write.service')
 
 class WriteController {
   async createWrite(ctx, next) {

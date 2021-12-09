@@ -28,39 +28,15 @@ userRouter.get('/', verifyAuth, userInfo)
 userRouter.post('/list', verifyAuth, handleListParam, getUserList)
 
 // 创建用户
-userRouter.post(
-  '/',
-  verifyAuth,
-  verifyUserInfo,
-  updateOperationInfo,
-  userSignup
-)
+userRouter.post('/', verifyAuth, verifyUserInfo, userSignup)
 
 // 修改用户信息
-userRouter.patch(
-  '/:id',
-  verifyAuth,
-  verifyUserInfo,
-  updateOperationInfo,
-  alterUserInfo
-)
+userRouter.patch('/:id', verifyAuth, verifyUserInfo, alterUserInfo)
 
 // 切换用户状态
-userRouter.get(
-  '/enable/:id',
-  verifyAuth,
-  verifyUserEnable,
-  updateOperationInfo,
-  userEnable
-)
+userRouter.get('/enable/:id', verifyAuth, verifyUserEnable, userEnable)
 
 // 删除用户
-userRouter.delete(
-  '/:id',
-  verifyAuth,
-  verifyDeleteUser,
-  updateOperationInfo,
-  deleteUser
-)
+userRouter.delete('/:id', verifyAuth, verifyDeleteUser, deleteUser)
 
 module.exports = userRouter

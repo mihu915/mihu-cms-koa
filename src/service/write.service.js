@@ -1,19 +1,20 @@
-const { sequelize, Op } = require('../app/database')
+const { Op } = require('../app/database')
+const { Write } = require('../model')
 const { handleWhere } = require('../utils/handle-where')
-const { Write } = sequelize.models
 
 class WriteService {
   // 新建文章
   async insertWrite(info) {
     const result = await Write.create(info)
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
 
+  // 查询文章列表
   async selectWrite(option) {
     const { offset, limit, title, description, created } = option
     const whereRule = {
@@ -37,14 +38,14 @@ class WriteService {
       where,
       order: [['created', 'DESC']]
     })
-      .then(async (res) => {
+      .then(async res => {
         const total_count = await Write.count({ where })
         return {
           list: res,
           total_count
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 
@@ -58,10 +59,10 @@ class WriteService {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 
@@ -75,10 +76,10 @@ class WriteService {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
 

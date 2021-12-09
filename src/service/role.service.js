@@ -1,6 +1,6 @@
-const { sequelize, Op } = require('../app/database')
+const { Op } = require('../app/database')
 const { handleWhere } = require('../utils/handle-where')
-const { User, Role, Menu } = sequelize.models
+const models = require('../model')
 
 class RoleService {
   // 获取角色列表
@@ -22,20 +22,20 @@ class RoleService {
     }
     const where = handleWhere(whereRule, Op)
 
-    const result = await Role.findAll({
+    const result = await models.Role.findAll({
       offset,
       limit,
       order: [['created', 'DESC']],
       where
     })
-      .then(async (res) => {
-        const total_count = await Role.count({ where })
+      .then(async res => {
+        const total_count = await models.Role.count({ where })
         return {
           list: res,
           total_count
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
     return result
@@ -43,39 +43,39 @@ class RoleService {
 
   // 修改用户角色表信息
   async alterUserRoleById(id, params) {
-    const result = await Role.update(params, {
+   await models.Role.update(params, {
       where: {
         id
       }
     })
-      .then((res) => {
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
 
   // 创建角色权限
   async createRole(params) {
-    await Role.create(params)
-      .then((res) => {
+    await models.Role.create(params)
+      .then(res => {
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
 
   // 删除用户角色权限信息
   async deleteUserRoleById(id) {
-    await Role.destroy({
+    await models.Role.destroy({
       where: {
         id
       }
     })
-      .then(async (res) => {
-        await User.update(
+      .then(async res => {
+        await models.User.update(
           {
             role_id: 3
           },
@@ -84,13 +84,13 @@ class RoleService {
               role_id: id
             }
           }
-        ).catch((err) => {
+        ).catch(err => {
           throw err
         })
 
         return res
       })
-      .catch((err) => {
+      .catch(err => {
         throw err
       })
   }
@@ -100,11 +100,11 @@ class RoleService {
     let menuID = []
     let roleMenu
     try {
-      const result = await Menu.findAll({
+      const result = await models.Menu.findAll({
         attributes: ['id']
       })
 
-      result.forEach((item) => {
+      result.forEach(item => {
         if (item.id) {
           menuID.push(item.id)
         }
@@ -112,7 +112,7 @@ class RoleService {
 
       roleMenu = menuID.join(',')
 
-      await Role.update(
+      await models.Role.update(
         {
           role_menu: roleMenu
         },

@@ -5,7 +5,7 @@ const {
   switchUserEnable,
   deleteUserById,
   alterUserInfoById
-} = require('../service/user')
+} = require('../service/user.service')
 
 class userController {
   // 用户注册

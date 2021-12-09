@@ -1,8 +1,6 @@
-const { sequelize, Op } = require('../app/database')
-
+const { Op, sequelize } = require('../app/database')
+const { User, Role } = require('../model')
 const { handleWhere } = require('../utils/handle-where')
-
-const { User, Role, Menu } = sequelize.models
 
 class UserService {
   // 查询用户的信息
@@ -50,7 +48,7 @@ class UserService {
         exclude: ['password']
       },
       include: {
-        model: Role,
+        model:Role,
         as: 'user_role',
         attributes: []
       }
@@ -134,7 +132,7 @@ class UserService {
       })
   }
 
-  // 超管创建用户
+  // 创建用户
   async createUser(params) {
     await User.create(params)
       .then(res => {
@@ -147,7 +145,7 @@ class UserService {
 
   // 更新用户数据，登录
   async updateUserData(id, params) {
-    const [result] = await sequelize.models.User.update(params, {
+    const [result] = await User.update(params, {
       where: {
         id: id
       }

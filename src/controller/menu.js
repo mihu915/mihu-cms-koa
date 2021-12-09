@@ -4,7 +4,7 @@ const {
   alterMenuById,
   getMenuPageList,
   getMenuByRoleId
-} = require('../service/menu')
+} = require('../service/menu.service')
 
 class MenuController {
   // 根据分页获取所有菜单列表

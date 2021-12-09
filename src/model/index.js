@@ -1,27 +1,27 @@
-const fs = require('fs')
-// 自动创建模型，并关联表关系
-function autoCreateModule(sequelize) {
-  fs.readdirSync(__dirname).forEach(fileName => {
-    if (fileName === 'index.js') return
-    const module = require(`./${fileName}`)
-    module(sequelize)
-  })
+const { BlogInfos } = require('./blog.infos.model')
+const { BlogMenu } = require('./blog.menu.model')
+const { User } = require('./user.model')
+const { Menu } = require('./menu.model')
+const { Role } = require('./role.model')
+const { Write } = require('./write.model')
 
-  const { User, Role, Menu } = sequelize.models
+// user关联role
+User.belongsTo(Role, {
+  foreignKey: 'role_id',
+  as: 'user_role'
+})
 
-  User.belongsTo(Role, {
-    foreignKey: 'role_id',
-    as: 'user_role'
-  })
-
-  Menu.hasMany(Menu, {
-    foreignKey: 'parent_id',
-    as: 'children'
-  })
-
-  exports.models = sequelize.models
-}
+// menu自关联
+Menu.hasMany(Menu, {
+  foreignKey: 'parent_id',
+  as: 'children'
+})
 
 module.exports = {
-  autoCreateModule
+  User,
+  BlogInfos,
+  BlogMenu,
+  Menu,
+  Role,
+  Write
 }

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('../app/config')
-const { updateUserData } = require('../service/user')
+const { updateUserData } = require('../service/user.service')
 const { logger } = require('../app/logger')
 // 登录，颁发权限操作
 class loginController {

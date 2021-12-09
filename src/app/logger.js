@@ -27,7 +27,7 @@ log4js.configure({
   },
   categories: {
     default: { appenders: ['console'], level: 'debug' },
-    access: { appenders: ['access', 'console'], level: 'info' },
+    access: { appenders: ['access'], level: 'info' },
     application: { appenders: ['application', 'console'], level: 'info' },
     sql: { appenders: ['sql'], level: 'info' }
   },

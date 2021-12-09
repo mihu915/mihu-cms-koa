@@ -1,4 +1,4 @@
-const { updateUserData } = require('../service/user')
+const { updateUserData } = require('../service/user.service')
 class OperationMiddleware {
   // 更新操作信息
   async updateOperationInfo(ctx, next) {

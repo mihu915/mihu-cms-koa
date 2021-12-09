@@ -1,5 +1,4 @@
 const { errorTypes } = require('../error/error-types')
-const { getUserByName } = require('../service/user')
 
 class UserMiddleware {
   // 校验修改用户信息的参数
