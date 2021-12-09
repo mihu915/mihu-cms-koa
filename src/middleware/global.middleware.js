@@ -1,4 +1,3 @@
-const { sequelize } = require('../app/database')
 const fs = require('fs')
 const path = require('path')
 const models = require('../model')
@@ -19,16 +18,11 @@ function MhGlobalMiddleware(app, handleError) {
     if (!this.scope.includes(name)) {
       this.scope.push(name)
       Object.keys(models).forEach(key => {
+        if (key === 'test') return
         models[key].addScope(name, { [name]: option })
         models[key] = models[key].scope(this.scope)
       })
     }
-
-    const services = fs.readdirSync(path.join(__dirname, '../service'))
-
-    services.forEach(file => {
-      require(`../service/${file}`)
-    })
   }
 
   // 全局中间件

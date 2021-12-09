@@ -34,6 +34,4 @@ BlogInfos.init(
   }
 )
 
-module.exports = {
-  BlogInfos
-}
+module.exports = BlogInfos

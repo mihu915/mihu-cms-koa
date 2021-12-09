@@ -1,5 +1,5 @@
+const models = require('../model')
 const { Op, sequelize } = require('../app/database')
-const { User, Role } = require('../model')
 const { handleWhere } = require('../utils/handle-where')
 
 class UserService {
@@ -37,7 +37,7 @@ class UserService {
 
     const where = handleWhere(whereRule, Op)
 
-    const result = await User.findAll({
+    const result = await models.User.findAll({
       limit,
       offset,
       where,
@@ -48,13 +48,13 @@ class UserService {
         exclude: ['password']
       },
       include: {
-        model:Role,
+        model: models.Role,
         as: 'user_role',
         attributes: []
       }
     })
       .then(async res => {
-        const total_count = await User.count({ where })
+        const total_count = await models.User.scope('userInfo').count({ where })
         return {
           list: res,
           total_count
@@ -70,7 +70,7 @@ class UserService {
   // 根据用户名查询用户信息
   async getUserByName(username, id) {
     try {
-      const [result] = await User.findAll({
+      const [result] = await models.User.findAll({
         where: {
           username
         }
@@ -83,7 +83,7 @@ class UserService {
 
   // 根据id删除用户
   async deleteUserById(id) {
-    await User.destroy({
+    await models.User.destroy({
       where: {
         id
       }
@@ -98,7 +98,7 @@ class UserService {
 
   // 根据id修改用户信息
   async alterUserInfoById(id, info) {
-    await User.update(info, {
+    await models.User.update(info, {
       where: {
         id
       }
@@ -114,7 +114,7 @@ class UserService {
   // 切换启用用户状态
   async switchUserEnable(params) {
     const { id, enable } = params
-    await User.update(
+    await models.User.update(
       {
         enable
       },
@@ -134,7 +134,7 @@ class UserService {
 
   // 创建用户
   async createUser(params) {
-    await User.create(params)
+    await models.User.create(params)
       .then(res => {
         return res
       })
@@ -145,7 +145,7 @@ class UserService {
 
   // 更新用户数据，登录
   async updateUserData(id, params) {
-    const [result] = await User.update(params, {
+    const [result] = await models.User.update(params, {
       where: {
         id: id
       }
@@ -161,12 +161,12 @@ class UserService {
 
   // 获取登录用户信息
   async getUserInfoById(id) {
-    const [result] = await User.findAll({
+    const [result] = await models.User.findAll({
       attributes: {
         exclude: ['password']
       },
       include: {
-        model: Role,
+        model: models.Role,
         as: 'user_role'
       },
       where: {

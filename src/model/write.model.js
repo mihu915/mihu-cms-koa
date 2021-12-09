@@ -39,6 +39,4 @@ Write.init(
   }
 )
 
-module.exports = {
-  Write
-}
+module.exports = Write

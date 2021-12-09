@@ -38,6 +38,4 @@ BlogMenu.init(
   }
 )
 
-module.exports = {
-  BlogMenu
-}
+module.exports = BlogMenu

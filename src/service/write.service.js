@@ -1,11 +1,11 @@
+const models = require('../model')
 const { Op } = require('../app/database')
-const { Write } = require('../model')
 const { handleWhere } = require('../utils/handle-where')
 
 class WriteService {
   // 新建文章
   async insertWrite(info) {
-    const result = await Write.create(info)
+    await models.Write.create(info)
       .then(res => {
         return res
       })
@@ -32,14 +32,14 @@ class WriteService {
       }
     }
     const where = handleWhere(whereRule, Op)
-    const result = await Write.findAll({
+    const result = await models.Write.findAll({
       offset,
       limit,
       where,
       order: [['created', 'DESC']]
     })
       .then(async res => {
-        const total_count = await Write.count({ where })
+        const total_count = await models.Write.count({ where })
         return {
           list: res,
           total_count
@@ -54,7 +54,7 @@ class WriteService {
 
   // 更新文章表内容
   async updateWriteById(id, info) {
-    const result = await Write.update(info, {
+    const result = await models.Write.update(info, {
       where: {
         id
       }
@@ -71,7 +71,7 @@ class WriteService {
 
   // 根据id删除
   async deleteWriteById(id) {
-    const result = await Write.destroy({
+    const result = await models.Write.destroy({
       where: {
         id
       }

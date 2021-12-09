@@ -40,6 +40,4 @@ Role.init(
   }
 )
 
-module.exports = {
-  Role
-}
+module.exports = Role
