@@ -1,56 +1,57 @@
 const { addOperatorLog } = require('../service/operator.log.service')
 const saveOperatorLog = async (type, info, data) => {
-  let operatorTypeMessage = ''
-  let operatorUsername = `账号：${info.username}，`
+  let operatorType = ''
+  let actionType = ''
   let actionMessage = ''
+  let operatorContent = ''
 
-  let message = {}
-  const getActionMessage = () => {
-    switch (info.prefix) {
-      case 'user':
-        actionMessage = message.user || `用户：${data.username}`
-        break
-      case 'role':
-        actionMessage = message.role || `权限：${data.role_name}`
-        break
-      case 'menu':
-        actionMessage = message.menu || `菜单：${data.title}`
-        break
-      case 'write':
-        actionMessage = message.write || `文章：${data.title}`
-        break
-      case 'blog':
-        if (info.path.includes('/blog/infos')) {
-          actionMessage = message.blogInfo || `博客信息`
-        } else if (info.path.includes('/blog/menu')) {
-          actionMessage = message.blogMenu || `博客菜单：${data.menu_name}`
-        }
-        break
-    }
+  switch (info.prefix) {
+    case 'user':
+      actionType = `用户`
+      actionMessage = `：${data.username}`
+      break
+    case 'role':
+      actionType = `权限`
+      actionMessage = `：${data.role_name}`
+      break
+    case 'menu':
+      actionType = `菜单`
+      actionMessage = `：${data.title}`
+      break
+    case 'write':
+      actionType = `文章`
+      actionMessage = `：《${data.title}》`
+      break
+    case 'blog':
+      if (info.path.includes('/blog/infos')) {
+        actionType = `博客配置`
+      } else if (info.path.includes('/blog/menu')) {
+        actionType = `博客菜单`
+        actionMessage = `：${data.menu_name}`
+      }
+      break
   }
 
   switch (type) {
     case 1:
-      operatorTypeMessage = '添加了'
-      message = { user: `新用户：${data.username}` }
-      getActionMessage()
+      operatorType = '添加了'
       break
     case 2:
-      operatorTypeMessage = '更新了'
-      message = {
-        user: `id为${data.id}的用户信息`,
-        role: `id为${data.id}的权限信息`,
-        menu: `id为${data.id}的菜单信息`,
-        write: `id为${data.id}的文章信息`,
-        blogMenu: `id为${data.id}的博客菜单信息`
-      }
-      getActionMessage()
+      operatorType = '更新了'
+      actionMessage = '信息'
       break
     case 3:
-      operatorTypeMessage = '删除了'
-      getActionMessage()
+      operatorType = '删除了'
       break
   }
+
+  operatorContent =
+    `账号：${info.username}，` +
+    operatorType +
+    actionType +
+    actionMessage +
+    `，id为：${data.id}`
+
   if (info.role_id <= 2) {
     operatorType = type * -1
   }
@@ -58,7 +59,7 @@ const saveOperatorLog = async (type, info, data) => {
   const logInfo = {
     operator_type: operatorType,
     operator_id: info.id,
-    content: operatorUsername + operatorTypeMessage + actionMessage,
+    content: operatorContent,
     operator_ip: info.ip,
     operator_time: info.time
   }
