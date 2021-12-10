@@ -12,7 +12,7 @@ class RoleController {
     ctx.body = {
       code: 200,
       data: result,
-      message: '获取角色权限列表成功！'
+      message: '获取角色权限列表成功'
     }
   }
 
@@ -20,7 +20,7 @@ class RoleController {
     await createRole(ctx.request.body)
     ctx.body = {
       code: 200,
-      message: '创建角色权限成功！'
+      message: '创建角色权限成功'
     }
   }
 

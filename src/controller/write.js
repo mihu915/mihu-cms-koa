@@ -18,7 +18,6 @@ class WriteController {
 
   async getWriteList(ctx) {
     const option = ctx.request.body
-    console.log(option)
     const result = await selectWrite(option)
     ctx.body = {
       code: 200,

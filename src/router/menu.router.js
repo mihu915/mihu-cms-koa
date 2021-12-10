@@ -24,18 +24,12 @@ menuRouter.post('/list', verifyAuth, handleListParam, getMenuList)
 menuRouter.get('/', verifyAuth, getRoleMenu)
 
 // 添加菜单
-menuRouter.post('/', verifyAuth, updateOperationInfo, createMenu)
+menuRouter.post('/', verifyAuth, createMenu)
 
 // 删除菜单
-menuRouter.delete(
-  '/:id',
-  verifyAuth,
-  verifyDeleteMenu,
-  updateOperationInfo,
-  deleteMenu
-)
+menuRouter.delete('/:id', verifyAuth, verifyDeleteMenu, deleteMenu)
 
 // 修改菜单
-menuRouter.patch('/:id', verifyAuth, updateOperationInfo, alterMenu)
+menuRouter.patch('/:id', verifyAuth, alterMenu)
 
 module.exports = menuRouter

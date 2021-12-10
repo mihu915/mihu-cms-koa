@@ -1,6 +1,3 @@
-const Router = require('koa-router')
-const blogRouter = new Router({ prefix: '/blog' })
-
 const {
   editorBlogInfos,
   getBlogInfos,
@@ -10,8 +7,10 @@ const {
   deleteBlogMenu,
   switchBlogMenuStatus
 } = require('../controller/blog')
+const Router = require('koa-router')
 const { verifyAuth } = require('../middleware/auth.middleware')
-const { handleListParam } = require('../middleware/verify-params')
+
+const blogRouter = new Router({ prefix: '/blog' })
 
 // 获取博客菜单列表
 blogRouter.post('/menu/list', verifyAuth, getBlogMenuList)

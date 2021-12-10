@@ -7,7 +7,7 @@ const {
   userEnable,
   deleteUser,
   alterUserInfo
-} = require('../controller/user')
+} = require('../controller/user.controller')
 
 const {
   verifyUserEnable,

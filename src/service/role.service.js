@@ -1,6 +1,7 @@
-const { Op } = require('../app/database')
+const { Op, sequelize } = require('../app/database')
 const { handleWhere } = require('../utils/handle-where')
-const models = require('../model')
+
+const { Role, User, Menu } = sequelize.models
 
 class RoleService {
   // 获取角色列表
@@ -22,14 +23,14 @@ class RoleService {
     }
     const where = handleWhere(whereRule, Op)
 
-    const result = await models.Role.findAll({
+    const result = await Role.findAll({
       offset,
       limit,
       order: [['created', 'DESC']],
       where
     })
       .then(async res => {
-        const total_count = await models.Role.count({ where })
+        const total_count = await Role.count({ where })
         return {
           list: res,
           total_count
@@ -43,7 +44,7 @@ class RoleService {
 
   // 修改用户角色表信息
   async alterUserRoleById(id, params) {
-   await models.Role.update(params, {
+    await Role.update(params, {
       where: {
         id
       }
@@ -58,7 +59,7 @@ class RoleService {
 
   // 创建角色权限
   async createRole(params) {
-    await models.Role.create(params)
+    await Role.create(params)
       .then(res => {
         return res
       })
@@ -69,13 +70,13 @@ class RoleService {
 
   // 删除用户角色权限信息
   async deleteUserRoleById(id) {
-    await models.Role.destroy({
+    await Role.destroy({
       where: {
         id
       }
     })
       .then(async res => {
-        await models.User.update(
+        await User.update(
           {
             role_id: 3
           },
@@ -99,32 +100,40 @@ class RoleService {
   async updateSuperAdminRoleMenu() {
     let menuID = []
     let roleMenu
-    try {
-      const result = await models.Menu.findAll({
-        attributes: ['id']
+
+    const result = await Menu.findAll({
+      attributes: ['id']
+    })
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
       })
 
-      result.forEach(item => {
-        if (item.id) {
-          menuID.push(item.id)
-        }
-      })
+    result.forEach(item => {
+      if (item.id) {
+        menuID.push(item.id)
+      }
+    })
 
-      roleMenu = menuID.join(',')
+    roleMenu = menuID.join(',')
 
-      await models.Role.update(
-        {
-          role_menu: roleMenu
+    await Role.update(
+      {
+        role_menu: roleMenu
+      },
+      {
+        where: {
+          id: 1
         },
-        {
-          where: {
-            id: 1
-          }
-        }
-      )
-    } catch (error) {
-      throw error
-    }
+        hooks: false
+      }
+    )
+      .then()
+      .catch(err => {
+        throw err
+      })
   }
 }
 

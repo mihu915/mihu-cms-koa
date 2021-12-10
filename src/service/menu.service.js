@@ -1,13 +1,14 @@
-const { Op } = require('../app/database')
-const models = require('../model')
+const { Op, sequelize } = require('../app/database')
 
 const { updateSuperAdminRoleMenu } = require('./role.service')
 const { handleMenu } = require('../utils/handle-menu')
 
+const { Menu, Role } = sequelize.models
+
 class MenuService {
   // 通过id查询菜单
   async getMenuById(id) {
-    const [result] = await models.Menu.findAll({
+    const [result] = await Menu.findAll({
       where: {
         id
       }
@@ -24,19 +25,19 @@ class MenuService {
 
   // 创建菜单
   async addMenu(menuInfo) {
-    try {
-      // 插入菜单数据
-      await models.Menu.scope('userInfo').create(menuInfo)
-      // 更新role表中的菜单列表
-      await updateSuperAdminRoleMenu()
-    } catch (error) {
-      throw error
-    }
+    // 插入菜单数据
+    await Menu.create(menuInfo)
+      .then(async res => {
+        await updateSuperAdminRoleMenu()
+      })
+      .catch(err => {
+        throw err
+      })
   }
 
   // 删除指定id的菜单
   async removeMenuById(id) {
-    await models.Menu.destroy({
+    await Menu.destroy({
       where: {
         [Op.or]: [{ id }, { parent_id: id }]
       }
@@ -53,7 +54,7 @@ class MenuService {
   // 根据角色id获取菜单数据
   async getMenuByRoleId(roleId) {
     // 查询出角色对应的menuIdList
-    const menusId = await models.Role.findAll({
+    const menusId = await Role.findAll({
       attributes: ['role_menu'],
       where: {
         id: roleId
@@ -68,9 +69,9 @@ class MenuService {
       })
 
     // 查询出所有的菜单，顺序为升序
-    const menuListResult = await models.Menu.findAll({
+    const menuListResult = await Menu.findAll({
       include: {
-        model: models.Menu,
+        model: Menu,
         as: 'children'
       },
       where: {
@@ -94,7 +95,7 @@ class MenuService {
   // 根据id修改菜单
   async alterMenuById(id, menuInfo) {
     try {
-      await models.Menu.update(menuInfo, {
+      await Menu.update(menuInfo, {
         where: {
           id
         }
@@ -108,7 +109,7 @@ class MenuService {
   async getMenuPageList(option) {
     const { offset, limit } = option
 
-    const result = await models.Menu.findAll({
+    const result = await Menu.findAll({
       limit: limit,
       offset: offset,
       order: [
@@ -120,12 +121,12 @@ class MenuService {
       },
 
       include: {
-        model: models.Menu,
+        model: Menu,
         as: 'children'
       }
     })
       .then(async res => {
-        const total_count = await models.Menu.count()
+        const total_count = await Menu.count()
 
         return {
           list: res,

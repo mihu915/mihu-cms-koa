@@ -1,7 +1,6 @@
 const { Sequelize, Op } = require('sequelize')
-const { usePermanent } = require('../hooks/use-permanent')
 const { sqlLogger, logger } = require('./logger')
-
+const { autoCreateModel } = require('../model')
 const config = require('./config')
 
 // 使用sequelize
@@ -22,23 +21,20 @@ const sequelize = new Sequelize(
   }
 )
 
-// 挂载常驻钩子
-Object.keys(usePermanent).forEach(key => {
-  sequelize.addHook(key, usePermanent[key])
-})
-
 // 测试数据库连接
 sequelize
   .authenticate()
   .then(() => {
     logger.info(`数据库连接成功`)
     sqlLogger.info(`数据库连接成功`)
-    require('../model')
   })
   .catch(err => {
     logger.info(`数据库连接失败，${err}`)
     sqlLogger.info(`数据库连接失败，${err}`)
   })
+
+// 创建模型
+autoCreateModel(sequelize)
 
 module.exports = {
   sequelize,

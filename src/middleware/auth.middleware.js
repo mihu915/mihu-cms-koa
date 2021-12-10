@@ -10,17 +10,26 @@ class AuthMiddleware {
     if (!authorization) ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
 
     const token = authorization.replace('Bearer ', '')
+
     try {
       ctx.user = jwt.verify(token, config.PUBLIC_KEY, {
         algorithms: 'RS256'
       })
-
-      ctx.addScope('userInfo', ctx.user)
-
-   
     } catch (error) {
       ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
     }
+
+    const operatorInfo = {
+      ...ctx.user,
+      path: ctx.request.path,
+      prefix: ctx.request.path.split('/')[1],
+      ip: ctx.request.body.$ip,
+      time: ctx.request.body.$time
+    }
+
+    // 向hook中加入操作人信息
+    ctx.addHookParam('operatorInfo', operatorInfo)
+
     await next()
   }
 

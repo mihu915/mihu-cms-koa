@@ -67,9 +67,9 @@ class userController {
     }
   }
 
+  // 修改用户信息
   async alterUserInfo(ctx, next) {
     const { id } = ctx.request.params
-    ctx.addScope('aaa', 123)
     await alterUserInfoById(id, ctx.request.body)
     ctx.body = {
       code: 200,

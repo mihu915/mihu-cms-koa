@@ -1,12 +1,11 @@
-const { Op } = require('../app/database')
-const models = require('../model')
+const { Op, sequelize } = require('../app/database')
 
-
+const { BlogInfos, BlogMenu } = sequelize.models
 
 class BlogService {
   // 编辑博客配置
   async editorInfos(config) {
-    const result = await models.BlogInfos.findAll()
+    const result = await BlogInfos.findAll()
       .then(res => {
         return res
       })
@@ -15,7 +14,7 @@ class BlogService {
       })
 
     if (!result.length) {
-      await models.BlogInfos.create(config)
+      await BlogInfos.create(config)
         .then(res => {
           return res
         })
@@ -24,7 +23,7 @@ class BlogService {
         })
     } else {
       const id = result[0].id
-      await models.BlogInfos.update(config, {
+      await BlogInfos.update(config, {
         where: {
           id
         }
@@ -40,7 +39,7 @@ class BlogService {
 
   // 获取信息
   async getInfos() {
-    const result = await models.BlogInfos.findAll()
+    const result = await BlogInfos.findAll()
       .then(res => {
         return res[0]
       })
@@ -53,7 +52,7 @@ class BlogService {
 
   // 切换菜单状态
   async switchStatus(status, menu_id) {
-    await models.BlogMenu.update(
+    await BlogMenu.update(
       {
         enable: status
       },
@@ -72,7 +71,7 @@ class BlogService {
   }
   // 编辑菜单信息
   async editMenu(menu, id) {
-    await models.BlogMenu.update(menu, {
+    await BlogMenu.update(menu, {
       where: {
         id
       }
@@ -87,7 +86,7 @@ class BlogService {
 
   // 删除菜单
   async deleteMenu(id) {
-    await models.BlogMenu.destroy({
+    await BlogMenu.destroy({
       where: {
         id
       }
@@ -102,11 +101,11 @@ class BlogService {
 
   // 获取博客菜单列表
   async getMenuList() {
-    const result = await models.BlogMenu.findAll({
+    const result = await BlogMenu.findAll({
       order: [['sort', 'ASC']]
     })
       .then(async res => {
-        const total_count = await models.BlogMenu.count()
+        const total_count = await BlogMenu.count()
         return {
           list: res,
           total_count
@@ -120,7 +119,7 @@ class BlogService {
 
   // 创建博客菜单
   async createMenu(blogMenu) {
-    const result = await models.BlogMenu.create(blogMenu)
+    const result = await BlogMenu.create(blogMenu)
       .then(res => {
         return res
       })
