@@ -1,7 +1,8 @@
 const fs = require('fs')
-
+const { NODE_ENV } = require('../app/config')
+const { logger } = require('../app/logger')
 // 自动创建目录下所有模型
-const autoCreateModel = sequelize => {
+const autoCreateModel = async sequelize => {
   const modelFile = fs.readdirSync(__dirname)
 
   modelFile.forEach(fileName => {
@@ -12,17 +13,22 @@ const autoCreateModel = sequelize => {
 
   const { User, Role, Menu } = sequelize.models
 
-  // user关联role
+  // user关联role 一对一
   User.belongsTo(Role, {
     foreignKey: 'role_id',
     as: 'user_role'
   })
 
-  // menu自关联
+  // menu自关联一对多
   Menu.hasMany(Menu, {
     foreignKey: 'parent_id',
     as: 'children'
   })
+
+  if (NODE_ENV === 'development') {
+    await sequelize.sync({ alert: true })
+    logger.info('表模型已同步')
+  }
 }
 
 module.exports = {

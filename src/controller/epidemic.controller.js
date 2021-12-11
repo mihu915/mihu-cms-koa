@@ -8,13 +8,14 @@ class EpidemicController {
 
     if (sendRequest.data.code === 10000) {
       sendRequest.data.code = 200
-      const result = sendRequest.data.data.areaTree.find((item) => {
+      const result = sendRequest.data.data.areaTree.find(item => {
         if (item.name === '中国') {
           return item
         }
       })
       result.lastUpdateTime = sendRequest.data.data.lastUpdateTime
       result.overseaLastUpdateTime = sendRequest.data.data.lastUpdateTime
+
       ctx.body = JSON.stringify({
         code: 200,
         message: '请求成功',

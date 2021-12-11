@@ -12,7 +12,7 @@ const handleError = (error, ctx) => {
     errorMessage = error.message
   }
 
-  logger.error(error)
+  logger.error(errorMessage)
 
   switch (errorMessage) {
     case errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED:

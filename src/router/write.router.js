@@ -1,13 +1,14 @@
-const Router = require('koa-router')
 const {
   createWrite,
   getWriteList,
   alterWrite,
   deleteWrite
-} = require('../controller/write')
+} = require('../controller/write.controller')
+
+const Router = require('koa-router')
 
 const { verifyAuth } = require('../middleware/auth.middleware')
-const { handleListParam } = require('../middleware/verify-params')
+const { handleListParam } = require('../middleware/handle.params.middleware')
 
 const writeRouter = new Router({ prefix: '/write' })
 

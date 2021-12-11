@@ -58,9 +58,6 @@ const createUserModel = sequelize => {
           key: 'id'
         }
       },
-      operator_ip: DataTypes.STRING,
-      operator_time: DataTypes.INTEGER,
-      operator_id: DataTypes.INTEGER,
       last_login_ip: DataTypes.STRING,
       last_login_time: DataTypes.INTEGER,
       nickname: DataTypes.STRING,

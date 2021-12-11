@@ -60,6 +60,7 @@ class BlogController {
     }
   }
 
+  // 获取博客配置信息
   async getBlogInfos(ctx) {
     const infos = await getInfos()
     ctx.body = {
@@ -69,6 +70,7 @@ class BlogController {
     }
   }
 
+  // 编辑博客配置信息
   async editorBlogInfos(ctx) {
     const infos = ctx.request.body
     await editorInfos(infos)

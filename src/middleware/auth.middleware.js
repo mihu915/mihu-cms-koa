@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken')
 const config = require('../app/config')
 const { errorTypes } = require('../error/error-types')
+const { handleUrlName } = require('../utils/handle-url-name')
 
 // 赋权鉴权中间件
 class AuthMiddleware {
   // 校验token中间件
   async verifyAuth(ctx, next) {
     const authorization = ctx.headers.authorization
+
     if (!authorization) ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
 
     const token = authorization.replace('Bearer ', '')
@@ -19,12 +21,19 @@ class AuthMiddleware {
       ctx.emitError(errorTypes.TOKEN_CHECK_FAILED)
     }
 
+    const url = ctx.request.path
+
+    const prefix = ctx.request.path.split('/')[1]
+
+    const urlName = handleUrlName(url, prefix)
+
     const operatorInfo = {
       ...ctx.user,
-      path: ctx.request.path,
-      prefix: ctx.request.path.split('/')[1],
+      path: url,
       ip: ctx.request.body.$ip,
-      time: ctx.request.body.$time
+      time: ctx.request.body.$time,
+      urlName,
+      prefix
     }
 
     // 向hook中加入操作人信息
@@ -32,13 +41,6 @@ class AuthMiddleware {
 
     await next()
   }
-
-  // 校验身份中间件，管理员通过，非管理员不通过
-  // async verifyIdentity(ctx, next) {
-  //   const { rule_id } = ctx.user
-  //   if (rule_id !== 1) ctx.emitError(errorTypes.NO_OPERATION_PERMISSION)
-  //   await next()
-  // }
 }
 
 module.exports = new AuthMiddleware()

@@ -1,11 +1,12 @@
 const { addOperatorLog } = require('../service/operator.log.service')
+
 const saveOperatorLog = async (type, info, data) => {
   let operatorType = ''
   let actionType = ''
   let actionMessage = ''
   let operatorContent = ''
 
-  switch (info.prefix) {
+  switch (info.urlName) {
     case 'user':
       actionType = `用户`
       actionMessage = `：${data.username}`
@@ -22,13 +23,12 @@ const saveOperatorLog = async (type, info, data) => {
       actionType = `文章`
       actionMessage = `：《${data.title}》`
       break
-    case 'blog':
-      if (info.path.includes('/blog/infos')) {
-        actionType = `博客配置`
-      } else if (info.path.includes('/blog/menu')) {
-        actionType = `博客菜单`
-        actionMessage = `：${data.menu_name}`
-      }
+    case 'blogInfos':
+      actionType = `博客配置`
+      break
+    case 'blogMenu':
+      actionType = `博客菜单`
+      actionMessage = `：${data.menu_name}`
       break
   }
 
@@ -63,7 +63,6 @@ const saveOperatorLog = async (type, info, data) => {
     operator_ip: info.ip,
     operator_time: info.time
   }
-  console.log(logInfo)
   await addOperatorLog(logInfo)
 }
 

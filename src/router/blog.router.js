@@ -6,9 +6,10 @@ const {
   editBlogMenu,
   deleteBlogMenu,
   switchBlogMenuStatus
-} = require('../controller/blog')
-const Router = require('koa-router')
+} = require('../controller/blog.controller')
 const { verifyAuth } = require('../middleware/auth.middleware')
+
+const Router = require('koa-router')
 
 const blogRouter = new Router({ prefix: '/blog' })
 

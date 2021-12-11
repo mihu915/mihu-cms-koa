@@ -1,19 +1,6 @@
 const { errorTypes } = require('../error/error-types')
-class VerifyParams {
-  // 校验删除菜单的id
-  async verifyDeleteMenu(ctx, next) {
-    const { id } = ctx.request.params
-    if (id <= 32) ctx.emitError(errorTypes.PROHIBIT_DELETION)
-    await next()
-  }
 
-  // 删除角色数据校验
-  async verifyDeleteRoleId(ctx, next) {
-    const { id } = ctx.request.params
-    if (id <= 3) ctx.emitError(errorTypes.PROHIBIT_DELETION)
-    await next()
-  }
-
+class HandleParamsMiddleware {
   // 处理获取列表的参数
   async handleListParam(ctx, next) {
     ctx.request.body.offset = parseInt(ctx.request.body.offset)
@@ -45,4 +32,4 @@ class VerifyParams {
   }
 }
 
-module.exports = new VerifyParams()
+module.exports = new HandleParamsMiddleware()

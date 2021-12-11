@@ -1,12 +1,3 @@
-/*
- * @Author: mihu
- * @Date: 2021-09-16 17:47:43
- * @LastEditTime: 2021-09-16 20:37:34
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \mihu_cms_koa\src\utils\handle-file-path.js
- */
-
 const fs = require('fs')
 const path = require('path')
 
@@ -34,7 +25,7 @@ function getStat(path) {
  */
 function mkdir(dir) {
   return new Promise((resolve, reject) => {
-    fs.mkdir(dir, (err) => {
+    fs.mkdir(dir, err => {
       if (err) {
         resolve(false)
       } else {

@@ -13,11 +13,10 @@ const {
   verifyUserEnable,
   verifyDeleteUser,
   verifyUserInfo
-} = require('../middleware/user')
+} = require('../middleware/user.middleware')
 
-const { handleListParam } = require('../middleware/verify-params')
+const { handleListParam } = require('../middleware/handle.params.middleware')
 const { verifyAuth } = require('../middleware/auth.middleware')
-const { updateOperationInfo } = require('../middleware/operation')
 
 const userRouter = new Router({ prefix: '/user' })
 
@@ -37,6 +36,6 @@ userRouter.patch('/:id', verifyAuth, verifyUserInfo, alterUserInfo)
 userRouter.get('/enable/:id', verifyAuth, verifyUserEnable, userEnable)
 
 // 删除用户
-userRouter.delete('/:id', verifyAuth, verifyDeleteUser, deleteUser)
+userRouter.delete('/:id', verifyAuth, deleteUser)
 
 module.exports = userRouter

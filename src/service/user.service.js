@@ -102,7 +102,8 @@ class UserService {
     await User.update(info, {
       where: {
         id
-      }
+      },
+      fields: ['avatar', 'enable', 'role_id', 'nickname', 'qq', 'mobile']
     })
       .then(res => {
         return res

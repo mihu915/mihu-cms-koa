@@ -25,14 +25,7 @@ class UserMiddleware {
     await next()
   }
 
-  // 校验删除用户的参数
-  async verifyDeleteUser(ctx, next) {
-    const { id } = ctx.request.params
-    if (parseInt(id) <= 10) {
-      ctx.emitError(errorTypes.PROHIBIT_DELETION)
-    }
-    await next()
-  }
+  
 }
 
 module.exports = new UserMiddleware()

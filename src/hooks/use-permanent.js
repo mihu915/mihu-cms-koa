@@ -1,4 +1,5 @@
 const { saveOperatorLog } = require('../utils/save-operator-log')
+const { verifyDelete } = require('../utils/verify-delete')
 
 const usePermanent = {
   // 批量删除之前
@@ -18,7 +19,12 @@ const usePermanent = {
   },
 
   // 删除之前
-  beforeDestroy: () => {},
+  beforeDestroy: (instance, options) => {
+    const id = instance.dataValues.id
+    const urlName = options.operatorInfo.urlName
+    // 校验删除是否被允许
+    verifyDelete(urlName, id)
+  },
 
   // 设置为单个update操作 才会调用此钩子函数
   beforeUpdate: (instance, options) => {
@@ -30,19 +36,16 @@ const usePermanent = {
 
   // 创建之后
   afterCreate: async (instance, options) => {
-    console.log('create', options)
     await saveOperatorLog(1, options.operatorInfo, instance.dataValues)
   },
 
   // 删除之后
   afterDestroy: async (instance, options) => {
-    console.log('destroy', options)
     await saveOperatorLog(3, options.operatorInfo, instance.dataValues)
   },
 
   // 更新之后
   afterUpdate: async (instance, options) => {
-    console.log('update', options)
     await saveOperatorLog(2, options.operatorInfo, instance.dataValues)
   }
 }
