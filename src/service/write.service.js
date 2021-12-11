@@ -1,7 +1,7 @@
 const { Op, sequelize } = require('../app/database')
 const { handleWhere } = require('../utils/handle-where')
 
-const { Write } = sequelize.models
+const { Write, WriteTag } = sequelize.models
 
 class WriteService {
   // 新建文章
@@ -84,6 +84,50 @@ class WriteService {
         throw err
       })
 
+    return result
+  }
+
+  // 创建文章标签
+  async addWriteTag(data) {
+    await WriteTag.create(data)
+      .then()
+      .catch(err => {
+        throw err
+      })
+  }
+
+  async alertWriteTagById(id, data) {
+    await WriteTag.update(data, {
+      where: {
+        id
+      }
+    }).catch(err => {
+      throw err
+    })
+  }
+
+  async deleteWriteTagById(id) {
+    await WriteTag.destroy({
+      where: {
+        id
+      }
+    }).catch(err => {
+      throw err
+    })
+  }
+
+  async getWriteTag(option) {
+    const { offset, limit } = option
+    const result = await WriteTag.findAll({
+      offset,
+      limit
+    })
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        throw err
+      })
     return result
   }
 }

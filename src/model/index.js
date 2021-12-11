@@ -11,7 +11,7 @@ const autoCreateModel = async sequelize => {
     createModel(sequelize)
   })
 
-  const { User, Role, Menu } = sequelize.models
+  const { User, Role, Menu, Write, WriteTag } = sequelize.models
 
   // user关联role 一对一
   User.belongsTo(Role, {
@@ -23,6 +23,10 @@ const autoCreateModel = async sequelize => {
   Menu.hasMany(Menu, {
     foreignKey: 'parent_id',
     as: 'children'
+  })
+
+  Write.hasMany(WriteTag, {
+    foreignKey: 'tag_id'
   })
 
   if (NODE_ENV === 'development') {

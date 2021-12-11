@@ -30,6 +30,10 @@ const saveOperatorLog = async (type, info, data) => {
       actionType = `博客菜单`
       actionMessage = `：${data.menu_name}`
       break
+    case 'writeTag':
+      actionType = '文章标签'
+      actionMessage = `：${data.tag_name}`
+      break
   }
 
   switch (type) {

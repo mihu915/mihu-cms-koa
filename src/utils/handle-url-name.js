@@ -5,6 +5,12 @@ const handleUrlName = (url, prefix) => {
     } else if (url.includes('infos')) {
       return 'blogInfos'
     }
+  } else if (prefix === 'write') {
+    if (url.includes('tag')) {
+      return 'writeTag'
+    } else {
+      return 'write'
+    }
   } else {
     return prefix
   }

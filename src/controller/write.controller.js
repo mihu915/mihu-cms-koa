@@ -2,13 +2,16 @@ const {
   insertWrite,
   selectWrite,
   updateWriteById,
-  deleteWriteById
+  deleteWriteById,
+  addWriteTag,
+  deleteWriteTagById,
+  alertWriteTagById,
+  getWriteTag
 } = require('../service/write.service')
 
 class WriteController {
-  async createWrite(ctx, next) {
+  async createWrite(ctx) {
     const info = ctx.request.body
-
     await insertWrite(info)
     ctx.body = {
       code: 200,
@@ -43,7 +46,43 @@ class WriteController {
     await deleteWriteById(id)
     ctx.body = {
       code: 200,
-      message: '保存成功'
+      message: '删除成功'
+    }
+  }
+
+  // 创建文章标签
+  async createWriteTag(ctx) {
+    await addWriteTag(ctx.request.body)
+    ctx.body = {
+      code: 200,
+      message: '创建标签成功'
+    }
+  }
+
+  async getWriteTagList(ctx) {
+    const result = await getWriteTag(ctx.request.body)
+    ctx.body = {
+      code: 200,
+      data: result,
+      message: '查询标签成功'
+    }
+  }
+
+  async alterWriteTag(ctx) {
+    const { id } = ctx.request.params
+    await alertWriteTagById(id, ctx.request.body)
+    ctx.body = {
+      code: 200,
+      message: '修改标签成功'
+    }
+  }
+
+  async deleteWriteTag(ctx) {
+    const { id } = ctx.request.params
+    await deleteWriteTagById(id)
+    ctx.body = {
+      code: 200,
+      message: '删除标签成功'
     }
   }
 }
