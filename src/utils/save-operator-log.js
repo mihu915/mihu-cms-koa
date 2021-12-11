@@ -67,6 +67,7 @@ const saveOperatorLog = async (type, info, data) => {
     operator_ip: info.ip,
     operator_time: info.time
   }
+
   await addOperatorLog(logInfo)
 }
 
