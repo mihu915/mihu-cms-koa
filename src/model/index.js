@@ -25,7 +25,7 @@ const autoCreateModel = async sequelize => {
     as: 'children'
   })
 
-  Write.hasMany(WriteTag, {
+  WriteTag.hasMany(Write, {
     foreignKey: 'tag_id'
   })
 

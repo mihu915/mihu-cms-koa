@@ -19,7 +19,11 @@ const createWriteModel = sequelize => {
         type: DataTypes.STRING
       },
       tag_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        references: {
+          model: sequelize.models.WriteTag,
+          key: 'id'
+        }
       },
       content: {
         type: DataTypes.TEXT

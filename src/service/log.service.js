@@ -8,8 +8,12 @@ class LogService {
       limit,
       order: [['operator_time', 'DESC']]
     })
-      .then(res => {
-        return res
+      .then(async res => {
+        const total_count = await OperatorLog.count()
+        return {
+          list: res,
+          total_count
+        }
       })
       .catch(err => {
         throw err
