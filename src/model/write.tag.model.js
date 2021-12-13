@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-
+const { errorTypes } = require('../error/error-types')
 const createWriteTagModel = sequelize => {
   class WriteTag extends Model {}
   WriteTag.init(
@@ -10,7 +10,13 @@ const createWriteTagModel = sequelize => {
         autoIncrement: true
       },
       tag_name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: errorTypes.CONTENT_MUST_NOT_BE_EMPTY
+          }
+        }
       },
       created: {
         type: DataTypes.INTEGER

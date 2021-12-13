@@ -60,7 +60,7 @@ class WriteController {
   }
 
   async getWriteTagList(ctx) {
-    const result = await getWriteTag(ctx.request.body)
+    const result = await getWriteTag()
     ctx.body = {
       code: 200,
       data: result,

@@ -32,7 +32,7 @@ writeRouter.delete('/:id', verifyAuth, deleteWrite)
 writeRouter.post('/tag', verifyAuth, createWriteTag)
 
 // 查询标签列表
-writeRouter.post('/tag/list', verifyAuth, handleListParam, getWriteTagList)
+writeRouter.post('/tag/list', verifyAuth, getWriteTagList)
 
 // 修改标签
 writeRouter.patch('/tag/:id', verifyAuth, alterWriteTag)

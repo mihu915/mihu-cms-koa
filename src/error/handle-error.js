@@ -63,6 +63,10 @@ const handleError = (error, ctx) => {
       code = 406
       message = '不支持的文件类型'
       break
+    case errorTypes.CONTENT_MUST_NOT_BE_EMPTY:
+      code = 403
+      message = '内容不可为空'
+      break
     default:
       code = 500
       message = 'Server Error'

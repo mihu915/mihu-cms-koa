@@ -35,6 +35,9 @@ const errorTypes = {
   // 不支持的文件类型
   NOT_SUPPORTED_FILE_TYPE: 'not_supported_file_type',
 
+  // 内容不可为空
+  CONTENT_MUST_NOT_BE_EMPTY: 'content_must_not_be_empty',
+
   NO_OPERATION_PERMISSION: {
     code: 401,
     message: '无操作权限'

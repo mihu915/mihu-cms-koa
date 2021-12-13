@@ -116,14 +116,14 @@ class WriteService {
     })
   }
 
-  async getWriteTag(option) {
-    const { offset, limit } = option
-    const result = await WriteTag.findAll({
-      offset,
-      limit
-    })
-      .then(res => {
-        return res
+  async getWriteTag() {
+    const result = await WriteTag.findAll()
+      .then(async res => {
+        const total_count = await WriteTag.count()
+        return {
+          list: res,
+          total_count
+        }
       })
       .catch(err => {
         throw err
