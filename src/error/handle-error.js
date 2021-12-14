@@ -10,9 +10,8 @@ const handleError = (error, ctx) => {
     errorMessage = error.errors[0].message
   } else {
     errorMessage = error.message
+    logger.error(error)
   }
-
-  logger.error(errorMessage)
 
   switch (errorMessage) {
     case errorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED:
@@ -72,6 +71,16 @@ const handleError = (error, ctx) => {
       message = 'Server Error'
       break
   }
+
+  logger.error(
+    JSON.stringify({
+      code,
+      message,
+      ip: ctx.request.body.$ip,
+      time: ctx.request.body.$time,
+      user: ctx.user
+    })
+  )
 
   ctx.body = {
     code,

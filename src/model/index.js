@@ -11,7 +11,7 @@ const autoCreateModel = async sequelize => {
     createModel(sequelize)
   })
 
-  const { User, Role, Menu, Write, WriteTag } = sequelize.models
+  const { User, Role, Menu, Write, WriteTag, WriteRelateTag } = sequelize.models
 
   // user关联role 一对一
   User.belongsTo(Role, {
@@ -25,10 +25,20 @@ const autoCreateModel = async sequelize => {
     as: 'children'
   })
 
-  WriteTag.hasMany(Write, {
-    foreignKey: 'tag_id'
+  // 多对多关联
+  WriteTag.belongsToMany(Write, {
+    through: WriteRelateTag,
+    foreignKey: 'tag_id',
+    otherKey: 'write_id'
   })
 
+  Write.belongsToMany(WriteTag, {
+    through: WriteRelateTag,
+    foreignKey: 'write_id',
+    otherKey: 'tag_id'
+  })
+
+  // 开发环境则同步表
   if (NODE_ENV === 'development') {
     await sequelize.sync({ alert: true })
     logger.info('表模型已同步')
