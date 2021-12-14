@@ -37,12 +37,24 @@ class WriteService {
       offset,
       limit,
       where,
-      order: [['created', 'DESC']]
+      order: [['created', 'DESC']],
+      include: {
+        model: sequelize.models.WriteTag,
+        as: 'write_tag'
+      }
     })
       .then(async res => {
+        const result = res.map(item => {
+          const newTagData = item.write_tag.map(tagData => {
+            delete tagData.dataValues.WriteRelateTag
+          })
+          item.write_tag = newTagData
+          return item
+        })
         const total_count = await Write.count({ where })
+
         return {
-          list: res,
+          list: result,
           total_count
         }
       })

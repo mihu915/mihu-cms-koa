@@ -35,7 +35,8 @@ const autoCreateModel = async sequelize => {
   Write.belongsToMany(WriteTag, {
     through: WriteRelateTag,
     foreignKey: 'write_id',
-    otherKey: 'tag_id'
+    otherKey: 'tag_id',
+    as: 'write_tag',
   })
 
   // 开发环境则同步表

@@ -13,7 +13,7 @@ const createWriteRelateTagModel = sequelize => {
         references: {
           model: sequelize.models.WriteTag,
           key: 'id'
-        },
+        }
       },
       write_id: {
         type: DataTypes.INTEGER,
