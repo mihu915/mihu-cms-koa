@@ -6,7 +6,8 @@ const {
   createWriteTag,
   alterWriteTag,
   deleteWriteTag,
-  getWriteTagList
+  getWriteTagList,
+  getWriteData
 } = require('../controller/write.controller')
 
 const Router = require('koa-router')
@@ -27,6 +28,9 @@ writeRouter.patch('/:id', verifyAuth, alterWrite)
 
 // 删除文章信息
 writeRouter.delete('/:id', verifyAuth, deleteWrite)
+
+// 根据id获取一条文章数据
+writeRouter.get('/:id', verifyAuth, getWriteData)
 
 // 创建标签
 writeRouter.post('/tag', verifyAuth, createWriteTag)

@@ -36,7 +36,7 @@ const autoCreateModel = async sequelize => {
     through: WriteRelateTag,
     foreignKey: 'write_id',
     otherKey: 'tag_id',
-    as: 'write_tag',
+    as: 'write_tag'
   })
 
   // 开发环境则同步表

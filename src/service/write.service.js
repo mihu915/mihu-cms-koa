@@ -1,18 +1,24 @@
 const { Op, sequelize } = require('../app/database')
 const { handleWhere } = require('../utils/handle-where')
 
-const { Write, WriteTag } = sequelize.models
+const { Write, WriteTag, WriteRelateTag } = sequelize.models
 
 class WriteService {
   // 新建文章
   async insertWrite(info) {
-    await Write.create(info)
+    const newWrite = await Write.create(info)
       .then(res => {
         return res
       })
       .catch(err => {
         throw err
       })
+
+    const tags = await WriteTag.findAll({
+      where: { id: info['write_tag'] }
+    })
+
+    await newWrite.setWrite_tag(tags)
   }
 
   // 查询文章列表
@@ -40,16 +46,17 @@ class WriteService {
       order: [['created', 'DESC']],
       include: {
         model: sequelize.models.WriteTag,
-        as: 'write_tag'
+        as: 'write_tag',
+        attributes: ['id']
       }
     })
       .then(async res => {
         const result = res.map(item => {
-          const newTagData = item.write_tag.map(tagData => {
-            delete tagData.dataValues.WriteRelateTag
+          const newTagData = item.dataValues.write_tag.map(tagData => {
+            return tagData['id']
           })
-          item.write_tag = newTagData
-          return item
+          item.dataValues.write_tag = newTagData
+          return item.dataValues
         })
         const total_count = await Write.count({ where })
 
@@ -67,22 +74,32 @@ class WriteService {
 
   // 更新文章表内容
   async updateWriteById(id, info) {
-    const result = await Write.update(info, {
+    const tags = await WriteTag.findAll({
+      where: {
+        id: info['write_tag']
+      }
+    })
+    await Write.findByPk(id).then(res => {
+      res.update(info)
+      res.setWrite_tag(tags)
+    })
+
+    return true
+  }
+
+  // 根据id获取单个文章的数据
+  async getWriteById(id) {
+    const result = await Write.findAll({
       where: {
         id
       }
+    }).then(res => {
+      return res[0]
     })
-      .then(res => {
-        return res
-      })
-      .catch(err => {
-        throw err
-      })
-
     return result
   }
 
-  // 根据id删除
+  // 根据id删除文章
   async deleteWriteById(id) {
     const result = await Write.destroy({
       where: {
@@ -96,6 +113,13 @@ class WriteService {
         throw err
       })
 
+    await WriteRelateTag.destroy({
+      where: {
+        write_id: id
+      },
+      hooks: false
+    })
+
     return result
   }
 
@@ -108,6 +132,7 @@ class WriteService {
       })
   }
 
+  // 修改标签
   async alertWriteTagById(id, data) {
     await WriteTag.update(data, {
       where: {
@@ -118,6 +143,7 @@ class WriteService {
     })
   }
 
+  // 删除标签
   async deleteWriteTagById(id) {
     await WriteTag.destroy({
       where: {
@@ -125,6 +151,13 @@ class WriteService {
       }
     }).catch(err => {
       throw err
+    })
+
+    await WriteRelateTag.destroy({
+      where: {
+        tag_id: id
+      },
+      hooks: false
     })
   }
 

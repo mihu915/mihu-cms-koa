@@ -6,7 +6,8 @@ const {
   addWriteTag,
   deleteWriteTagById,
   alertWriteTagById,
-  getWriteTag
+  getWriteTag,
+  getWriteById
 } = require('../service/write.service')
 
 class WriteController {
@@ -59,12 +60,24 @@ class WriteController {
     }
   }
 
+  // 查询文章列表
   async getWriteTagList(ctx) {
     const result = await getWriteTag()
     ctx.body = {
       code: 200,
       data: result,
       message: '查询标签成功'
+    }
+  }
+
+  // 获取单个文章数据
+  async getWriteData(ctx) {
+    const { id } = ctx.request.params
+    const data = await getWriteById(id)
+    ctx.body = {
+      code: 200,
+      data,
+      message: '查询成功'
     }
   }
 
