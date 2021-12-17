@@ -4,6 +4,7 @@ const { verifyDelete } = require('../utils/verify-delete')
 const usePermanent = {
   // 批量创建
   beforeBulkCreate: (instance, options) => {},
+
   // 批量删除之前
   beforeBulkDestroy: options => {},
 

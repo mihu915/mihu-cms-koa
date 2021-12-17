@@ -34,6 +34,7 @@ class WriteController {
   async alterWrite(ctx) {
     const { id } = ctx.request.params
     const info = ctx.request.body
+
     await updateWriteById(id, info)
     ctx.body = {
       code: 200,

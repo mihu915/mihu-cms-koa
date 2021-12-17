@@ -72,17 +72,31 @@ class WriteService {
     return result
   }
 
-  // 更新文章表内容
+  // 更新文章信息内容
   async updateWriteById(id, info) {
-    const tags = await WriteTag.findAll({
-      where: {
-        id: info['write_tag']
-      }
-    })
-    await Write.findByPk(id).then(res => {
-      res.update(info)
-      res.setWrite_tag(tags)
-    })
+    if (info['write_tag']) {
+      const tags = await WriteTag.findAll({
+        where: {
+          id: info['write_tag']
+        }
+      })
+      await Write.findByPk(id)
+        .then(res => {
+          res.update(info)
+          res.setWrite_tag(tags)
+        })
+        .catch(err => {
+          throw err
+        })
+    } else {
+      await Write.update(info, {
+        where: {
+          id
+        }
+      }).catch(err => {
+        throw err
+      })
+    }
 
     return true
   }
