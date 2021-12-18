@@ -10,7 +10,6 @@ const handleError = (error, ctx) => {
     errorMessage = error.errors[0].message
   } else {
     errorMessage = error.message
-    logger.error(error)
   }
 
   switch (errorMessage) {
@@ -69,6 +68,7 @@ const handleError = (error, ctx) => {
     default:
       code = 500
       message = 'Server Error'
+      logger.error(error)
       break
   }
 
