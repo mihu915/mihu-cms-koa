@@ -8,7 +8,7 @@
 1. 运行环境：nodejs
 2. 数据库：mysql
 3. 运行目录下 sql 文件夹中的 mh_cms.sql 文件，手动写入 mysql 表数据
-4. 对应 mysql 配置，修改.env 文件
+4. 对应 mysql 配置，在项目根目录下创建.env 文件，并编辑配置。
 
 ## 三、如何配置：
 
