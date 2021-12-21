@@ -13,6 +13,7 @@ const {
 class WriteController {
   async createWrite(ctx) {
     const info = ctx.request.body
+    info.content = ''
     await insertWrite(info)
     ctx.body = {
       code: 200,

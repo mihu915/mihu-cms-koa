@@ -23,7 +23,7 @@ function uploadConfig() {
   // 文件上传设置
   const limits = {
     fields: 0, // 非文件字段的数量
-    fileSize: 500 * 1024, //单位大小kb
+    fileSize: 10000 * 1024, //单位大小kb
     files: 3 // 文件数量
   }
 

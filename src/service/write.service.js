@@ -13,12 +13,13 @@ class WriteService {
       .catch(err => {
         throw err
       })
+    if (info['write_tag']) {
+      const tags = await WriteTag.findAll({
+        where: { id: info['write_tag'] }
+      })
 
-    const tags = await WriteTag.findAll({
-      where: { id: info['write_tag'] }
-    })
-
-    await newWrite.setWrite_tag(tags)
+      await newWrite.setWrite_tag(tags)
+    }
   }
 
   // 查询文章列表

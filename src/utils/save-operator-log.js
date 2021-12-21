@@ -36,6 +36,7 @@ const saveOperatorLog = async (type, info, data) => {
       break
   }
 
+  console.log(data)
   switch (type) {
     case 1:
       operatorType = '添加了'

@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const { errorTypes } = require('../error/error-types')
 
 const createWriteModel = sequelize => {
   class Write extends Model {}
@@ -12,11 +13,15 @@ const createWriteModel = sequelize => {
       cover: {
         type: DataTypes.STRING
       },
-      description: {
-        type: DataTypes.INTEGER
-      },
+
       title: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: errorTypes.CONTENT_MUST_NOT_BE_EMPTY
+          }
+        }
       },
       status: {
         type: DataTypes.INTEGER,
