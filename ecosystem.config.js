@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'mihu_cms_api',
+      name: 't-mihu-cms-api',
       script: './src/main.js',
       cwd: './',
       watch: true,
