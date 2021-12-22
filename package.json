@@ -25,10 +25,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development nodemon ./src/main.js",
     "start": "pm2 start ./ecosystem.config.js  --env production --watch",
-    "log": "pm2 log mihu_cms_api",
+    "log": "pm2 log t-mihu-cms-api",
     "status": "pm2 status",
-    "stop": "pm2 stop mihu_cms_api",
-    "restart": "pm2 delete mihu_cms_api && npm run start"
+    "stop": "pm2 stop t-mihu-cms-api",
+    "restart": "pm2 delete t-mihu-cms-api && npm run start"
   },
   "author": "",
   "license": "ISC"
