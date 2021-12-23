@@ -18,6 +18,7 @@ class WriteService {
         where: { id: info['write_tag'] }
       })
 
+      // 同步关联表数据
       await newWrite.setWrite_tag(tags, { hooks: false })
     }
   }
@@ -84,7 +85,10 @@ class WriteService {
       await Write.findByPk(id)
         .then(res => {
           res.update(info)
-          res.setWrite_tag(tags)
+          // 同步关联表数据
+          res.setWrite_tag(tags, {
+            hooks: false
+          })
         })
         .catch(err => {
           throw err
