@@ -18,7 +18,7 @@ class WriteService {
         where: { id: info['write_tag'] }
       })
 
-      await newWrite.setWrite_tag(tags)
+      await newWrite.setWrite_tag(tags, { hooks: false })
     }
   }
 
